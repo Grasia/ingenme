@@ -1,0 +1,311 @@
+@@@program@@@
+	@@@repeat id="graphobject"@@@
+		@@@!-- ************************* --@@@
+		@@@!-- editor objects            --@@@
+		@@@!-- ************************* --@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@Cell.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.cell;
+import org.jgraph.graph.*;
+import ingenias.editor.entities.*;
+public class @@@v@@@object@@@/v@@@Cell extends  DefaultGraphCell {
+  // Empty Constructor
+  public @@@v@@@object@@@/v@@@Cell(@@@v@@@object@@@/v@@@ userObject) {
+    super(userObject); ////////// Por qu篯ne esto el ejemplo de JGraph.
+    // Add a Port
+    DefaultPort port = new DefaultPort(userObject);
+    this.add(port);
+  }
+  public String toString(){
+   return this.getUserObject().toString();
+  }
+}
+
+
+@@@/text@@@
+		@@@/saveto@@@
+
+@@@repeat id="views"@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/resources/rendererxml/@@@v@@@object@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml@@@/file@@@
+			@@@text@@@
+@@@v@@@content@@@/v@@@
+		@@@/text@@@
+		@@@/saveto@@@
+@@@/repeat@@@
+
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@Renderer.java@@@/file@@@
+			@@@text@@@
+
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ *   Modifications over original code from Jon Barrileaux.
+ *   It has been significantly modified to enhance drawing speed.
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+
+package ingenias.editor.cell;
+
+
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.geom.*;
+import java.awt.event.*;
+import java.beans.*;
+import java.io.*;
+import java.util.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.entities.*;
+import org.swixml.SwingEngine;
+import ingenias.editor.entities.Entity;
+
+
+
+public class @@@v@@@object@@@/v@@@Renderer extends CompositeRenderer implements CellViewRenderer, Serializable {
+
+  
+	private static ViewPreferences.ViewType current = ViewPreferences.ViewType.INGENIAS;
+
+  static {
+
+    try {
+
+    	ViewPreferences.ViewType index=ViewPreferences.ViewType.INGENIAS;
+	index=ViewPreferences.ViewType.INGENIAS;
+	@@@repeat id="views"@@@
+	index=ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@;
+	RenderComponentManager.loadRenderFile("@@@v@@@object@@@/v@@@",
+	index,"/rendererxml/@@@v@@@object@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml");
+	@@@/repeat@@@
+    }
+    catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+  }
+
+    /**
+     * Constructs a renderer that may be used to render vertices.
+     */
+    public @@@v@@@object@@@/v@@@Renderer() {
+    }
+    
+      public JComponent getConcreteSubComponent(String fieldname, Entity ent, Map map) {
+	  Map<String,JComponent> currentMap=(Map)  RenderComponentManager.retrieveIDs("@@@v@@@object@@@/v@@@",ent.getPrefs(map).getView());
+	  return currentMap.get(fieldname);
+  		}
+
+    public Dimension getSize() {
+    return RenderComponentManager.getSize("@@@v@@@object@@@/v@@@",current);
+    }
+
+    public boolean supportsAttribute(Object key) {
+    	return true;
+        }
+
+  public static void setEntity(@@@v@@@object@@@/v@@@ ent, Map attributes){
+  Map currentMap=(Map)  RenderComponentManager.retrieveIDs("@@@v@@@object@@@/v@@@",ent.getPrefs(attributes).getView());
+  current=ent.getPrefs(attributes).getView();
+		if (ent != null
+				&& currentMap.get("_attributes_") != null
+				&& currentMap.get("_attributes_") instanceof ingenias.editor.rendererxml.AttributesPanel) {
+
+			((ingenias.editor.rendererxml.AttributesPanel) currentMap
+					.get("_attributes_")).setEntity(ent);
+
+		}
+
+	@@@repeat id="collectionattributes"@@@
+        if (currentMap.get("@@@v@@@name@@@/v@@@")!=null && 
+            currentMap.get("@@@v@@@name@@@/v@@@") instanceof ingenias.editor.rendererxml.CollectionPanel) {
+          try {
+            ( (ingenias.editor.rendererxml.CollectionPanel) currentMap.get(
+                "@@@v@@@name@@@/v@@@")).setCollection("@@@v@@@name@@@/v@@@",ent.@@@v@@@name@@@/v@@@, ent.@@@v@@@name@@@/v@@@.getType());
+          }
+          catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+          }
+          catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+          }
+        }
+	@@@/repeat@@@
+
+      @@@repeat id="propertieslayout"@@@
+      if (currentMap.get("@@@v@@@prop@@@/v@@@")!=null){
+	   if (ent!=null && ent.get@@@v@@@prop@@@/v@@@()!=null){
+		if (currentMap.get("@@@v@@@prop@@@/v@@@") instanceof javax.swing.JLabel){
+		((javax.swing.JLabel)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText(ent.get@@@v@@@prop@@@/v@@@().toString());
+		} else {
+		 if (currentMap.get("@@@v@@@prop@@@/v@@@") instanceof javax.swing.text.JTextComponent)
+		 ((javax.swing.text.JTextComponent)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText(ent.get@@@v@@@prop@@@/v@@@().toString());
+		
+	      } 
+	   } else  {
+	     if (currentMap.get("@@@v@@@prop@@@/v@@@") instanceof javax.swing.JLabel)
+	     ((javax.swing.JLabel)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText("");
+	     else {
+		if (!(currentMap.get("@@@v@@@prop@@@/v@@@") instanceof ingenias.editor.rendererxml.CollectionPanel)) 
+		((javax.swing.text.JTextComponent)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText("");
+	     }
+         }
+	  }
+	   @@@/repeat@@@
+      
+    
+  }
+
+
+	public Component getRendererComponent(JGraph graph,
+			CellView view, boolean sel,
+			boolean focus, boolean preview)
+	{
+	return RenderComponentManager.retrievePanel("@@@v@@@object@@@/v@@@",
+	((Entity)((DefaultGraphCell)(view.getCell())).getUserObject()).getPrefs(graph.getModel().getAttributes(view.getCell())).getView());
+		
+	}
+	
+	public static JPanel setCurrent(ViewPreferences.ViewType c) {
+	
+		current = ViewPreferences.ViewType.INGENIAS;
+	
+		return (JPanel) RenderComponentManager.retrievePanel("@@@v@@@object@@@/v@@@",current);
+	}
+	
+
+}
+@@@/text@@@
+		@@@/saveto@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@View.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.cell;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.Graphics;
+import java.util.Map;
+import org.jgraph.graph.*;
+import org.jgraph.*;
+import ingenias.editor.entities.*;
+
+// Define the View for an AgentCell
+public class @@@v@@@object@@@/v@@@View extends VertexView {
+
+  public static @@@v@@@object@@@/v@@@Renderer renderer = new @@@v@@@object@@@/v@@@Renderer();
+
+  // Constructor for Superclass
+  // cell es un AgentCell
+  public @@@v@@@object@@@/v@@@View(Object cell) {
+    super(cell);
+  }
+
+
+  public CellViewRenderer getRenderer() {
+    try {
+          return this.renderer;
+        }
+        catch (Exception e) {
+          e.printStackTrace();
+          ingenias.editor.Log.getInstance().log(e.getMessage());
+        }
+
+    return renderer;
+  }
+
+  public java.awt.Component getRendererComponent(JGraph jg,boolean b1, boolean b2, boolean b3){
+   CellViewRenderer renderer=null;
+    try {
+           ingenias.editor.entities.@@@v@@@object@@@/v@@@ ent=(ingenias.editor.entities.@@@v@@@object@@@/v@@@)((DefaultGraphCell)this.getCell()).getUserObject();
+          this.renderer.setEntity(ent, jg.getModel().getAttributes(this.getCell()));
+          JPanel uop=(JPanel)this.renderer.getRendererComponent(jg,this,false,false,false);
+          return (Component)uop;
+        }
+        catch (Exception e) {
+          e.printStackTrace();
+          ingenias.editor.Log.getInstance().log("WARNING!!!"+e.getMessage());
+        }
+        return super.getRendererComponent(jg,b1,b2,b3);
+
+ }
+
+  // Default AgentView Size.
+  static public Dimension getSize() {
+    return renderer.getSize();
+  }
+
+  // Default size with entity ent inside
+  static public Dimension getSize(@@@v@@@object@@@/v@@@ ent) {
+    renderer.setEntity(ent,null);
+    return renderer.getSize();
+  }
+
+
+
+}
+@@@/text@@@
+		@@@/saveto@@@
+	@@@/repeat@@@
+@@@/program@@@
+

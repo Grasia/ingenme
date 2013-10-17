@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT graphics (small-icon, normal-icon, layout?)> <!-- graphic description of an entity -->
+<!ELEMENT label (#PCDATA)> <!-- This is not used. It is intended to provide descriptions in different languages-->
+<!ATTLIST label
+	lang (en | es) #REQUIRED
+>
+<!ELEMENT layout (properties, views?)> <!-- It tells how to lay the properties of an entity into a set of views -->
+<!ELEMENT views (content+)> <!-- Descriptions of the different representations an entity can have -->
+<!ELEMENT content (#PCDATA)> <!-- It is the formal description of the gui component that will represent an entity. It is described using an XML based description of swing components http://www.swixml.org -->
+<!ATTLIST content 
+	id CDATA #REQUIRED 
+> <!-- ID associated to this representation -->
+<!ELEMENT meta-models ((object)+, role+, relationship+, metamodel+)> <!-- Enumeration of the components of the meta-model -->
+<!ELEMENT metamodel (properties, objects, relationships)> <!-- Represents a diagram -->
+<!ELEMENT objects ((object)+)>
+
+<!ATTLIST metamodel
+	id CDATA #REQUIRED 
+	icon CDATA #REQUIRED 
+	name CDATA #REQUIRED 
+>
+<!--ID: Internal id of the meta-model -->
+<!-- icon: Icon representing this metamodel in the editor -->
+<!-- name: Name to be used for this model in the documentation-->
+
+<!ATTLIST meta-models
+	examplefile CDATA #REQUIRED 
+>
+<!-- examplefile: relative or absolute path to a file that contains an XML specification where examples of use of each entity can be found -->
+
+<!ELEMENT normal-icon (#PCDATA)> <!-- Icon to be used in the main panel of the editor -->
+<!ELEMENT description (#PCDATA)> <!-- Description of the object. Free text. Do not use XML forbidden chars -->
+<!ELEMENT recommendation (#PCDATA)> <!-- Recommendations of use. Free text. Do not use XML forbidden chars -->
+<!ELEMENT object (description?, recommendation?, properties?, graphics?)>
+<!ATTLIST object
+	id CDATA #REQUIRED 
+	inherits CDATA #IMPLIED 
+	instanciable (yes | no) #IMPLIED 
+	keyfield CDATA #REQUIRED 
+	package CDATA #IMPLIED 
+	exampleid CDATA #IMPLIED  
+>
+<!-- id: ID of the object -->
+<!-- inherits: ID of the object this one is inheriting from-->
+<!-- instanciable: whether this object can be used or it is just part of the hierarchy and it is not intended to be used -->
+<!-- keyfield: Main field that will be shown in the screen as id. By default is the field id-->
+<!-- package: Name of the package this object belongs to. Package separator is character ::-->
+<!-- exampleid: In the example file, which is the id of an entity of this type, so it can be used as example when generating documentation -->
+
+<!ELEMENT player EMPTY><!-- The id of an object previously defined -->
+<!ATTLIST player
+	id CDATA #REQUIRED 
+>
+<!ELEMENT properties (property*, preferredorder?)> <!--  -->
+<!ELEMENT preferredorder (order*)> <!-- Enumeration of the order in which these properties will be shown when editing the data of the entity -->
+<!ELEMENT order (#PCDATA)> <!-- It contains the id of a field in the object. First letter is a capital letter always -->
+<!ELEMENT property (defaultvalues?, label*)> <!-- A property of an object -->
+<!ATTLIST property
+	id CDATA #REQUIRED 
+	type CDATA #IMPLIED 
+	ismetaclassinstance (yes|no) #IMPLIED 
+	ismetamodelinstance (no|yes) #IMPLIED 
+	preferredwidget (ingenias.editor.widget.CustomJTextField| 
+					 ingenias.editor.widget.CustomJComboBox|
+					 ingenias.editor.widget.CustomJTextArea|
+					 ingenias.editor.widget.ScrolledTArea
+					 ) #IMPLIED 
+	iscollection (no|yes) #IMPLIED 
+>
+<!-- id: Id of the property. Two properties cannot have the same id. -->
+<!-- type: The type. It can be the ID of another object (when ismetaclassinstance=yes), the ID of a diagram (when ismetamodelinstance=yes) or a complete java class name (like java.lang.String) -->
+<!-- ismetaclassinstance: The type refers to an already defined object -->
+<!-- ismetamodelinstance: The type refers to an already defined diagram -->
+<!-- preferredwidget: The widget to be used when editing this property. By default it is a textfield and a string type content  -->
+<!-- iscollection: The field can be a collection of elements of the defined type. In this case, the widget is already selected. Do not write widget value when collection=yes -->
+<!ELEMENT defaultvalues (value*)> <!-- It is used to assign default values to a property. Choose as widget combobox if you want default values. Choose type as java.lang.String when using this option -->
+<!ELEMENT value (#PCDATA)> <!-- a value to be assigned to the property -->
+
+<!ELEMENT relationship (properties?, graphics?, roles?)> <!-- A relationship among two or more objects. Arity is defined by the number of roles. -->
+<!ATTLIST relationship
+	id CDATA #REQUIRED 
+>
+<!-- id: The id associated to this relationship type -->
+<!ELEMENT relationships (relationship+)> 
+<!ELEMENT role (graphics?, properties?, validplayers?)> <!-- A extreme of the relationship. It denotes one of the possible connections of a relationship. -->
+<!ATTLIST role
+	id CDATA #REQUIRED 
+	type (source | target) #IMPLIED 
+	mincard CDATA #IMPLIED 
+	maxcard CDATA #IMPLIED 
+>
+<!-- id: ID for this role -->
+<!-- type: to direct the relationship. It affects only the drawing of arrows  -->
+<!-- mincard: the minimal amount of elements of this type. This data is presented graphically to the user. -->
+<!-- maxcard: the maximal amount of elements of this type. This data is presented graphically to the user. -->
+<!ELEMENT roles (role+)> <!-- the roles a relationship can have. It determines the arity of the relationship. -->
+<!ELEMENT small-icon (#PCDATA)> <!-- A small icon to represent this role in the screen. It is not used -->
+<!ELEMENT validplayers (player*)> <!-- The id of objects already defined that can play this role, i.e., can act as extreme of the relationship -->

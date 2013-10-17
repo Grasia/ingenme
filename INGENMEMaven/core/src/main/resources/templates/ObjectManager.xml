@@ -1,0 +1,396 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/ObjectManager.java @@@/file@@@
+		@@@text@@@
+
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import javax.swing.tree.*;
+import javax.swing.JTree;
+import ingenias.editor.entities.*;
+
+public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode implements java.io.Serializable {
+
+ 
+
+ public  JTree arbolObjetos=null;
+
+  javax.swing.tree.DefaultMutableTreeNode root=new javax.swing.tree.DefaultMutableTreeNode("SystemObjects");
+
+
+
+@@@repeat id="objectHierarchyNodes"@@@
+  public javax.swing.tree.DefaultMutableTreeNode @@@v@@@object@@@/v@@@Node=null;
+@@@/repeat@@@
+
+
+  public static ObjectManager initialise(javax.swing.tree.DefaultMutableTreeNode root,JTree arbolObjetos){
+  ObjectManager om=new ObjectManager(root,arbolObjetos);
+   return om;
+  }
+
+  private ObjectManager(javax.swing.tree.DefaultMutableTreeNode root,JTree arbolObjetos) {
+     super("System Objects");
+     this.root=root;
+     this.arbolObjetos=arbolObjetos;
+@@@repeat id="objectHierarchyNodes"@@@
+  @@@v@@@object@@@/v@@@Node=new javax.swing.tree.DefaultMutableTreeNode("@@@v@@@object@@@/v@@@");
+@@@/repeat@@@
+
+
+
+
+
+     // 1st level nodes
+@@@repeat id="objectTopHierarchyNodes"@@@
+     addNodeInSortedOrder( root,@@@v@@@object@@@/v@@@Node);
+@@@/repeat@@@
+
+     // 2nd and lower nodes
+@@@repeat id="objectMiddleHierarchyNodes"@@@
+    addNodeInSortedOrder( @@@v@@@parent@@@/v@@@Node,@@@v@@@object@@@/v@@@Node);
+@@@/repeat@@@
+  }
+
+// Function is a contribution from Ike http://www.groupsrv.com/computers/about116987.html
+	private void addNodeInSortedOrder(DefaultMutableTreeNode parent,
+			DefaultMutableTreeNode child){
+		int n = parent.getChildCount();
+		if(n==0){
+			parent.add(child);
+			return;
+		}
+		DefaultMutableTreeNode node=null;
+		for(int i=0;i<n;i++){
+			node = (DefaultMutableTreeNode)parent.getChildAt(i);
+			if(node.toString().compareTo(child.toString())>0){
+				parent.insert(child, i);
+				return;
+			}
+		}
+		parent.add(child);
+		return;
+	}
+
+
+  @@@repeat id="createHierarchyObject"@@@
+  public @@@v@@@object@@@/v@@@ create@@@v@@@object@@@/v@@@(String id){
+    @@@v@@@object@@@/v@@@ object=new     @@@v@@@object@@@/v@@@(id);
+    DefaultMutableTreeNode nn=new DefaultMutableTreeNode(object);
+    @@@v@@@object@@@/v@@@Node.insert(nn, @@@v@@@object@@@/v@@@Node.getChildCount());
+    nn.setParent(@@@v@@@object@@@/v@@@Node);
+    this.reload();
+    arbolObjetos.repaint();
+    return object;
+  }
+
+  public Object get@@@v@@@object@@@/v@@@(String object){
+    Object o=findUserObject(@@@v@@@object@@@/v@@@Node,object);
+    return o;
+  }
+  @@@/repeat@@@
+
+   public static Vector getValidEntitiesClasses(){
+    Vector result=new Vector();
+@@@repeat id="objectHierarchyNodes"@@@
+    result.add(@@@v@@@object@@@/v@@@.class);
+@@@/repeat@@@
+@@@repeat id="meta-models"@@@
+    result.add(@@@v@@@modelid@@@/v@@@ModelEntity.class);
+@@@/repeat@@@
+    return result;
+  }
+
+
+  public void reload(){
+    Enumeration expanded=arbolObjetos.getExpandedDescendants(new TreePath(root.getPath()));
+    ((DefaultTreeModel)arbolObjetos.getModel()).reload();
+    while (expanded!=null && expanded.hasMoreElements()){
+     TreePath tp=(TreePath)expanded.nextElement();
+
+     arbolObjetos.expandPath(tp);
+    }
+
+  }
+
+ public Entity getEntity(String id,String type){
+   Object o=this.findUserObjectInTree(root,id,type);
+   return (Entity)o;
+  }
+
+   public Vector getAllObjects(){
+    Vector result=new Vector();
+    javax.swing.tree.DefaultMutableTreeNode dfn=this.root.getFirstLeaf();
+    while (dfn!=null){
+      TreeNode[] path=dfn.getPath();
+      Object uo=((DefaultMutableTreeNode)(path[path.length-1])).getUserObject();
+      if (uo instanceof Entity)
+        result.add(uo);
+      dfn=dfn.getNextLeaf();
+    }
+    return result;
+  }
+
+
+
+
+  private Object findUserObject(DefaultMutableTreeNode dtn,String name){
+		if (dtn.getChildCount()==0)
+			return null;
+		DefaultMutableTreeNode node=(DefaultMutableTreeNode)dtn.getFirstChild();
+		while (node!=null){
+			if (node.getUserObject() instanceof    ingenias.editor.entities.Entity){
+				ingenias.editor.entities.Entity uo=(ingenias.editor.entities.Entity)node.getUserObject();
+				if (uo.getId().equalsIgnoreCase(name))
+					return uo;
+			}
+			node=node.getNextNode();
+		}
+		return null;
+	}
+
+ public Vector findUserObject(String name){
+  	Vector found=new Vector();
+  	DefaultMutableTreeNode node= root.getFirstLeaf();
+    while (node!=null){
+       if (ingenias.editor.entities.Entity.class.isAssignableFrom(node.getUserObject().getClass())){
+      ingenias.editor.entities.Entity uo=(ingenias.editor.entities.Entity)node.getUserObject();
+      if (uo.getId().equalsIgnoreCase(name))              	
+      	found.add(uo);        
+       }
+        node=node.getNextLeaf();
+       
+    }
+    return found;
+  }
+
+  private Object findUserObjectInTree(DefaultMutableTreeNode dtn,String name,String type){
+   DefaultMutableTreeNode node= root.getFirstLeaf();
+   while (node!=null){
+      if (ingenias.editor.entities.Entity.class.isAssignableFrom(node.getUserObject().getClass())){
+     ingenias.editor.entities.Entity uo=(ingenias.editor.entities.Entity)node.getUserObject();
+     if (uo.getId().equalsIgnoreCase(name) &&
+       uo.getClass().getName().indexOf(type)!=-1)
+       return uo;
+       }
+       node=node.getNextLeaf();
+     }
+   return null;
+  }
+
+ public DefaultMutableTreeNode findNodeInTree(DefaultMutableTreeNode dtn,String name,String type){
+ DefaultMutableTreeNode node= root.getFirstLeaf();
+ while (node!=null){
+    if (ingenias.editor.entities.Entity.class.isAssignableFrom(node.getUserObject().getClass())){
+   ingenias.editor.entities.Entity uo=(ingenias.editor.entities.Entity)node.getUserObject();
+   if (uo.getId().equalsIgnoreCase(name) )//     uo.getClass().getName().indexOf(type)!=-1)
+     return node;
+     }
+     node=node.getNextLeaf();
+   }
+ return null;
+ }
+
+ private void findInstancesInTree(DefaultMutableTreeNode dtn,Class type, Vector result){
+    DefaultMutableTreeNode node= root.getFirstLeaf();
+    while (node!=null){
+      String tcand=node.getUserObject().getClass().getName();
+      if (type.isInstance(node.getUserObject()))
+          result.add(node.getUserObject());
+      node=node.getNextLeaf();
+
+    }
+  }
+  
+    public Vector findUserObjectPathRegexp(String nameregexp){
+	  	Vector found=new Vector();
+	  	DefaultMutableTreeNode node= root.getFirstLeaf();
+	    while (node!=null){
+	       if (ingenias.editor.entities.Entity.class.isAssignableFrom(node.getUserObject().getClass())){
+	      ingenias.editor.entities.Entity uo=(ingenias.editor.entities.Entity)node.getUserObject();
+	      if (java.util.regex.Pattern.matches(nameregexp.toLowerCase(),uo.getId().toLowerCase()))              	
+	      	found.add(new TreePath(node.getPath()));        
+	       }
+	        node=node.getNextLeaf();       
+	    }
+	    return found;
+	  }
+
+ public Vector getInstances(String type){
+    int index=type.lastIndexOf(".");
+    String className=type.substring(index+1,type.length());
+    Vector result=new Vector();
+    
+    try {
+		this.findInstancesInTree(root,Class.forName(type),result);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    return result;
+  }
+
+  public static Vector getInheritors(Class type){
+    Vector validClasses=getValidEntitiesClasses();
+    Vector result=new Vector();
+    Enumeration enumeration=validClasses.elements();
+    while (enumeration.hasMoreElements()){
+      Class current=(Class)enumeration.nextElement();
+      if (type.isAssignableFrom(current) && !type.equals(current))
+       result.add(current);
+    }
+    return result;
+  }
+
+
+  
+
+  public void replaceReferencesOM(Vector entities,Entity oldent, Entity newent)
+    throws java.lang.IllegalAccessException{
+    Enumeration enumeration=entities.elements();
+    while (enumeration.hasMoreElements()){
+      Entity current=(Entity)enumeration.nextElement();
+      this.replaceReferencesOM(current,oldent,newent);
+    }
+  }
+
+  private void replaceReferencesOM(Entity current,Entity oldent, Entity newent)
+   throws java.lang.IllegalAccessException{
+   java.lang.reflect.Field[] fs=current.getClass().getDeclaredFields();
+   for (int k=0;k<fs.length;k++){
+     java.lang.reflect.Field f=fs[k];
+     if (f.get(current)!=null && f.get(current).equals(oldent)){
+       f.set(current,newent);
+     } else {
+       if (f.get(current)!=null && f.get(current) instanceof ingenias.editor.TypedVector){
+         TypedVector tv=(TypedVector)f.get(current);
+         for (int j=0;j<tv.size();j++){
+           if (tv.elementAt(j).equals(oldent)){
+             tv.remove(j);
+             tv.add(newent);
+           }
+         }
+       }
+     }
+   }
+  }
+
+  public void transferFields(Entity source, Entity target)
+   throws java.lang.NoSuchMethodException,
+  java.lang.reflect.InvocationTargetException,
+  java.lang.IllegalAccessException{
+   Class sourcec=source.getClass();
+   Class targetc=target.getClass();
+   java.lang.reflect.Field[] ms=sourcec.getFields();
+   for (int k=0;k<ms.length;k++){
+     ms[k].set(target,ms[k].get(source));
+   }
+  }
+
+
+    private void removeEntityFromAtts(Entity ent) throws IllegalAccessException{
+    Vector v=this.getAllObjects();
+    Enumeration enumeration=v.elements();
+    while (enumeration.hasMoreElements()){
+      Object obj=enumeration.nextElement();
+      if (obj!=ent){
+
+          java.lang.reflect.Field [] fs=obj.getClass().getFields();
+          for (int k=0;k<fs.length;k++){
+            Object att=fs[k].get(obj);
+            if (att==ent){
+              fs[k].set(obj,null);
+            } else
+             if (att!=null && att.getClass().equals(ingenias.editor.TypedVector.class)){
+               ((ingenias.editor.TypedVector)att).remove(ent);
+               }
+          }
+
+      }
+    }
+  }
+
+  public void removeEntity(Entity ent){
+    try {
+      this.removeEntityFromTree(root,ent);
+      this.removeEntityFromAtts(ent);
+    } catch (IllegalAccessException iae){
+      iae.printStackTrace();
+    }
+  }
+
+  private void removeEntityFromTree(DefaultMutableTreeNode dtn,Object entity){
+    DefaultMutableTreeNode root=(DefaultMutableTreeNode)this.arbolObjetos.getModel().getRoot();
+
+    DefaultMutableTreeNode node= root.getFirstLeaf();
+    while (node!=null){
+      if (node.getUserObject()!=null && node.getUserObject() instanceof Entity &&
+          ((Entity)node.getUserObject()).getId().equals(((Entity)entity).getId())) {
+        DefaultTreeModel dtm=(DefaultTreeModel)arbolObjetos.getModel();
+       ((DefaultMutableTreeNode) node.getParent()).remove(node);
+       node.removeFromParent();
+        node=null;
+      } else
+        node=node.getNextLeaf();
+    }
+    this.reload();
+    arbolObjetos.validate();
+  }
+  
+ public void insert(Entity ent) throws SecurityException, NoSuchFieldException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+	  
+	  String className = ent.getType();               
+      DefaultMutableTreeNode nn=new DefaultMutableTreeNode(ent);
+      Field f=this.getClass().getField(className+"Node");
+      java.lang.reflect.Method insertMethod=DefaultMutableTreeNode.class.getMethod("insert",new Class[]{MutableTreeNode.class,int.class});
+      java.lang.reflect.Method childCount=DefaultMutableTreeNode.class.getMethod("getChildCount",new Class[]{});
+      Integer result=(Integer)childCount.invoke(f.get(this),new Object[]{});
+      insertMethod.invoke(f.get(this),new Object[]{nn,result});
+      nn.getClass().getMethod("setParent",new Class[]{MutableTreeNode.class}).invoke(nn,new Object[]{f.get(this)});            
+      this.reload();
+      arbolObjetos.repaint();
+      
+  }
+
+  public static void main(String args[]){
+    
+  }
+
+
+
+public void setRoot(javax.swing.tree.DefaultMutableTreeNode root) {
+	this.root = root;
+}
+
+public javax.swing.tree.DefaultMutableTreeNode getRoot() {
+	return root;
+}
+}
+
+		@@@/text@@@
+	@@@/saveto@@@
+@@@/program@@@

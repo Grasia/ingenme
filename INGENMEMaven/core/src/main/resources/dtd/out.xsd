@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT repeat (#PCDATA | v | repeat )*>
+<!ATTLIST repeat
+	id CDATA #REQUIRED>
+<!ELEMENT sequences (#PCDATA|repeat|v)*>
+<!ELEMENT v (#PCDATA)>
+<!ATTLIST v 
+	id CDATA #REQUIRED>
+ 

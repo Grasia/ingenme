@@ -1,0 +1,149 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/ProjectTreeRenderer.java@@@/file@@@
+		@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.tree.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import java.util.Map;
+import java.util.Hashtable;
+
+import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.net.URL;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.swing.event.UndoableEditEvent;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import java.util.Vector;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import org.jgraph.plaf.basic.*;
+import ingenias.editor.entities.*;
+
+public class ProjectTreeRenderer extends javax.swing.tree.DefaultTreeCellRenderer{
+// Meta-models icons
+@@@repeat id="meta-models"@@@
+static ImageIcon modelo@@@v@@@modelid@@@/v@@@=new ImageIcon(ImageLoader.getImage("@@@v@@@modelicon@@@/v@@@"));
+@@@/repeat@@@
+
+// Object icons
+ @@@repeat id="graphobject"@@@
+ static ImageIcon @@@v@@@object@@@/v@@@Icon=new ImageIcon(ImageLoader.getImage("@@@v@@@small_icon@@@/v@@@"));
+	@@@/repeat@@@
+
+	static ImageIcon ConventionalFolderIcon=new ImageIcon(ImageLoader.getImage("images/folder.png"));
+
+	static ImageIcon RootFolderIcon=new ImageIcon(ImageLoader.getImage("images/world.png"));
+
+
+  public ProjectTreeRenderer() {
+
+  super();
+
+  }
+
+
+    public Component getTreeCellRendererComponent(
+                        JTree tree,
+                        Object value,
+                        boolean sel,
+                        boolean expanded,
+                        boolean leaf,
+                        int row,
+                        boolean hasFocus) {
+
+       		super.getTreeCellRendererComponent(
+				tree, value, sel,
+				expanded, leaf, row,
+				hasFocus);
+		ImageIcon img=this.selectIcon(value);
+		if (row==0)
+			img=RootFolderIcon;
+
+		if (img!=null) {
+			setIcon(img);
+			return this;
+		} else
+			return super.getTreeCellRendererComponent(tree,value,sel,expanded,leaf,row,hasFocus);
+    }
+
+
+
+  public static ImageIcon selectIcon(Object value) {
+        DefaultMutableTreeNode node =
+            (DefaultMutableTreeNode)value;
+        return selectIconByUserObject(node.getUserObject());
+    }
+
+    public static String getIconNameByUserObject(Object userObject) {
+	if (userObject.getClass().equals(String.class))
+			return "images/folder.png";
+
+
+	@@@repeat id="graphobject"@@@
+        if (userObject.getClass().equals(@@@v@@@object@@@/v@@@.class))
+          return "@@@v@@@small_icon@@@/v@@@";
+	@@@/repeat@@@
+
+@@@repeat id="meta-models"@@@
+        if (userObject.getClass().equals(ingenias.editor.models.@@@v@@@modelid@@@/v@@@ModelJGraph.class))
+            return "@@@v@@@modelicon@@@/v@@@";
+@@@/repeat@@@
+        return null;
+    }
+
+    public static ImageIcon selectIconByUserObject(Object userObject) {
+   
+	if (userObject.getClass().equals(String.class))
+			return ConventionalFolderIcon;
+
+
+	@@@repeat id="graphobject"@@@
+        if (userObject.getClass().equals(@@@v@@@object@@@/v@@@.class))
+          return @@@v@@@object@@@/v@@@Icon;
+	@@@/repeat@@@
+
+@@@repeat id="meta-models"@@@
+        if (userObject.getClass().equals(ingenias.editor.models.@@@v@@@modelid@@@/v@@@ModelJGraph.class))
+            return modelo@@@v@@@modelid@@@/v@@@;
+@@@/repeat@@@
+        return null;
+      }
+
+}
+
+
+@@@/text@@@
+	@@@/saveto@@@
+@@@/program@@@
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!-- Ant build file (http://ant.apache.org/) for Ant 1.6.2 or above.        -->
+<!-- ====================================================================== -->
+
+<project name="editor" default="runide" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+
+  <!-- ====================================================================== -->
+  <!-- Import maven-build.xml into the current project                        -->
+  <!-- ====================================================================== -->
+
+  <import file="iaf-generated-build.xml"/>
+  
+  <!-- ====================================================================== -->
+  <!-- Help target                                                            -->
+  <!-- ====================================================================== -->
+  <target name="help">
+    <echo message="Please run: $ant -projecthelp"/>
+  </target>
+  
+  <target name="runide" depends="compileproject">
+		<java fork="true" failonerror="true" maxmemory="512m"
+    classname="ingenias.editor.IDE">
+			<jvmarg value="-Xmx1024m"/>
+			<classpath>
+				<pathelement path="${ingeniasmavenclasspath}" />
+				<pathelement path="${mavenclasspath}" />
+				<pathelement path="${maven.build.outputDir}" />
+			</classpath>
+		</java>
+	</target>
+
+	
+	<target name="testgui" depends="compileproject">
+
+        <java fork="true" failonerror="true" maxmemory="128m"
+              classname="ingenias.editor.utils.XMLGUITester">
+                <arg value="${specfile}"/>
+		<classpath>			  
+			<pathelement path="${ingeniasmavenclasspath}" />
+				<pathelement path="${mavenclasspath}" />
+				<pathelement path="${maven.build.outputDir}" />      
+		</classpath>
+
+        </java>
+
+</target>
+
+
+<target name="runidespec" depends="compileproject">
+
+        <java fork="true" failonerror="true" maxmemory="300m"
+              classname="ingenias.editor.IDE">
+                <arg value="${specfile}"/>
+		<classpath>			  
+			<pathelement path="${maven.build.outputDir}" />     
+			<path refid="build.classpath" />        
+		</classpath>
+
+        </java>
+
+</target>
+
+
+</project>

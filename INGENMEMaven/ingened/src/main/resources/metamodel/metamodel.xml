@@ -1,0 +1,2155 @@
+<!DOCTYPE meta-models SYSTEM "meta-model.dtd" >
+<meta-models examplefile="example/demo.xml">
+
+	<object id="BasicRepresentation" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="SmallIcon" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="NormalIcon" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>id</order>
+				<order>SmallIcon</order>
+				<order>NormalIcon</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/basvisualrepr.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="SmallIcon" />
+					<property id="NormalIcon" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="BasicRepresentation" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+						##label text="SmallIcon:"/#
+						##label id="SmallIcon"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+						##label text="NormalIcon:"/#
+						##label id="NormalIcon"/#
+						##/panel#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="BasicRepresentation" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="VisualRepresentation" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="GenericId" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Content" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>id</order>
+				<order>GenericId</order>
+				<order>Content</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/visualrepr.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="GenericId" />
+					<property id="Content" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="VisualRepresentation" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##label text=":"/#
+						##label id="GenericId"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##textarea id="Content" border="LineBorder(Color.black,2)"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="VisualRepresentation" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##label text=":"/#
+						##label id="GenericId"/#
+						##/panel#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="TypeWrapper" instanciable="no" keyfield="Id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			
+			<preferredorder>
+				<order>id</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+				</properties>
+				<views/>
+				
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="MetaObjectTypeWrapper" inherits="TypeWrapper" instanciable="yes" keyfield="MetaObjectType" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			
+			<property id="MetaObjectType" type="MetaObject" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>				
+			<property id="Iscollection" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>yes</value>
+					<value>no</value>					
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>					
+				<order>MetaObjectType</order>	
+				<order>Iscollection</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="MetaObjectType" />
+					<property id="Iscollection" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaObjectTypeWrapper" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>		
+					
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaObjectTypeWrapper" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>		
+				</views>							<order>id</order>			
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="MetaDiagramTypeWrapper" inherits="TypeWrapper" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>			
+			<property id="MetaDiagramType" type="MetaDiagram" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>			
+			<property id="Iscollection" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>yes</value>
+					<value>no</value>					
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>MetaDiagramType</order>
+				<order>Iscollection</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="MetaDiagramType" />
+					<property id="Iscollection" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaDiagramTypeWrapper" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>		
+					
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaDiagramTypeWrapper" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>		
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="PropertyOrder"  instanciable="yes" keyfield="Id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="Property" type="PropertyField" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Order" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>id</order>
+				<order>Property</order>
+				<order>Order</order>									
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="Property" />
+					<property id="Order" />
+				</properties>
+				<views/>						
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="DefaultValue"  instanciable="yes" keyfield="DefaultValue" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="DefaultValue" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>DefaultValue</order>					
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+				</properties>
+				<views/>						
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="ExternalTypeWrapper" inherits="TypeWrapper" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<property id="ExternalType" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="DefaultValues" type="DefaultValue" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>id</order>
+				<order>ExternalType</order>					
+				<order>DefaultValues</order>	
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="ExternalType" />
+
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="ExternalTypeWrapper" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="ExternalTypeWrapper" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>								
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="PropertyField" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="WrappedType" type="TypeWrapper" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+
+			<property id="Preferredwidget" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>ingenias.editor.widget.CustomJTextField</value>
+					<value>ingenias.editor.widget.IntegerJTextField</value>
+					<value>ingenias.editor.widget.CustomJComboBox</value>					
+					<value>ingenias.editor.widget.ScrolledTArea</value>
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>id</order>
+				<order>WrappedType</order>
+				<order>Preferredwidget</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mproperty.gif</small-icon>
+			<normal-icon>images/mproperty.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="WrappedType" />
+					<property id="Preferredwidget" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="PropertyField" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+##iconlabel icon="images/attribute.gif" /#
+						##label text="WrappedType:"/#
+						##label id="WrappedType"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+##iconlabel icon="images/attribute.gif" /#
+						##label text="Preferredwidget:"/#
+						##label id="Preferredwidget"/#
+						##/panel#
+						
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="PropertyField" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="PreferredOrder" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="PreferredOrder" type="PropertyOrder" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>			
+			<preferredorder>
+				<order>id</order>
+				<order>PreferredOrder</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mproperty.gif</small-icon>
+			<normal-icon>images/mproperty.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="PreferredOrder" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="PreferredOrder" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##collectionpanel Background="white" id="PreferredOrder" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Property:"/# 
+						##label name="PreferredOrder_Property"/# 
+						##/panel#
+						##/collectionpanel#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="PreferredOrder" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+
+	<object id="Documentation" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="Description" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Recommendation" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>			
+			<preferredorder>
+				<order>id</order>
+				<order>Description</order>
+				<order>Recommendation</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mproperty.gif</small-icon>
+			<normal-icon>images/mproperty.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="Recommendation" />
+					<property id="Description" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="Documentation" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white" /#
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Description:" HorizontalAlignment="LEFT"/#
+						##/panel #
+						##textarea id="Description" text="test" LineWrap="true" WordWrap="false" Background="yellow"/#
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Recommendation:" HorizontalAlignment="LEFT"/#
+						##/panel #
+						##textarea id="Recommendation" text="test"  LineWrap="true" WordWrap="false" Background="yellow"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="Documentation" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+
+
+	<object id="MetaObject" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">
+		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="Description" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Recommendation" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>			
+			<property id="Instantiable" type="java.lang.String" ismetaclassinstance="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>yes</value>
+					<value>no</value>
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Keyfield" type="PropertyField" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="ExampleId" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Package" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<property id="Properties" type="PropertyField" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<property id="PreferredOrder" type="PropertyOrder" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="BasicRepresentations" type="BasicRepresentation" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="VisualRepresentations" type="VisualRepresentation" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>id</order>
+				<order>Instantiable</order>
+				<order>Keyfield</order>
+				<order>ExampleId</order>
+				<order>Package</order>
+				<order>Description</order>
+				<order>Recommendation</order>	
+				<order>Properties</order>
+				<order>PreferredOrder</order>
+				<order>VisualRepresentations</order>
+				<order>BasicRepresentations</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mmetaobj.gif</small-icon>
+			<normal-icon>images/mmetaobj.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="Instantiable" />
+					<property id="Keyfield" />
+					<property id="ExampleId" />
+					<property id="Package" />
+					<property id="Description" />
+					<property id="Recommendation" />
+					<property id="Properties" />
+					<property id="PreferredOrder" />
+					<property id="VisualRepresentations" />
+					<property id="BasicRepresentations" />					
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaObject" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+##iconlabel icon="images/attribute.gif" /#
+						##label text="Instantiable:"/#
+						##label id="Instantiable"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+##iconlabel icon="images/attribute.gif" /#
+						##label text="Keyfield:"/#
+						##label id="Keyfield"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+##iconlabel icon="images/attribute.gif" /#
+						##label text="ExampleId:"/#
+						##label id="ExampleId"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+##iconlabel icon="images/attribute.gif" /#
+						##label text="Package:"/#
+						##label id="Package"/#
+						##/panel#
+						##collectionpanel Background="white" id="Properties" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="WrappedType:"/# 
+						##label name="Properties_WrappedType"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Preferredwidget:"/# 
+						##label name="Properties_Preferredwidget"/# 
+						##/panel#
+						##/collectionpanel#
+						##collectionpanel Background="white" id="PreferredOrder" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Property:"/# 
+						##label name="PreferredOrder_Property"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Order:"/# 
+						##label name="PreferredOrder_Order"/# 
+						##/panel#
+						##/collectionpanel#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaObject" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+					
+					
+				</views>
+				
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="MetaRole" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">
+		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="Description" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>												
+			<property id="Properties" type="PropertyField" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="PreferredOrder" type="PropertyOrder" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="ValidPlayers" type="MetaObject" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>id</order>
+				<order>Description</order>
+				<order>Properties</order>
+				<order>PreferredOrder</order>
+				<order>ValidPlayers</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mmetarol.gif</small-icon>
+			<normal-icon>images/mmetarol.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="Description" />
+					<property id="Properties" />
+					<property id="PreferredOrder" />
+					<property id="ValidPlayers" />
+				</properties>
+				<views>
+					<content id="UML">
+						
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaRole" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##collectionpanel Background="white" id="Properties" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="WrappedType:"/# 
+						##label name="Properties_WrappedType"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Preferredwidget:"/# 
+						##label name="Properties_Preferredwidget"/# 
+						##/panel#
+						##/collectionpanel#
+						##collectionpanel Background="white" id="PreferredOrder" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Property:"/# 
+						##label name="PreferredOrder_Property"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Order:"/# 
+						##label name="PreferredOrder_Order"/# 
+						##/panel#
+						##/collectionpanel#
+						##collectionpanel Background="white" id="ValidPlayers" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="ValidPlayer:"/# 
+						##label name="ValidPlayers_Id"/# 
+						##/panel#
+						##/collectionpanel#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaRole" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="MetaDiagram" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">
+		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="Description" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>												
+			<property id="Properties" type="PropertyField" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="PreferredOrder" type="PropertyOrder" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="BasicRepresentations" type="BasicRepresentation" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>			
+
+			<preferredorder>
+				<order>id</order>
+				<order>Description</order>
+				<order>Properties</order>
+				<order>PreferredOrder</order>
+				<order>BasicRepresentations</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mmetadiagram.gif</small-icon>
+			<normal-icon>images/mmetadiagram.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="Description" />
+					<property id="Properties" />
+					<property id="PreferredOrder" />
+					<property id="BasicRepresentations" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaDiagram" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##collectionpanel Background="white" id="Properties" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="WrappedType:"/# 
+						##label name="Properties_WrappedType"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Preferredwidget:"/# 
+						##label name="Properties_Preferredwidget"/# 
+						##/panel#
+						##/collectionpanel#
+						##collectionpanel Background="white" id="PreferredOrder" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Property:"/# 
+						##label name="PreferredOrder_Property"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Order:"/# 
+						##label name="PreferredOrder_Order"/# 
+						##/panel#
+						##/collectionpanel#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaDiagram" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#	
+					</content>	
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="MetaRelationship" instanciable="yes" keyfield="id" exampleid="myUseCase" package="UML">
+		
+		<description>
+			Describes an action in an activity diagram
+		</description>
+		<properties>
+			
+			<!--property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property-->
+			<property id="Description" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Recommendation" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>						
+			<property id="Properties" type="PropertyField" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>				
+			<property id="PreferredOrder" type="PropertyOrder" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="VisualRepresentations" type="VisualRepresentation" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="BasicRepresentations" type="BasicRepresentation" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>id</order>
+				<order>Description</order>
+				<order>Recommendation</order>	
+				<order>Properties</order>
+				<order>PreferredOrder</order>
+				<order>VisualRepresentations</order>
+				<order>BasicRepresentations</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mmetarel.gif</small-icon>
+			<normal-icon>images/mmetarel.gif</normal-icon>
+			<layout>					
+				<properties>
+					<property id="id" />
+					<property id="Description" />
+					<property id="Recommendation" />
+					<property id="Properties" />
+					<property id="PreferredOrder" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+						##stereotype text="MetaRelationship" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.LEFT,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##collectionpanel Background="white" id="Properties" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="WrappedType:"/# 
+						##label name="Properties_WrappedType"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Preferredwidget:"/# 
+						##label name="Properties_Preferredwidget"/# 
+						##/panel#
+						##/collectionpanel#
+						##collectionpanel Background="white" id="PreferredOrder" #
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Property:"/# 
+						##label name="PreferredOrder_Property"/# 
+						##/panel#
+						##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+						##iconlabel icon="images/attribute.gif" /#
+						##label text="Order:"/# 
+						##label name="PreferredOrder_Order"/# 
+						##/panel#
+						##/collectionpanel#	
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#		
+					</content>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
+						##vbox Background="white" constraints="BorderLayout.CENTER" #
+						##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##stereotype text="MetaRelationship" HorizontalAlignment="CENTER" /#
+						##/panel #
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label id="Id"/#
+						##/panel#
+						##linepanel Background="white"/#
+						##linepanel Background="white" /#
+						##/vbox#
+						##/panel#		
+					</content>
+				</views>					
+			</layout>
+		</graphics>
+	</object>
+	
+	<object id="UMLComment" instanciable="yes" keyfield="Text" exampleid="TextNote89" package="UML">
+		<description>
+			A text note is simply an graphic object that shows text  explaining details of a diagram.
+		</description>
+		<recommendation>
+			Whenever you want to clarify some aspect of a diagram
+		</recommendation>
+		<properties>
+			<property id="Text" type="java.lang.String" ismetaclassinstance="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>Text</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/mumlcomment.gif</small-icon>
+			<normal-icon>images/umlcomment.gif</normal-icon>
+			<layout>
+				<image x="0" y="15"/>
+				<properties>
+					<property id="Text" />
+				</properties>
+				<views>
+					<content id="UML">
+						##panel layout="BorderLayout" Background="white" border="LineBorder(Color.
+						black,1)"#
+						##label Foreground="blue" icon="images/corner.gif" constraints="BorderLayout.NORTH" HorizontalAlignment="RIGHT" /#
+						##textarea id="Text" Rows="3" constraints="BorderLayout.CENTER"  LineWrap="true" WordWrap="false" /#
+						##/panel#
+					</content>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout" Background="white" border="LineBorder(Color.
+						black,1)"#
+						##label Foreground="blue" icon="images/corner.gif" constraints="BorderLayout.NORTH" HorizontalAlignment="RIGHT" /#
+						##textarea id="Text" Rows="3" constraints="BorderLayout.CENTER" LineWrap="true" WordWrap="false" /#
+						##/panel#
+					</content>
+					
+				</views>
+				
+			</layout>
+		</graphics>
+	</object>
+	
+	<role id="InheritsOtarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+		</validplayers>
+	</role>
+	<role id="InheritsOsource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+		</validplayers>
+	</role>
+	
+	<relationship id="InheritsO">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="Inherits" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="InheritsOsource" type="source" mincard="1" maxcard="1"/>
+			<role id="InheritsOtarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	<role id="InheritsRtarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaRelationship"/>
+		</validplayers>
+	</role>
+	<role id="InheritsRsource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaRelationship"/>
+		</validplayers>
+	</role>
+	
+	<relationship id="InheritsR">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="Inherits" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="InheritsRsource" type="source" mincard="1" maxcard="1"/>
+			<role id="InheritsRtarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	
+	<role id="AssociationEndtarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaRole"/>
+		</validplayers>
+	</role>
+	<role id="AssociationEndsource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaRelationship"/>
+		</validplayers>
+	</role>
+	
+	<relationship id="AssociationEnd">
+		<properties>
+		<property id="MinCardinality" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>1</value>
+					<value>1..0</value>
+					<value>0..N</value>
+					<value>1..N</value>
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+
+		<property id="MaxCardinality" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>1</value>
+					<value>1..0</value>
+					<value>0..N</value>
+					<value>1..N</value>
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+
+
+		<property id="SourceOrTarget" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>source</value>
+					<value>target</value>
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>Label</order>
+				<order>MinCardinality</order>
+				<order>MaxCardinality</order>
+	<order>SourceOrTarget</order>
+			
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+			<properties>
+			<property id="MinCardinality" />
+			<property id="MaxCardinality" />
+			<property id="SourceOrTarget" />
+			<property id="id" />
+			</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="AssociationEnd" HorizontalAlignment="CENTER" /#
+						##linepanel Background="white" /#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label text="MinCardinality:"/#
+						##label id="MinCardinality"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label text="MaxCardinality:"/#
+						##label id="MaxCardinality"/#
+						##/panel#
+						##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)" #
+						##label text="type:"/#
+						##label id="SourceOrTarget"/#
+						##/panel#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="AssociationEndsource" type="source" mincard="1" maxcard="1"/>
+			<role id="AssociationEndtarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	<role id="PlayedBytarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+		</validplayers>
+	</role>
+	<role id="PlayedBysource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaRole"/>
+		</validplayers>
+	</role>
+	
+	<relationship id="PlayedBy">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="PlayedBy" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="PlayedBysource" type="source" mincard="1" maxcard="1"/>
+			<role id="PlayedBytarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	<role id="BinaryReltarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+		</validplayers>
+	</role>
+	<role id="BinaryRelsource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+		</validplayers>
+	</role>
+
+	<relationship id="BinaryRel">
+		<properties>
+			<property id="Properties" type="PropertyField" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>	
+			<property id="PreferredOrder" type="PropertyOrder" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="VisualRepresentations" type="VisualRepresentation" ismetaclassinstance="yes" iscollection="yes">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>			
+			<property id="BasicRepresentations" type="BasicRepresentation" ismetaclassinstance="yes" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>id</order>
+				<order>Properties</order>
+				<order>PreferredOrder</order>
+				<order>VisualRepresentations</order>
+				<order>BasicRepresentations</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					<property id="id" />
+					<property id="Properties" />
+					<property id="PreferredOrder" />
+					<property id="VisualRepresentations" />
+					<property id="BasicRepresentations" />
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout"  Background="white"#
+                                                ##vbox Background="white" constraints="BorderLayout.CENTER"#
+                                                ##panel layout="FlowLayout(FlowLayout.CENTER,5,0)" Background="white"  #
+                                                ##label id="Id"  AlignmentX="CENTER"/#
+                                                ##/panel#
+                                                ##panel layout="FlowLayout(FlowLayout.CENTER,5,0)" Background="white"  #
+                                                ##stereotype text="BinaryRel" HorizontalAlignment="CENTER" AlignmentX="CENTER"/#
+                                                ##/panel#
+                                                ##collectionpanel Background="white" id="Properties"#
+                                                ##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+                                                ##iconlabel icon="images/attribute.gif" /#
+                                                ##label text="WrappedType:"/#
+                                                ##label name="Properties_WrappedType"/#
+                                                ##/panel#
+                                                ##panel layout="FlowLayout(FlowLayout.LEFT,5,0)" Background="white"  #
+                                                ##iconlabel icon="images/attribute.gif" /#
+                                                ##label text="Preferredwidget:"/#
+                                                ##label name="Properties_Preferredwidget"/#
+                                                ##/panel#
+                                                ##/collectionpanel#
+                                                ##/vbox#
+                                                ##/panel#
+
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						##label id="id"  AlignmentX="CENTER"/#
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="BinaryRelsource" type="source" mincard="1" maxcard="1"/>
+			<role id="BinaryReltarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+
+<role id="PropsOrderedAssource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+			<player id="MetaRelationship"/>
+			<player id="MetaDiagram"/>
+			<player id="MetaRole"/>
+		</validplayers>
+	</role>
+	<role id="PropsOrderedAstarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="PreferredOrder"/>
+		</validplayers>
+	</role>
+	<relationship id="PropsOrderedAs">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="PropsOrderedAs" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="PropsOrderedAssource" type="source" mincard="1" maxcard="1"/>
+			<role id="PropsOrderedAstarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+
+	<role id="Containstarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+			<player id="MetaRelationship"/>
+		</validplayers>
+	</role>
+	<role id="Containssource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaDiagram"/>
+		</validplayers>
+	</role>
+
+	
+	
+	<relationship id="Contains">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="Contains" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="Containssource" type="source" mincard="1" maxcard="1"/>
+			<role id="Containstarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+
+	<role id="IsDocumentedBytarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+			<player id="MetaRelationship"/>
+			<player id="MetaDiagram"/>
+			<player id="MetaRole"/>
+		</validplayers>
+	</role>
+	<role id="IsDocumentedBysource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="Documentation"/>
+		</validplayers>
+	</role>
+
+	
+	
+	<relationship id="IsDocumentedBy">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="DocumentedBy" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="IsDocumentedBysource" type="source" mincard="1" maxcard="1"/>
+			<role id="IsDocumentedBytarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+
+	
+	<role id="Hastarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="PropertyField"/>			
+		</validplayers>
+	</role>
+	<role id="HasMOtarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties>
+			<property id="Role" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<property id="Iscollection" type="java.lang.String" ismetaclassinstance="no" iscollection="no" preferredwidget="ingenias.editor.widget.CustomJComboBox">
+				<defaultvalues>
+					<value>yes</value>
+					<value>no</value>					
+				</defaultvalues>
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			
+			<preferredorder>
+				<order>Role</order>
+				<order>Iscollection</order>
+				<order>Preferredwidget</order>
+			</preferredorder>
+		</properties>
+		<validplayers>
+			<player id="MetaDiagram"/>
+			<player id="MetaObject"/>
+		</validplayers>
+	</role>
+	<role id="Hassource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaDiagram"/>
+			<player id="MetaObject"/>
+			<player id="MetaRelationship"/>
+			<player id="MetaRole"/>
+			
+		</validplayers>
+	</role>
+	
+	<relationship id="Has">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="Has" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="Hassource" type="source" mincard="1" maxcard="1"/>
+			<role id="Hastarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	<relationship id="HasMO">
+		<properties>		
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="Has" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="Hassource" type="source" mincard="1" maxcard="1"/>
+			<role id="HasMOtarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	
+	<role id="VisualizedAstarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="VisualRepresentation"/>			
+			<player id="BasicRepresentation"/>			
+		</validplayers>
+	</role>
+	<role id="VisualizedAssource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="MetaObject"/>
+			<player id="MetaRelationship"/>
+			<player id="MetaDiagram"/>
+		</validplayers>
+	</role>
+	
+	<relationship id="VisualizedAs">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<properties>
+					
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						
+						##panel layout="BorderLayout"  Background="white"#
+						##vbox Background="white" constraints="BorderLayout.CENTER"#
+						##label id="Label"  /#
+						##stereotype text="VisualizedAs" HorizontalAlignment="CENTER" /#
+						##/vbox#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="VisualizedAssource" type="source" mincard="1" maxcard="1"/>
+			<role id="VisualizedAstarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	
+	<role id="HasCommenttarget">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>	
+			<player id="MetaDiagram"/>
+			<player id="MetaObject"/>
+			<player id="MetaRelationship"/>
+			<player id="VisualRepresentation"/>
+		</validplayers>
+	</role>
+	<role id="HasCommentsource">
+		<graphics>
+			<small-icon/>
+			<normal-icon/>
+		</graphics>
+		<properties/>
+		<validplayers>
+			<player id="UMLComment"/>
+		</validplayers>
+	</role>
+	<relationship id="UMLAnnotatedElement">
+		<properties>
+			
+			<preferredorder>
+				<order>Label</order>
+			</preferredorder>
+		</properties>
+		<graphics>
+			<small-icon>images/miusecase.gif</small-icon>
+			<normal-icon>images/iusecase.gif</normal-icon>
+			<layout>
+				<image x="0" y="15"/>
+				<properties>
+					<property id="Label"/>
+					
+				</properties>
+				<views>
+					<content id="INGENIAS">
+						##panel layout="BorderLayout"  Background="white"#
+						##label id="Label"  /#
+						##/panel#
+					</content>
+					<content id="LABEL">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					<content id="NOICON">
+						##panel layout="BorderLayout" Background="white"#
+						##/panel#
+					</content>
+					
+				</views>
+			</layout>
+		</graphics>
+		<roles>
+			<role id="HasCommentsource" type="source" mincard="1" maxcard="1"/>
+			<role id="HasCommenttarget" type="target" mincard="1" maxcard="1"/>
+		</roles>
+	</relationship>
+	
+	<metamodel id="Metamodel" icon="images/diag.gif" name="Metamodel definition diagram">
+		<properties>
+			<property id="Id" type="java.lang.String" ismetaclassinstance="no" iscollection="no">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<property id="Description" type="java.lang.String" ismetaclassinstance="no" preferredwidget="ingenias.editor.widget.ScrolledTArea">
+				<label lang="es">Descripcion</label>
+				<label lang="en">Description</label>
+			</property>
+			<preferredorder>
+				<order>id</order>
+				<order>Description</order>
+			</preferredorder>
+		</properties>
+		<code id="constructor">
+			<![CDATA[ 
+				  ToolTipManager.sharedInstance().registerComponent(this);
+				  this.getModel().addGraphModelListener(
+				  new ChangeNARYEdgeLocation(this));
+				  this.getModel().addGraphModelListener(
+				  new ChangeEntityLocation(this));			  
+				  ]]>
+		</code>	
+		<objects>	
+			<object id="MetaObject"/>
+			<object id="MetaDiagram"/>
+			<object id="MetaRelationship"/>
+			<object id="MetaRole"/>
+			<object id="VisualRepresentation"/>
+			<object id="BasicRepresentation"/>
+			<object id="PropertyField"/>			
+			<object id="UMLComment"/>
+			<object id="PreferredOrder"/>
+			<object id="Documentation"/>
+
+		</objects>
+		<relationships>
+			<relationship id="UMLAnnotatedElement"/>		
+			<relationship id="Has"/>
+			<relationship id="InheritsO"/>
+			<relationship id="InheritsR"/>
+			<relationship id="Contains"/>
+			<relationship id="VisualizedAs"/>
+			<relationship id="PlayedBy"/>
+			<relationship id="AssociationEnd"/>
+			<relationship id="BinaryRel"/>
+			<relationship id="PropsOrderedAs"/>
+			<relationship id="IsDocumentedBy"/>
+			<relationship id="HasMO"/>
+		</relationships>
+	</metamodel>
+</meta-models>
+

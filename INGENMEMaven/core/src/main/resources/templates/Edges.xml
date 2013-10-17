@@ -1,0 +1,745 @@
+
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+@@@repeat id="relationshipedges"@@@
+@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/entities/@@@v@@@relationship@@@/v@@@.java@@@/file@@@
+			@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.entities;
+import java.util.*;
+
+import ingenias.editor.TypedVector;
+
+public class @@@v@@@relationship@@@/v@@@ extends NAryEdgeEntity {
+
+@@@repeat id="attributes"@@@
+  public @@@v@@@type@@@/v@@@ @@@v@@@name@@@/v@@@;
+@@@/repeat@@@
+
+@@@repeat id="collectionattributes"@@@
+  public TypedVector @@@v@@@name@@@/v@@@=new TypedVector(@@@v@@@type@@@/v@@@.class);
+@@@/repeat@@@
+
+  public @@@v@@@relationship@@@/v@@@(String id) {
+    super(id);
+    ModelEntity em=null;
+  }
+
+
+
+
+@@@repeat id="collectionmethods"@@@
+  public void set@@@v@@@name@@@/v@@@(TypedVector tv){
+    this.@@@v@@@name@@@/v@@@=tv;
+  }
+
+  public String get@@@v@@@name@@@/v@@@(){
+   return @@@v@@@name@@@/v@@@.toString();
+  }
+
+  public Class get@@@v@@@name@@@/v@@@Type(){
+   return @@@v@@@name@@@/v@@@.getType();
+  }
+  public void add@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@ element){
+   this.@@@v@@@name@@@/v@@@.add(element);
+  }
+
+  public void insert@@@v@@@name@@@/v@@@At(int pos,@@@v@@@type@@@/v@@@ element){
+   this.@@@v@@@name@@@/v@@@.insert(element,pos);
+  }
+
+  public int contains@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@ element){
+   return this.@@@v@@@name@@@/v@@@.indexOf(element);
+  }
+
+
+  public Enumeration get@@@v@@@name@@@/v@@@Elements(){
+   return this.@@@v@@@name@@@/v@@@.elements();
+  }
+
+  public void remove@@@v@@@name@@@/v@@@Element(String id){
+    Enumeration enumeration=this.get@@@v@@@name@@@/v@@@Elements();
+    ingenias.editor.entities.Entity found=null;
+    while (enumeration.hasMoreElements() && found==null){
+     ingenias.editor.entities.Entity ent=(ingenias.editor.entities.Entity)enumeration.nextElement();
+     if (ent.getId().equalsIgnoreCase(id))
+      found=ent;
+    }
+    if (found!=null)
+     this.@@@v@@@name@@@/v@@@.remove(found);
+  }
+
+@@@/repeat@@@
+
+  @@@repeat id="methods"@@@
+      public @@@v@@@type@@@/v@@@ get@@@v@@@name@@@/v@@@(){
+        return @@@v@@@name@@@/v@@@;
+      }
+   public void set@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@
+					@@@v@@@name@@@/v@@@){
+        this.@@@v@@@name@@@/v@@@=@@@v@@@name@@@/v@@@;
+      }
+@@@/repeat@@@
+
+
+public void fromMap(Map ht){
+super.fromMap(ht);
+@@@repeat id="simpleattributes"@@@
+ if (ht.get("@@@v@@@name@@@/v@@@")!=null && ht.get("@@@v@@@name@@@/v@@@").equals(""))
+  this.set@@@v@@@name@@@/v@@@(null);
+ else
+  if (ht.get("@@@v@@@name@@@/v@@@")!=null)
+   this.set@@@v@@@name@@@/v@@@(new @@@v@@@type@@@/v@@@(ht.get("@@@v@@@name@@@/v@@@").toString()));
+@@@/repeat@@@
+
+
+}
+public void toMap(Map ht){
+super.toMap(ht);
+@@@repeat id="simpleattributes"@@@
+//if (this.get@@@v@@@name@@@/v@@@() instanceof String)
+ if (this.get@@@v@@@name@@@/v@@@()!=null)
+ 	ht.put("@@@v@@@name@@@/v@@@",this.get@@@v@@@name@@@/v@@@().toString());
+ else	
+ 	ht.put("@@@v@@@name@@@/v@@@","");
+@@@/repeat@@@
+
+}
+
+
+public String toString(){
+ return getId()+":"+getType();
+}
+
+
+
+}
+@@@/text@@@
+@@@/saveto@@@
+
+
+@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@View.java@@@/file@@@
+			@@@text@@@
+
+/*
+    Copyright (C) 2002 Jorge Gomez Sanz, Ruben Fuentes
+
+    Modifications of original jgraph distribution code (jgraph.sourceforge.ent)
+
+    This file is part of INGENIAS IDE, a support tool for the INGENIAS
+    methodology, availabe at http://grasia.fdi.ucm.es/ingenias or
+    http://ingenias.sourceforge.net
+
+    INGENIAS IDE is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    INGENIAS IDE is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with INGENIAS IDE; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+*/
+
+package ingenias.editor.cell;
+
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.Graphics;
+import java.util.Map;
+import java.util.Hashtable;
+import org.jgraph.graph.*;
+import org.jgraph.*;
+import java.awt.geom.Point2D;
+
+public class @@@v@@@relationship@@@/v@@@View extends NAryView {
+
+static @@@v@@@relationship@@@/v@@@Renderer renderer1 = new @@@v@@@relationship@@@/v@@@Renderer();
+ public static @@@v@@@relationship@@@/v@@@Renderer renderer = new @@@v@@@relationship@@@/v@@@Renderer();
+  // Constructor.
+  public @@@v@@@relationship@@@/v@@@View(Object cell) {
+    super(cell);
+  }
+
+  // Default ResponsibleView Size.
+  static public Dimension getSize() {
+    return new Dimension(80,120);
+  }
+
+  public CellViewRenderer getRenderer() {
+    return renderer1;
+  }
+
+  public java.awt.Component getRendererComponent(JGraph jg, boolean b1,
+                                                 boolean b2, boolean b3) {
+    CellViewRenderer renderer=null;
+   try {
+         ingenias.editor.entities.@@@v@@@relationship@@@/v@@@ ent=(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)((DefaultGraphCell)this.getCell()).getUserObject();
+         this.renderer1.setEntity(ent,jg.getModel().getAttributes(this.getCell()));
+         JPanel uop=(JPanel)this.renderer1.getRendererComponent(null,null,false,false,false);
+        if (ent.getPrefs(jg.getModel().getAttributes(this.getCell())).getView()==ingenias.editor.entities.ViewPreferences.ViewType.LABEL){
+        	 NAryEdge naryedge=(NAryEdge)this.getCell();
+        	 DefaultEdge[] edge=naryedge.getRepresentation();
+        	 AttributeMap am=edge[0].getAttributes();
+        	 GraphConstants.setLabelAlongEdge(am,true);
+        	 GraphConstants.setExtraLabels(am,new Object[]{ent.getLabel()});
+        	 GraphConstants.setExtraLabelPositions(am,new Point2D[]{new Point2D.Double(GraphConstants.PERMILLE*7/8, -20)});
+        	 edge[0].setAttributes(am);
+         }
+         return (Component)uop;
+       }
+       catch (Exception e) {
+         e.printStackTrace();
+         ingenias.editor.Log.getInstance().log("WARNING!!!"+e.getMessage());
+       }
+       return super.getRendererComponent(jg,b1,b2,b3);
+
+  }
+    // Default size with entity ent inside
+  static public Dimension getSize(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@ ent) {
+    renderer.setEntity(ent,null);
+    return renderer.getSize();
+  }
+
+}
+
+
+			@@@/text@@@
+@@@/saveto@@@
+@@@repeat id="graphobject"@@@
+@@@repeat id="views"@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/resources/rendererxml/@@@v@@@relationship@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml@@@/file@@@
+			@@@text@@@
+@@@v@@@content@@@/v@@@
+		@@@/text@@@
+		@@@/saveto@@@
+@@@/repeat@@@
+
+
+@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@Renderer.java@@@/file@@@
+			@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ * Modifications of original jgraph distribution code (jgraph.sourceforge.net)
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.cell;
+
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.geom.*;
+import java.awt.event.*;
+import java.beans.*;
+import java.io.*;
+import java.util.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.entities.*;
+import org.swixml.SwingEngine;
+import ingenias.editor.entities.Entity;
+
+public class @@@v@@@relationship@@@/v@@@Renderer extends VertexRenderer implements CellViewRenderer{
+
+
+private static ViewPreferences.ViewType current = ViewPreferences.ViewType.INGENIAS;
+
+
+  static {
+   try {
+
+    	ViewPreferences.ViewType index=ViewPreferences.ViewType.INGENIAS;
+	index=ViewPreferences.ViewType.INGENIAS;
+	
+	@@@repeat id="views"@@@
+	index=ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@;
+	RenderComponentManager.loadRenderFile("@@@v@@@relationship@@@/v@@@",
+	index,"/rendererxml/@@@v@@@relationship@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml");
+	@@@/repeat@@@
+	
+    }
+    catch (Exception ex) {
+      ex.printStackTrace();
+    }
+
+
+  }
+
+
+    /**
+     * Constructs a renderer that may be used to render vertices.
+     */
+     public @@@v@@@relationship@@@/v@@@Renderer() {
+    }
+
+    public Dimension getSize() {
+    return RenderComponentManager.getSize("@@@v@@@relationship@@@/v@@@",current);
+    }
+
+    public boolean supportsAttribute(Object key) {
+    	return true;
+        }
+
+ public static void setEntity(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@ ent, Map attributes){
+ Map currentMap=(Map)  RenderComponentManager.retrieveIDs("@@@v@@@relationship@@@/v@@@",ent.getPrefs(attributes).getView());
+current=ent.getPrefs(attributes).getView();
+	if (ent != null
+				&& currentMap.get("_attributes_") != null
+				&& currentMap.get("_attributes_") instanceof ingenias.editor.rendererxml.AttributesPanel) {
+
+			((ingenias.editor.rendererxml.AttributesPanel) currentMap
+					.get("_attributes_")).setEntity(ent);
+
+		}
+
+	@@@repeat id="collectionattributes"@@@
+        if (currentMap.get("@@@v@@@name@@@/v@@@")!=null && 
+            currentMap.get("@@@v@@@name@@@/v@@@") instanceof ingenias.editor.rendererxml.CollectionPanel) {
+          try {
+            ( (ingenias.editor.rendererxml.CollectionPanel) currentMap.get(
+                "@@@v@@@name@@@/v@@@")).setCollection("@@@v@@@name@@@/v@@@",ent.@@@v@@@name@@@/v@@@, ent.@@@v@@@name@@@/v@@@.getType());
+          }
+          catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+          }
+          catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+          }
+        }
+	@@@/repeat@@@
+
+      @@@repeat id="propertieslayout"@@@
+      if (currentMap.get("@@@v@@@prop@@@/v@@@")!=null){
+	   if (ent!=null && ent.get@@@v@@@prop@@@/v@@@()!=null){
+		if (currentMap.get("@@@v@@@prop@@@/v@@@") instanceof javax.swing.JLabel){
+		((javax.swing.JLabel)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText(ent.get@@@v@@@prop@@@/v@@@().toString());
+		} else {
+		 if (currentMap.get("@@@v@@@prop@@@/v@@@") instanceof javax.swing.text.JTextComponent)
+		 ((javax.swing.text.JTextComponent)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText(ent.get@@@v@@@prop@@@/v@@@().toString());
+		
+	      } 
+	   } else  {
+	     if (currentMap.get("@@@v@@@prop@@@/v@@@") instanceof javax.swing.JLabel)
+	     ((javax.swing.JLabel)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText("");
+	     else {
+		if (!(currentMap.get("@@@v@@@prop@@@/v@@@") instanceof ingenias.editor.rendererxml.CollectionPanel)) 
+		((javax.swing.text.JTextComponent)( currentMap).get("@@@v@@@prop@@@/v@@@")).setText("");
+	     }
+         }
+	  }
+	   @@@/repeat@@@
+      
+    
+  }
+  	public Component getRendererComponent(JGraph graph,
+			CellView view, boolean sel,
+			boolean focus, boolean preview)
+	{
+	return RenderComponentManager.retrievePanel("@@@v@@@relationship@@@/v@@@",this.current);
+		
+	}
+	
+	public static JPanel setCurrent(ViewPreferences.ViewType c) {
+	
+		current = ViewPreferences.ViewType.INGENIAS;
+	
+		return (JPanel) RenderComponentManager.retrievePanel("@@@v@@@relationship@@@/v@@@",c);
+	}
+
+
+
+}
+
+
+			@@@/text@@@
+@@@/saveto@@@
+
+@@@/repeat@@@
+
+
+
+@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@Edge.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.cell;
+
+import java.util.Hashtable;
+import java.util.Iterator;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
+import org.jgraph.graph.*;
+
+import ingenias.editor.entities.*;
+
+public class @@@v@@@relationship@@@/v@@@Edge extends NAryEdge {
+
+  // Constructor with data content
+  public @@@v@@@relationship@@@/v@@@Edge(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@ userObject) {
+    super(userObject);
+    @@@repeat id="relationshiproles"@@@
+     this.addRole("@@@v@@@role@@@/v@@@");
+     this.setArity("@@@v@@@role@@@/v@@@",true,@@@v@@@mincard@@@/v@@@);
+     this.setArity("@@@v@@@role@@@/v@@@",false,@@@v@@@maxcard@@@/v@@@);
+     @@@repeat id="roleplayer"@@@
+this.addClass("@@@v@@@role@@@/v@@@","ingenias.editor.entities.@@@v@@@player@@@/v@@@");
+     @@@/repeat@@@
+    @@@/repeat@@@
+    // Add ports for every role.
+    // Roles are obtained from the static roleData.
+    Iterator it = this.getRoles().iterator();
+    while ( it.hasNext() ) {
+      this.add( new DefaultPort( (String) it.next() ) );
+    }
+  }
+
+
+  // Connection logic.
+  // The connection is acceptable if there is a role assignation to selected classes
+  // considering, if they exists, classes already included in the relationship.
+  // It works with connecting and disconnecting edges. Therefore, both target
+  // and source cells could be null.
+  // source is the first selected node and targets are the other.
+  // Both source and targets are Vertex.
+  // Connects an Agent with a Goal or an Agent with a Goal and a Fact.
+   public static boolean acceptConnection(GraphModel model, GraphCell[] selected) {
+    // Search for NAryEdges in selected. There is 0 or 1.
+    int nAryEdgesNum = 0;
+    int edgesNum = 0;
+    NAryEdge selectedEdge = null;
+    for (int i = 0; i < selected.length; i++)
+      if (selected[i] instanceof NAryEdge) {
+        nAryEdgesNum++;
+        selectedEdge = (NAryEdge) selected[i];
+      } else if (selected[i] instanceof DefaultEdge)
+        edgesNum++;
+
+    // Some obvious error situations.
+    if (nAryEdgesNum > 1 || edgesNum > 0 ||
+      !((selectedEdge == null) || (selectedEdge instanceof @@@v@@@relationship@@@/v@@@Edge)))
+      return false;
+
+    // n-edge to be considered.
+    @@@v@@@relationship@@@/v@@@Edge edge = new @@@v@@@relationship@@@/v@@@Edge( null);
+    // If the connection involves an existing n-edge its assignations has to be considered.
+    if (nAryEdgesNum == 1 && selectedEdge instanceof @@@v@@@relationship@@@/v@@@Edge)
+      edge = (@@@v@@@relationship@@@/v@@@Edge) selectedEdge;
+    GraphCell[] newSelected = edge.prepareSelected(selected);
+    return (edge.assignRoles(newSelected, false).size() > 0);
+
+  }
+
+
+// Connection logic.
+  // The deletion is acceptable if the resulting relationship is valid.
+  // selected are the nodes to removed.
+  public boolean acceptRemove(GraphCell[] selected) {
+    // All roles considered in the relationship.
+    List roles = this.getOrderedRoles();
+    // Valid deletion.
+    boolean ok = true;
+    // Check all roles.
+    for (int i = 0; i < roles.size(); i++) {
+      String roleName = (String) roles.get(i);
+      Integer minAllowedTimes = this.getArity(roleName, true);
+      Integer maxAllowedTimes = this.getArity(roleName, false);
+      // Objects playing roleName in this relationship.
+      GraphCell[] roleObjects = this.getObjects(roleName);
+      // newUse is roleObjects number minus those objects in selected (which will be removed).
+      int currentUse = roleObjects.length;
+      for (int j = 0; j < roleObjects.length; j++)
+        for (int k = 0; k < selected.length; k++) {
+          // Object to be compared with roleObjects.
+          Object object = null;
+          // Default Edge.
+          if (selected[k] instanceof DefaultEdge) {
+	  DefaultPort targetPort = (DefaultPort) ( (DefaultEdge) selected[k] ).getTarget();
+	  object = targetPort.getParent();
+          // Vertex
+          } else if ( (selected[k] instanceof DefaultGraphCell) &&
+             !(selected[k] instanceof DefaultPort) ) {
+            object = selected[k];
+          }
+          // If the object is in the deleted list, there is one less object playing the role.
+          if ( roleObjects[j].equals(object) )
+            currentUse--;
+        }
+      // Check the role for the deletion.
+      ok = ok && (minAllowedTimes.intValue() <= currentUse) &&
+        (currentUse <= maxAllowedTimes.intValue());
+    }
+    return ok;
+  }
+
+
+
+// Is a list of possible assignations (List) where each assignation
+  // is a list (List) of roles (String).
+  public List assignRoles(GraphCell[] selectedNodes, boolean allSolutions) {
+    // Container for all possible solutions.
+    Vector results = new Vector();
+    // A specific solution, that is, assignation roles-entities.
+    // It has the name of the roles assigned to objects in selectedNodes, that is,
+    // the role of selectedNodes[i] in this solution is solution.get(i).
+    Vector solution = new Vector();
+    // All roles considered in the relationship.
+    List roles = this.getOrderedRoles();
+
+    // The goal is to give classes an assignation to roles that makes a solution.
+    // Iterate over nodes to assign.
+    int nodesIndex = 0;
+    String nodeClass = selectedNodes[nodesIndex].getClass().getName();
+    Class nodeClassc = ( (DefaultGraphCell) selectedNodes[nodesIndex] ).getUserObject().getClass();
+    // Initial capacity for first node.
+    solution.add(nodesIndex, null);
+    // First role.
+    int rolesIndex = this.nextRole(roles, solution, nodesIndex).intValue();
+    while ((0 <= nodesIndex) && (allSolutions || results.size() == 0)) {
+      boolean roleOK = false;
+      String roleName = null;//////////
+      while (rolesIndex < roles.size() && !roleOK) {
+        // The assignation role-class is checked.
+        // The role can be assigned if the current arity is less than
+        // the maximun allowed and the object class can play the role.
+        roleName = (String) roles.get(rolesIndex);
+        if (this.checkAssignation((List) solution, roleName, nodeClassc))
+          roleOK = true;
+        else
+          rolesIndex++;
+      }
+
+      // If a role assignation was founded for current node.
+      if (roleOK && roleName != null) {
+        // The position for the role of nodesIndex is already created. Update the role.
+        solution.set(nodesIndex, roleName);
+        // Check if there is a solution and add.
+        if (checkSolution(selectedNodes, (List) solution)) {
+          Vector solutionToAdd = new Vector();
+          for (int i = 0; i < solution.size(); i++)
+            solutionToAdd.add((String) solution.get(i));
+          results.add(solutionToAdd);
+        }
+        // There are nodes to be assigned.
+        if (solution.size() < selectedNodes.length) {
+          nodesIndex++;
+          solution.add(nodesIndex, null);
+        }
+      } else {
+        // For the current node, possible role assignations has been exhausted.
+        // Backtracking is done.
+        solution.remove(nodesIndex);
+        nodesIndex--;
+      }
+
+      // If it is not the end.
+      if (nodesIndex >= 0) {
+        // Class information for node.
+        nodeClass = selectedNodes[nodesIndex].getClass().getName();
+        nodeClassc = ( (DefaultGraphCell) selectedNodes[nodesIndex] ).getUserObject().getClass();
+        // Assign a new role to the node.
+        rolesIndex = this.nextRole(roles, solution, nodesIndex).intValue();
+      }
+    }
+    return results;
+  }
+
+
+
+  // Returns a DefaultEdge[] related with this n-edge.
+  // In selected there can be 0 or 1 n-edge. If there is one is the object itself.
+  public DefaultEdge[] connectionsEdges(GraphCell[] selected, String[] roles) {
+    // Temporal container for edges that will be inserted into the Model.
+    Vector edges = new Vector();
+    // Create connections between related objects using this n-edge.
+    for (int i = 0; i < selected.length; i++)
+      if ( ! (selected[i] instanceof DefaultEdge ||
+              selected[i] instanceof NAryEdge ||
+              selected[i] instanceof DefaultPort) ){
+      @@@repeat id="relationshiproles"@@@
+	if (roles[i].equalsIgnoreCase("@@@v@@@role@@@/v@@@")){
+ 	 edges.add( new DefaultEdge( new @@@v@@@role@@@/v@@@Role() ) );
+	 }
+      @@@/repeat@@@
+
+      }
+
+    DefaultEdge[] edgesSet = new DefaultEdge[edges.size()];
+    for (int i = 0; i < edges.size(); i++)
+      edgesSet[i] = (DefaultEdge) edges.get(i);
+    return edgesSet;
+  }
+
+
+
+  // Gives the index of the next role to be assigned to currentNode according to currentSolution.
+  private Integer nextRole(List relationshipRoles, List currentSolution, int currentNode) {
+    int rolesIndex;
+int kk = currentSolution.size();//////////
+    if (currentSolution.get(currentNode) == null)  ////////// solution.get(nodeClass) == null)
+        rolesIndex = 0;
+    // If it was in the solution, try the following role.
+    else {
+      rolesIndex = 0;
+      String previousRole = (String) currentSolution.get(currentNode);
+      for (int i = 0; i < relationshipRoles.size(); i++)
+        if (previousRole.equals(relationshipRoles.get(i)))
+          rolesIndex = i;
+      rolesIndex++;
+    }
+
+    return (new Integer(rolesIndex));
+  }
+
+}
+			@@@/text@@@
+			@@@/saveto@@@
+@@@saveto@@@
+@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/widget/@@@v@@@relationship@@@/v@@@WidgetPreferences.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.widget;
+import org.jgraph.graph.*;
+import java.util.*;
+
+public class @@@v@@@relationship@@@/v@@@WidgetPreferences extends EntityWidgetPreferences {
+
+  Hashtable preferredWidget=new Hashtable();
+  Hashtable defaultValues=new Hashtable();
+
+  
+
+  public @@@v@@@relationship@@@/v@@@WidgetPreferences() {
+  super();
+  String[] preferredOrder={@@@repeat id="preferredorder"@@@"@@@v@@@order@@@/v@@@",@@@/repeat@@@""};
+  this.setPreferredOrder(preferredOrder);
+  Vector result=null;
+  @@@repeat id="simpleattributes"@@@
+   preferredWidget.put("@@@v@@@name@@@/v@@@",@@@v@@@widget@@@/v@@@.class);
+   result=new Vector();
+   @@@repeat id="defaultvalues"@@@
+   result.add("@@@v@@@value@@@/v@@@");
+   @@@/repeat@@@
+   defaultValues.put("@@@v@@@name@@@/v@@@",result);
+  @@@/repeat@@@
+  };
+
+
+
+  public Object getWidget(String attName)  throws IllegalAccessException,InstantiationException{
+   Class result=null;
+   ConfigurableWidget instance=null;
+   if (preferredWidget.get(attName)!=null)
+    result= ((Class)preferredWidget.get(attName));
+   else
+    return (super.getWidget(attName));
+   if (result!=null){
+    instance=(ConfigurableWidget)result.newInstance();
+    Vector values=(Vector)defaultValues.get(attName);
+    instance.setDefaultValues(values);  
+   }
+   return instance;
+  }
+
+  public void configureWidget(ConfigurableWidget cw){
+ 
+//   cw.setDefaultValues(result);
+  }
+
+
+
+}
+
+
+@@@/text@@@
+		@@@/saveto@@@
+	@@@/repeat@@@
+@@@/program@@@
+
+

@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>net.sf.ingenme</groupId>
+		<artifactId>ingenme</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.ingenme</groupId>
+	<artifactId>ingened</artifactId>
+	<packaging>jar</packaging>
+	<name>ingened</name>
+	<description>Meta-language editor built over INGENME. It is the most basic editor to be used in the rest of projects</description>
+	<url>http://ingenme.sf.net</url>
+	<licenses>
+		<license>
+			<name>The GPL V3</name>
+			<url>http://www.gnu.org/copyleft/gpl.html</url>
+			<distribution />
+		</license>
+	</licenses>
+	<scm>
+		<connection>scm:svn:http://svn.code.sf.net/p/ingenme/code/trunk/ingenme/ingened</connection>
+		<developerConnection>scm:svn:https://svn.code.sf.net/p/ingenme/code/trunk/ingenme/ingened</developerConnection>
+		<url>http://svn.code.sf.net/p/ingenme/code/trunk/ingenme/ingened</url>
+	</scm>
+	<developers>
+		<developer>
+			<id>escalope</id>
+			<name>Jorge Gomez-Sanz</name>
+			<email>jjgomez@fdi.ucm.es</email>
+		</developer>
+	</developers>
+	<dependencies>
+		<dependency>
+			<groupId>net.sf.ingenme</groupId>
+			<artifactId>core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.izpack</groupId>
+			<artifactId>izpack-standalone-compiler</artifactId>
+			<version>${izpack-standalone.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>3.0.15</version>
+		</dependency>
+		<dependency>
+			<groupId>ant-contrib</groupId>
+			<artifactId>ant-contrib</artifactId>
+			<version>1.0b3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ingenias</groupId>
+			<artifactId>codegen</artifactId>
+			<version>1.7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ingenias</groupId>
+			<artifactId>ingeniasjgraphmod</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-awt-util</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-bridge</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-css</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-dom</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-extension</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-ext</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-gui-util</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-gvt</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-parser</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-rasterizer</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-script</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-slideshow</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-squiggle</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-svg-dom</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-svggen</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-svgpp</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-swing</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-transcoder</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-ttf2svg</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-util</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-xml</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ingenias</groupId>
+			<artifactId>swixml</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.2</version>
+			</plugin>
+		</plugins>
+	</reporting>
+	<build>
+		<defaultGoal>package</defaultGoal>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<optimize>true</optimize>
+					<showDeprecations>true</showDeprecations>
+					<encoding>ISO-8859-1</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- ********************************** -->
+			<!-- Editor generation specific plugins -->
+			<!-- ********************************** -->
+			<plugin>
+				<!-- Generate the meta-model editor sources in the target folder -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<!-- by default associated with generate-sources phase -->
+						<id>generate sources for IAF</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<keepAlive>false</keepAlive>
+					<mainClass>ingenias.idegen.ObjectsGenerator</mainClass>
+					<arguments>
+						<argument>${project.basedir}/src/main/resources/metamodel/metamodel.xml</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Create the necessary resources in the target folder -->
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+
+				<executions>
+					<execution>
+						<id>copy-resources-licenses</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/generated/licenses</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources/licenses</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-sounds</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/generated/src/main/resources/sounds</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources/sounds</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-images</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/generated/src/main/resources/images</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources/images</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-src</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/generated/src/main/java</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/commonsrc</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-pluginsrc</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/generated/src/main/java</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/resources/pluginssrc</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					
+
+				</executions>
+			</plugin>
+			<!-- and now, the generated sources and resources are included in the 
+				build -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-resource</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>target/generated/src/main/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+		
+			
+
+			<!-- *************************************** -->
+			<!-- End of editor generation specific code -->
+			<!-- ************************************** -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-jxr-plugin</artifactId>
+							<version>2.2</version>
+							<configuration>
+								<aggregate>true</aggregate>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-pmd-plugin</artifactId>
+							<version>2.5</version>
+							<configuration>
+								<linkXref>true</linkXref>
+								<sourceEncoding>utf-8</sourceEncoding>
+								<minimumTokens>100</minimumTokens>
+								<targetJdk>1.6</targetJdk>
+								<aggregate>true</aggregate>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+							<version>2.3.1</version>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>taglist-maven-plugin</artifactId>
+							<version>2.4</version>
+							<configuration>
+								<tags>
+									<tag>TODO</tag>
+									<tag>@todo</tag>
+									<tag>@deprecated</tag>
+									<tag>FIXME</tag>
+								</tags>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<version>2.7</version>
+							<configuration>
+								<minmemory>512m</minmemory>
+								<maxmemory>1g</maxmemory>
+								<linksource>true</linksource>
+							</configuration>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>aggregate</report>
+										<report>test-aggregate</report>
+										<report>fix</report>
+										<report>test-fix</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+							<version>2.3.1</version>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>cobertura-maven-plugin</artifactId>
+							<version>2.4</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-checkstyle-plugin</artifactId>
+							<version>2.6</version>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>l10n-maven-plugin</artifactId>
+							<version>1.0-alpha-2</version>
+							<configuration>
+								<locales>
+									<locale>en</locale>
+									<locale>de</locale>
+									<locale>fr</locale>
+								</locales>
+								<aggregate>true</aggregate>
+							</configuration>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+
+			<!-- now shading is perfomed and an executable produced -->
+			<!-- shade plugin must go before izpack to be executed first -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.7.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>${project.artifactId}-${project.version}-selfcontained</finalName>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>ingenias.editor.IDE</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- begin: izpack configuration -->
+			<!-- prepare dependencies so that izpack jar tag to pickup at compile 
+				time -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.0</version>
+				<executions>
+				<!-- The needed resources do belong to another project -->
+				<!-- Suggestion from http://stackoverflow.com/questions/4177327/maven-copying-resources-from-client-project-to-webapp -->
+					<execution>
+						<id>unpack</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>net.sf.ingenme</groupId>
+									<artifactId>core</artifactId>
+									<version>1.0-SNAPSHOT</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<includes>commonsrc/**/*.java</includes>
+									<outputDirectory>target/generated/src/main/java/</outputDirectory>
+								</artifactItem>
+								<artifactItem>
+									<groupId>net.sf.ingenme</groupId>
+									<artifactId>core</artifactId>
+									<version>1.0-SNAPSHOT</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<includes>licenses/*.*</includes>
+									<outputDirectory>target/generated/src/main/resources/licenses</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					
+					
+<!-- this is for izpack-->
+					<execution>
+						<id>standard-installer</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<stripVersion>true</stripVersion>
+							<excludeGroupIds>org.codehaus.izpack</excludeGroupIds> <!-- dont want standalone compiler -->
+							<outputDirectory>${staging.dir}/dependency</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin> 
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<target>
+								<move failonerror="false" todir="target/generated/src/main/java/">
+									<fileset dir="target/generated/src/main/java/commonsrc">
+										<include name="**/*.java" />
+									</fileset>
+								</move>
+								<copy failonerror="false" file="src/izpack/Readme.temp" tofile="src/izpack/Readme.txt" overwrite="yes"/>
+								<delete failonerror="false"  dir="target/generated/src/main/java/commonsrc" />
+								<!-- search and replace certain tokens to further customize -->
+								
+								<replace dir="target/generated/src/" token="@toolname@"
+									value="${project.artifactId}">
+									<include name="**/*.java" />
+								</replace>
+								<replace dir="target/generated/src/" token="@authorname@"
+									value="${developername}">
+									<include name="**/*.java" />
+								</replace>
+								<replace dir="target/generated/src/" token="@versionnumber@"
+									value="${project.version}">
+									<include name="**/*.java" />
+								</replace>
+								<replace dir="target/generated/src/" token="@vendor@"
+									value="${vendor}">
+									<include name="**/*.java" />
+								</replace>
+								<replace dir="target/generated/src/" token="@distributionURL@"
+									value="${project.url}">
+									<include name="**/*.java" />
+								</replace>
+								<replace dir="target/generated/src/" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained">
+									<include name="**/*.java" />
+								</replace>
+
+
+
+								<replace file="target/generated/pom.xml" token="@toolname@"
+									value="${project.artifactId}" />
+								<replace file="target/generated/pom.xml" token="@authorname@"
+									value="${developername}" />
+								<replace file="target/generated/pom.xml" token="@versionnumber@"
+									value="${project.version}" />
+								<replace file="target/generated/pom.xml" token="@vendor@"
+									value="${vendor}" />
+								<replace file="target/generated/pom.xml" token="@distributionURL@"
+									value="${project.url}" />
+								<replace file="target/generated/pom.xml" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained" />
+
+<echo>replacing in readme</echo>
+
+								<replace file="src/izpack/Readme.txt" token="@toolname@"
+									value="${project.artifactId}" />
+								<replace file="src/izpack/Readme.txt" token="@authorname@"
+									value="${developername}" />
+								<replace file="src/izpack/Readme.txt" token="@versionnumber@"
+
+									value="${project.version}" />
+								<replace file="src/izpack/Readme.txt" token="@vendor@"
+									value="${vendor}" />
+								<replace file="src/izpack/Readme.txt" token="@distributionURL@"
+									value="${project.url}" />
+								<replace file="src/izpack/Readme.txt" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained" />
+
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+
+					<!-- this is part of izipack-->
+					<execution>
+						<id>create-staging-area</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy todir="${staging.dir}">
+									<fileset dir="${basedir}/src/izpack" />
+								</copy>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- see install.xml to see how MyHelloPanel is used -->
+			<plugin>
+				<groupId>org.codehaus.izpack</groupId>
+				<artifactId>izpack-maven-plugin</artifactId>
+				<version>1.0-alpha-5</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.izpack</groupId>
+						<artifactId>izpack-standalone-compiler</artifactId>
+						<version>${izpack-standalone.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<izpackBasedir>${staging.dir}</izpackBasedir>
+					<customPanelDirectory>${staging.dir}</customPanelDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>standard-installer</id>
+						<phase>package</phase>
+						<goals>
+							<goal>izpack</goal>
+						</goals>
+						<configuration>
+							<installerFile>${project.build.directory}/${project.artifactId}-${project.version}-installer</installerFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- end: izpack configuration -->
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<!-- copy-dependency plugin -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+											<goal>build-classpath</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore /><!-- to avoid errors in the eclipse m2e plugin -->
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>exec-maven-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>java</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+	</build>
+	<properties>
+		<vendor>GRASIA Research Group</vendor>
+		<!-- maven does not allow to refer to developers property defined at the beginning-->
+		<!-- an echoproperties task shows there is no accesible project.developers property-->
+		<developername>Jorge J. Gomez-Sanz</developername>
+		<developeremail>jjgomez@fdi.ucm.es</developeremail>
+		<!-- begin: izpack configuration -->
+		<staging.dir>${project.build.directory}/staging</staging.dir>
+		<izpack-standalone.version>4.3.5</izpack-standalone.version>
+		<!-- end: izpack configuration -->
+	</properties>
+</project>

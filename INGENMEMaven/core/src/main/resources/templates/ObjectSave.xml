@@ -1,0 +1,150 @@
+
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+
+		@@@!-- ************************* --@@@
+		@@@!-- meta-class representation --@@@
+		@@@!-- ************************* --@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/persistence/ObjectSave.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.persistence;
+import java.lang.reflect.*;
+import javax.swing.tree.*;
+import org.apache.xerces.parsers.DOMParser;
+import org.xml.sax.InputSource;
+
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.io.OutputStreamWriter;
+import java.io.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.*;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.xml.parsers.*;
+
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.DOMImplementation;
+
+import ingenias.editor.entities.*;
+import ingenias.exception.*;
+import ingenias.editor.cell.*;
+import ingenias.editor.*;
+
+public class ObjectSave extends ObjectSaveAbs{
+
+  public void saveObject(ingenias.editor.entities.Entity en, OutputStreamWriter os) throws
+      IOException {
+    String _name1 = ingenias.editor.entities.Entity.encodeutf8Text(en.getId());
+    os.write( "<object id=\"" + _name1 + "\" type=\"" + en.getClass().getName() +
+               "\">\n");
+    Enumeration enumeration = null;
+
+    @@@repeat id="objects"@@@
+        if (en instanceof ingenias.editor.entities.@@@v@@@object@@@/v@@@){
+          ingenias.editor.entities.@@@v@@@object@@@/v@@@ nen=(ingenias.editor.entities.@@@v@@@object@@@/v@@@)en;
+	  String _name;
+          @@@repeat id="entityatts"@@@
+          _name=ingenias.editor.entities.Entity.encodeutf8Text("@@@v@@@name@@@/v@@@");
+          os.write("<objectproperty id=\""+_name+"\">\n");
+          if (nen.get@@@v@@@name@@@/v@@@()!=null)
+           saveObject(nen.get@@@v@@@name@@@/v@@@(),os);
+          os.write("</objectproperty>\n");
+          @@@/repeat@@@
+          @@@repeat id="collectionentityatts"@@@
+          os.write("<objectproperty id=\"@@@v@@@name@@@/v@@@\" collection=\"true\">\n");
+             enumeration=nen.get@@@v@@@name@@@/v@@@Elements();
+          while (enumeration.hasMoreElements()){
+            ingenias.editor.entities.Entity next=(ingenias.editor.entities.Entity)enumeration.nextElement();
+           saveObject(next,os);
+          }
+          os.write("</objectproperty>\n");
+          @@@/repeat@@@
+        }
+        @@@/repeat@@@
+
+        @@@repeat id="meta-models"@@@
+         if (en.getClass().equals(ingenias.editor.entities.@@@v@@@modelid@@@/v@@@DataEntity.class)){
+          ingenias.editor.entities.@@@v@@@modelid@@@/v@@@DataEntity nen=(ingenias.editor.entities.@@@v@@@modelid@@@/v@@@DataEntity)en;
+	 String _name;
+	@@@repeat id="entityatts"@@@
+          _name=ingenias.editor.entities.Entity.encodeutf8Text("@@@v@@@name@@@/v@@@");
+          os.write("<objectproperty id=\""+_name+"\">\n");
+          if (nen.get@@@v@@@name@@@/v@@@()!=null)
+           saveObject(nen.get@@@v@@@name@@@/v@@@(),os);
+          os.write("</objectproperty>\n");
+          @@@/repeat@@@
+          @@@repeat id="collectionentityatts"@@@
+            os.write("<objectproperty id=\"@@@v@@@name@@@/v@@@\" collection=\"true\">\n");
+             enumeration=nen.get@@@v@@@name@@@/v@@@Elements();
+          while (enumeration.hasMoreElements()){
+            ingenias.editor.entities.Entity next=(ingenias.editor.entities.Entity)enumeration.nextElement();
+           saveObject(next,os);
+          }
+            os.write("</objectproperty>\n");
+          @@@/repeat@@@
+        }
+        @@@/repeat@@@
+
+        @@@repeat id="relationshipedges"@@@
+         if (en.getClass().equals(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@.class)){
+          ingenias.editor.entities.@@@v@@@relationship@@@/v@@@ nen=(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)en;
+          @@@repeat id="entityatts"@@@
+          os.write("<objectproperty id=\"@@@v@@@name@@@/v@@@\">\n");
+          if (nen.get@@@v@@@name@@@/v@@@()!=null)
+           saveObject(nen.get@@@v@@@name@@@/v@@@(),os);
+          os.write("</objectproperty>\n");
+          @@@/repeat@@@
+          @@@repeat id="collectionentityatts"@@@
+            os.write("<objectproperty id=\"@@@v@@@name@@@/v@@@\" collection=\"true\">\n");
+             enumeration=nen.get@@@v@@@name@@@/v@@@Elements();
+          while (enumeration.hasMoreElements()){
+            ingenias.editor.entities.Entity next=(ingenias.editor.entities.Entity)enumeration.nextElement();
+           saveObject(next,os);
+          }
+            os.write("</objectproperty>\n");
+          @@@/repeat@@@
+        }
+        @@@/repeat@@@
+
+
+
+    Hashtable ht = new Hashtable();
+    en.toMap(ht);
+    saveMap(ht, os);
+    os.write( "</object>\n");
+  }
+
+
+
+ 
+
+}
+@@@/text@@@
+                @@@/saveto@@@
+
+@@@/program@@@

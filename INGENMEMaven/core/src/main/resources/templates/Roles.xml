@@ -1,0 +1,207 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+
+@@@repeat id="roles"@@@
+
+
+@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/entities/@@@v@@@role@@@/v@@@Role.java@@@/file@@@
+			@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.entities;
+
+
+import java.util.*;
+import ingenias.editor.TypedVector;
+
+public class @@@v@@@role@@@/v@@@Role extends RoleEntity {
+
+@@@repeat id="attributes"@@@
+  public @@@v@@@type@@@/v@@@ @@@v@@@name@@@/v@@@;
+@@@/repeat@@@
+
+ static int idCounter=0;
+
+ public @@@v@@@role@@@/v@@@Role() {
+	    super("@@@v@@@role@@@/v@@@Role"+idCounter);
+	    idCounter++;
+
+	  }
+
+@@@repeat id="collectionattributes"@@@
+  public TypedVector @@@v@@@name@@@/v@@@=new TypedVector(@@@v@@@type@@@/v@@@.class);
+@@@/repeat@@@
+
+  public @@@v@@@role@@@/v@@@Role(String id) {
+    super(id);
+
+  }
+
+
+@@@repeat id="methods"@@@
+      public @@@v@@@type@@@/v@@@ get@@@v@@@name@@@/v@@@(){
+        return @@@v@@@name@@@/v@@@;
+      }
+       public void set@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@
+					@@@v@@@name@@@/v@@@){
+        this.@@@v@@@name@@@/v@@@=@@@v@@@name@@@/v@@@;
+      }
+
+@@@/repeat@@@
+
+@@@repeat id="collectionmethods"@@@
+  public Class get@@@v@@@name@@@/v@@@Type(){
+   return @@@v@@@name@@@/v@@@.getType();
+  }
+  public void add@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@ element){
+   this.@@@v@@@name@@@/v@@@.add(element);
+  }
+
+  public Enumeration get@@@v@@@name@@@/v@@@Elements(){
+   return this.@@@v@@@name@@@/v@@@.elements();
+  }
+
+  public void remove@@@v@@@name@@@/v@@@Element(String id){
+    Enumeration enumeration=this.get@@@v@@@name@@@/v@@@Elements();
+    ingenias.editor.entities.Entity found=null;
+    while (enumeration.hasMoreElements() && found==null){
+     ingenias.editor.entities.Entity ent=(ingenias.editor.entities.Entity)enumeration.nextElement();
+     if (ent.getId().equalsIgnoreCase(id))
+      found=ent;
+    }
+    if (found!=null)
+     this.@@@v@@@name@@@/v@@@.remove(found);
+  }
+
+@@@/repeat@@@
+
+
+public void fromMap(Map ht){
+super.fromMap(ht);
+@@@repeat id="simpleattributes"@@@
+ if (ht.get("@@@v@@@name@@@/v@@@")!=null && ht.get("@@@v@@@name@@@/v@@@").equals(""))
+  this.set@@@v@@@name@@@/v@@@(null);
+ else
+  if (ht.get("@@@v@@@name@@@/v@@@")!=null)
+   this.set@@@v@@@name@@@/v@@@(new @@@v@@@type@@@/v@@@(ht.get("@@@v@@@name@@@/v@@@").toString()));
+@@@/repeat@@@
+
+
+}
+public void toMap(Map ht){
+super.toMap(ht);
+@@@repeat id="simpleattributes"@@@
+//if (this.get@@@v@@@name@@@/v@@@() instanceof String)
+ if (this.get@@@v@@@name@@@/v@@@()!=null)
+ 	ht.put("@@@v@@@name@@@/v@@@",this.get@@@v@@@name@@@/v@@@().toString());
+ else	
+ 	ht.put("@@@v@@@name@@@/v@@@","");
+@@@/repeat@@@
+
+}
+
+}
+			@@@/text@@@
+@@@/saveto@@@
+@@@saveto@@@
+@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/widget/@@@v@@@role@@@/v@@@RoleWidgetPreferences.java@@@/file@@@
+			@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.widget;
+import org.jgraph.graph.*;
+import java.util.*;
+
+public class @@@v@@@role@@@/v@@@RoleWidgetPreferences extends EntityWidgetPreferences {
+
+  Hashtable preferredWidget=new Hashtable();
+  Hashtable defaultValues=new Hashtable();
+
+
+  public @@@v@@@role@@@/v@@@RoleWidgetPreferences() {
+  super();
+  String[] preferredOrder={@@@repeat id="preferredorder"@@@"@@@v@@@order@@@/v@@@",@@@/repeat@@@""};
+  this.setPreferredOrder(preferredOrder);
+  Vector result=null;
+  @@@repeat id="simpleattributes"@@@
+   preferredWidget.put("@@@v@@@name@@@/v@@@",@@@v@@@widget@@@/v@@@.class);
+   result=new Vector();
+   @@@repeat id="defaultvalues"@@@
+   result.add("@@@v@@@value@@@/v@@@");
+   @@@/repeat@@@
+   defaultValues.put("@@@v@@@name@@@/v@@@",result);
+  @@@/repeat@@@
+  };
+
+
+
+  
+
+  public Object getWidget(String attName)  throws IllegalAccessException,InstantiationException{
+   Class result=null;
+   ConfigurableWidget instance=null;
+   if (preferredWidget.get(attName)!=null)
+    result= ((Class)preferredWidget.get(attName));
+   else
+    return (super.getWidget(attName));
+   if (result!=null){
+    instance=(ConfigurableWidget)result.newInstance();
+    Vector values=(Vector)defaultValues.get(attName);
+    instance.setDefaultValues(values);  
+   }
+   return instance;
+  }
+
+  public void configureWidget(ConfigurableWidget cw){
+ 
+  }
+
+
+
+}
+
+
+@@@/text@@@
+		@@@/saveto@@@
+
+@@@/repeat@@@
+@@@/program@@@
+

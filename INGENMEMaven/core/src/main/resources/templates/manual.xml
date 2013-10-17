@@ -1,0 +1,108 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+@@@saveto@@@
+	@@@file overwrite="yes"@@@target/generated/src/main/resources/ontology.html@@@/file@@@
+	@@@text@@@
+<HTML>
+<BODY>
+<H1>META-MODEL SUMMARY</H1>
+<table>
+  <TR>
+    <TD valign="top"><B>Entities</B></TD>
+    <TD valign="top"><B>Relationships</B></TD>
+    <TD valign="top"><B>Diagrams</B></TD>
+  </TR> 
+ <TR>
+	<TD valign="top">
+@@@repeat id="objects"@@@
+<A HREF="#@@@v@@@object@@@/v@@@">@@@v@@@object@@@/v@@@</A> <BR>
+@@@/repeat@@@
+	</TD>
+	<TD valign="top">
+@@@repeat id="relationshipedges"@@@
+<A HREF="#@@@v@@@relationship@@@/v@@@">@@@v@@@relationship@@@/v@@@</A><BR>
+@@@/repeat@@@
+	</TD>
+	<TD valign="top">
+@@@repeat id="meta-models"@@@
+<A HREF="#@@@v@@@modelid@@@/v@@@">@@@v@@@modelid@@@/v@@@</A><BR>
+@@@/repeat@@@
+	</TD>
+</table>
+
+<H1>Diagrams</H1>
+
+@@@repeat id="meta-models"@@@
+   <H2><A NAME="@@@v@@@modelid@@@/v@@@"></A>@@@v@@@modelid@@@/v@@@</H2>
+<TABLE>
+<TR>
+<TD valign="top"/>
+Entities:
+<ul>
+@@@repeat id="agentbuttons"@@@
+<li><A HREF="#@@@v@@@object@@@/v@@@">@@@v@@@object@@@/v@@@</A></li>
+@@@/repeat@@@
+</ul>
+</TD>
+<TD valign="top"/>
+Relationships:
+<ul>
+@@@repeat id="createEdgeView"@@@
+<li><A HREF="#@@@v@@@relationship@@@/v@@@">@@@v@@@relationship@@@/v@@@</A></li>
+@@@/repeat@@@
+</ul>
+</TD>
+</TR>
+</TABLE>
+@@@/repeat@@@
+
+<H1>Entities</H1>
+
+
+@@@repeat id="objects"@@@
+   <H2><A NAME="@@@v@@@object@@@/v@@@"></A>@@@v@@@object@@@/v@@@ specializes <A HREF="#@@@v@@@parent@@@/v@@@">@@@v@@@parent@@@/v@@@</A> </H2>
+@@@v@@@desc@@@/v@@@<P>
+<B>Use it when ....</B><BR>
+@@@v@@@rec@@@/v@@@<P>
+Attributes:<BR>
+<ul>
+@@@repeat id="attributes"@@@
+ <li> @@@v@@@name@@@/v@@@ which contains @@@v@@@type@@@/v@@@  </li>
+@@@/repeat@@@
+@@@repeat id="collectionattributes"@@@
+ <li><B>@@@v@@@name@@@/v@@@</B> which is a collection of <B>@@@v@@@type@@@/v@@@</B> elements</li>
+@@@/repeat@@@
+</ul>
+
+@@@/repeat@@@
+
+
+<H1>Relationships</H1>
+@@@repeat id="relationshipedges"@@@
+ <H2><A NAME="@@@v@@@relationship@@@/v@@@"></A>@@@v@@@relationship@@@/v@@@</H2>
+Attributes:<BR>
+<ul>
+@@@repeat id="attributes"@@@
+ <li> @@@v@@@name@@@/v@@@ which contains @@@v@@@type@@@/v@@@  </li>
+@@@/repeat@@@
+@@@repeat id="collectionattributes"@@@
+ <li><B>@@@v@@@name@@@/v@@@</B> which is a collection of <B>@@@v@@@type@@@/v@@@</B> elements</li>
+@@@/repeat@@@
+</ul>
+<P>
+Connected elements:<BR>
+<ul>
+    @@@repeat id="relationshiproles"@@@
+  <li> Extreme: <B>@@@v@@@role@@@/v@@@</B> (min arity:@@@v@@@mincard@@@/v@@@, max arity:@@@v@@@maxcard@@@/v@@@). It can contains entities of the following types:
+   <ul>
+     @@@repeat id="roleplayer"@@@
+      <li><B><A HREF="#@@@v@@@player@@@/v@@@">@@@v@@@player@@@/v@@@</A></B></li>
+     @@@/repeat@@@
+   </ul>
+    @@@/repeat@@@
+ </ul>
+@@@/repeat@@@
+</BODY>
+</HTML>
+	@@@/text@@@
+ @@@/saveto@@@
+@@@/program@@@

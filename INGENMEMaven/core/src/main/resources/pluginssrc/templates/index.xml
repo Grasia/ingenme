@@ -1,0 +1,35 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@
+			@@@v@@@output@@@/v@@@/index.html@@@/file@@@
+		@@@text@@@
+<HTML>
+<BODY bgcolor="#FFFFFF">
+
+<p><img src="logograsia.jpg" width="151" height="71"> </p>
+<p><font size="5">Specification Diagrams are:</font> 
+  <BR/>
+</p>
+<ul>
+
+ @@@repeat id="paquete"@@@
+    @@@repeat id="level"@@@ <ul> @@@/repeat@@@	   	
+       @@@repeat id="graph"@@@
+            <ul><li>Diagram name: <A HREF="@@@v@@@fname@@@/v@@@.html">@@@v@@@name@@@/v@@@</A> type :<font color="#000099"> @@@v@@@tipo@@@/v@@@ </font>
+            </ li></ul>
+       @@@/repeat@@@    
+       @@@repeat id="onlypackage"@@@
+           <li>@@@v@@@name@@@/v@@@</li>
+       @@@/repeat@@@   				
+    @@@repeat id="level"@@@ </ul> @@@/repeat@@@	   				
+  @@@/repeat@@@    
+   
+<p><font size="3">Document generated automatically with the Ingenias Development Kit <font color="#993333"> 
+  IDK 2.1</font></font></p>
+
+</BODY>
+ </HTML>
+
+@@@/text@@@
+	@@@/saveto@@@
+@@@/program@@@

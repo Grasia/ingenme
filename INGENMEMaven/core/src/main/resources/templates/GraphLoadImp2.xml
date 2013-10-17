@@ -1,0 +1,106 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/persistence/GraphLoadImp2.java@@@/file@@@
+		@@@text@@@
+
+
+
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.persistence;
+import java.lang.reflect.*;
+import javax.swing.tree.*;
+import org.apache.xerces.parsers.DOMParser;
+import org.xml.sax.InputSource;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.io.OutputStreamWriter;
+import java.io.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.*;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.xml.parsers.*;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.DOMImplementation;
+import ingenias.editor.entities.*;
+import ingenias.exception.*;
+import ingenias.editor.cell.*;
+import ingenias.editor.*;
+
+
+public class GraphLoadImp2 extends GraphLoadImp2Abs
+    implements GraphLoad {
+
+  /**
+   *  Constructor for the GraphLoad object
+   */
+  public GraphLoadImp2() {}
+
+
+  // Convert a vertex represented by a GXL DOM node in a DefaultGraphCell.
+  // ids contains the already processed vertex ids.
+
+  protected DefaultGraphCell GXLVertex(String id, String type, ModelJGraph graph,
+                                    ObjectManager om, RelationshipManager rm) {
+
+    DefaultGraphCell vertex = null;
+
+    ingenias.editor.entities.Entity en = om.getEntity(id, type);
+    // if it is registered in the OM, then it is a diagram object
+    if (en != null) {
+
+@@@repeat id="graphobject"@@@
+   	if (en.getClass().equals(ingenias.editor.entities.@@@v@@@object@@@/v@@@.class))
+	  return  new ingenias.editor.cell.@@@v@@@object@@@/v@@@Cell((ingenias.editor.entities.@@@v@@@object@@@/v@@@)en);
+@@@/repeat@@@
+    } else {
+    // If not, it is a relationship
+      en = rm.getRelationship(id);
+    if (en==null) return null;
+@@@repeat id="relationshipedges"@@@
+    if (en instanceof ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)
+     return  new ingenias.editor.cell.@@@v@@@relationship@@@/v@@@Edge((ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)en);
+@@@/repeat@@@
+
+    }
+
+    return null;
+  }
+
+
+ 
+}
+
+
+
+
+
+@@@/text@@@
+	@@@/saveto@@@
+@@@/program@@@
+

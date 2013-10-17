@@ -1,0 +1,27 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/resources/configs/default.xml@@@/file@@@
+@@@text@@@
+<filter>
+	<name>Full INGENIAS</name>
+	<author>Jorge Gomez Sanz</author>
+	<date>20/04/2009</date>
+	<diagrams>
+@@@repeat id="meta-models"@@@
+		<diagram name="@@@v@@@modelid@@@/v@@@">
+@@@repeat id="agentbuttons"@@@
+			<entity>@@@v@@@object@@@/v@@@</entity>
+@@@/repeat@@@
+@@@repeat id="relationshipsallowed"@@@
+          		<relationship>@@@v@@@relationship@@@/v@@@</relationship>
+@@@/repeat@@@
+		</diagram>
+@@@/repeat@@@
+	</diagrams>
+</filter>
+
+@@@/text@@@
+@@@/saveto@@@
+
+@@@/program@@@
+

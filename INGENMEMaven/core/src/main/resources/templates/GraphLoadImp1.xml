@@ -1,0 +1,881 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/persistence/GraphLoadImp1.java@@@/file@@@
+		@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.persistence;
+
+import java.lang.reflect.*;
+import javax.swing.tree.*;
+import org.apache.xerces.parsers.DOMParser;
+import org.xml.sax.InputSource;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.io.OutputStreamWriter;
+import java.io.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.*;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.xml.parsers.*;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.DOMImplementation;
+import ingenias.editor.entities.*;
+import ingenias.exception.*;
+import ingenias.editor.cell.*;
+import ingenias.editor.*;
+
+
+public class GraphLoadImp1
+    implements GraphLoad {
+
+  /**
+   *  Constructor for the GraphLoad object
+   */
+  public GraphLoadImp1() {}
+
+  
+  private ModelJGraph fromGXL(ObjectManager om, RelationshipManager rm,
+                              ModelJGraph graph, org.w3c.dom.Node node, org.w3c.dom.Node nodeView) {
+    try {
+
+      // Get Graph's Child Nodes (the cells)
+      NodeList list = node.getChildNodes();
+      // Get Graph's Child Nodes (the views)
+      NodeList listView = nodeView.getChildNodes();
+      // ConnectionSet for the Insert method
+      ConnectionSet cs = new ConnectionSet();
+      // Hashtable for the ID lookup (ID to Vertex)
+      Hashtable ids = new Hashtable();
+      // Hashtable for Attributes (Vertex to Map)
+      Hashtable attributes = new Hashtable();
+      Vector edges = new Vector();
+      Vector edgesAttr = new Vector();
+      // Loop Children
+      for (int i = 0; i < list.getLength(); i++) {
+        // The order is the same in both trees.
+        node = list.item(i);
+        nodeView = listView.item(i);
+        // If Valid Node
+        if (node.getAttributes() != null && node.getNodeName() != null) {
+          // Fetch Supertype
+          String supertype = (String) node.getNodeName();
+          // Create Vertex
+          if (supertype.equals("node")) {
+            String id = node.getAttributes().getNamedItem("id").getNodeValue();
+            String type = node.getAttributes().getNamedItem("type").
+                getNodeValue();
+            DefaultGraphCell vertex = GXLVertex(id, type, graph, om, rm);
+            if ( (vertex != null) && ! (vertex instanceof NAryEdge)) {
+              // Add ID, Vertex pair to Hashtable
+              if (node.getAttributes().getNamedItem("nid") != null) {
+                ids.put(node.getAttributes().getNamedItem("nid").getNodeValue(),
+                        vertex);
+              }
+              else {
+                ids.put(node.getAttributes().getNamedItem("id").getNodeValue(),
+                        vertex);
+                // Add Attributes
+              }
+              Map vertexAttr = GXLCellView(graph, vertex, ids, nodeView);
+              attributes.put(vertex, vertexAttr);
+              // Add Vertex to new Cells
+              graph.getModel().insert(new Object[] {vertex},attributes,
+                                       cs, null, null);
+//              Log.getInstance().logSYS("loaded " + vertex.getUserObject());
+            }
+            else {
+              if (vertex != null && (vertex instanceof NAryEdge)) {
+                edges.add(vertex);
+                Vector idscon = getConnectedEntities(node);
+                Map vertexAttr = GXLCellView(graph, vertex, ids, nodeView);
+                edgesAttr.add(vertexAttr);
+                edgesAttr.add(idscon);
+
+              }
+            }
+            // Create Edge
+          }
+        }
+      }
+      Enumeration enumeration = edges.elements();
+      Enumeration enumeration1 = edgesAttr.elements();
+      while (enumeration.hasMoreElements()) {
+        NAryEdge ne = (NAryEdge) enumeration.nextElement();
+        NAryEdgeEntity ent = (NAryEdgeEntity) ne.getUserObject();
+        Map eas = (Map) enumeration1.nextElement();
+        Vector idscon = ( (Vector) enumeration1.nextElement());
+        DefaultGraphCell gcs[] = null;
+        if (idscon.size() > 0) {
+          String[] idEnts = ent.getIds();
+          gcs = new DefaultGraphCell[idscon.size()];
+
+          for (int k = 0; k < idscon.size(); k++) {
+            String id = idscon.elementAt(k).toString();
+            gcs[k] = (DefaultGraphCell) ids.get(id);
+            //this.getGraphCell(graph,id);
+
+          }
+        }
+        else {
+          String[] idEnts = ent.getIds();
+          gcs = new DefaultGraphCell[idEnts.length];
+
+          for (int k = 0; k < idEnts.length; k++) {
+            String id = idEnts[k];
+            gcs[k] = this.getGraphCell(graph, id);
+
+          }
+        }
+
+        this.connect(graph, gcs, ne, eas);
+      }
+      return graph;
+    }
+    catch (Exception e) {
+      // Display error message on stderr
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  // Convert an CellView represented by a GXL DOM node in a Map.
+  // cell is the GraphCell represented by the returned CellView.
+  // ids has a mapping from id to vertex.
+  
+  private Map GXLCellView(JGraph graph, GraphCell cell, Map ids, org.w3c.dom.Node node) {
+
+    // Fetch Map attributes.
+    Hashtable attrMap = getMap(node);
+    // The id attribute is not appliable.
+    attrMap.remove("id");
+
+    attrMap.remove("icon");
+
+    if (attrMap.containsKey("points")) {
+      List points = GraphConstants.getPoints(attrMap);
+      ArrayList result = new ArrayList();
+      // The ports are removed. They are converted to String's.
+      // Ports are added employing cell.
+      PortView sourceView = (PortView) graph.getGraphLayoutCache().getMapping( (GraphCell) ( (
+          Port) ( (DefaultEdge) cell).getSource()), false);
+      PortView targetView = (PortView) graph.getGraphLayoutCache().getMapping( (GraphCell) ( (
+          Port) ( (DefaultEdge) cell).getTarget()), false);
+      // Add source.
+      result.add(sourceView);
+      // Other points are represented as Point's.
+      Iterator it = points.iterator();
+      while (it.hasNext()) {
+        Object point = it.next();
+        if (point instanceof Point) {
+          result.add(point);
+        }
+      }
+      // Add target.
+      result.add(targetView);
+      GraphConstants.setPoints(attrMap, result);
+    }
+
+    if (attrMap.containsKey("lineBegin")) {
+      // int values are saved as Strings.
+      String lineBegin = (String) attrMap.get("lineBegin");
+      GraphConstants.setLineBegin(attrMap, Integer.parseInt(lineBegin));
+    }
+
+    if (attrMap.containsKey("lineEnd")) {
+      // int values are saved as Strings.
+      String lineEnd = (String) attrMap.get("lineEnd");
+      GraphConstants.setLineEnd(attrMap, Integer.parseInt(lineEnd));
+    }
+
+    return attrMap;
+  }
+
+  // Convert a vertex represented by a GXL DOM node in a DefaultGraphCell.
+  // ids contains the already processed vertex ids.
+  
+  private DefaultGraphCell GXLVertex(String id, String type, ModelJGraph graph,
+                                     ObjectManager om, RelationshipManager rm) {
+
+    DefaultGraphCell vertex = null;
+
+    ingenias.editor.entities.Entity en = om.getEntity(id, type);
+    // if it is registered in the OM, then it is a diagram object
+    if (en != null) {
+
+
+@@@repeat id="graphobject"@@@
+   	if (en instanceof ingenias.editor.entities.@@@v@@@object@@@/v@@@)
+	  return  new ingenias.editor.cell.@@@v@@@object@@@/v@@@Cell((ingenias.editor.entities.@@@v@@@object@@@/v@@@)en);
+@@@/repeat@@@
+    } else {
+    // If not, it is a relationship
+      en = rm.getRelationship(id);
+    if (en==null) return null;
+@@@repeat id="relationshipedges"@@@
+    if (en instanceof ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)
+     return  new @@@v@@@relationship@@@/v@@@Edge((ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)en);
+@@@/repeat@@@
+
+ }
+
+    return null;
+  }
+
+  // Convert an edge represented by a GXL DOM node in a DefaultEdge.
+  // ids has a mapping from id to vertex.
+  
+  private DefaultEdge GXLEdge(Map ids, org.w3c.dom.Node node) {
+
+    DefaultEdge edge = new DefaultEdge();
+
+    // Fetch Map attributes.
+    Map attrMap = getMap(node);
+
+    // Create Edge with label
+    String label = (String) attrMap.get("id");
+    // Fetch type
+    String type = (String) attrMap.get("type");
+    // id and type are not valid JGraph attributes.
+    attrMap.remove("id");
+    attrMap.remove("type");
+    return edge;
+  }
+
+  private DefaultGraphCell[]
+      getEntitiesAlreadyInsertedInRelationshipAndUpdateDGCIds(Object[] selected,
+      ingenias.editor.entities.NAryEdgeEntity nEdgeObject) {
+    String[] ids = nEdgeObject.getIds();
+    Vector newselectedv=new Vector();
+
+
+    int i = 0;
+//      for (int i = 0; i < ids.length; i++) {
+    for (int j = 0; j < selected.length; j++) {
+      Object userObject = ( (DefaultGraphCell) selected[j]).getUserObject();
+/*      Log.getInstance().logSYS("Processing Relationship" +
+                            nEdgeObject.getId() + " of type " +
+                            nEdgeObject.getType() +
+                            " considering " + userObject);*/
+
+      try {
+        if (userObject != null &&
+            userObject instanceof ingenias.editor.entities.Entity) {
+          nEdgeObject.searchEntityID( ( (ingenias.editor.entities.Entity)
+                                       userObject).getId());
+          nEdgeObject.updateCell( (DefaultGraphCell) selected[j]);
+          newselectedv.add(selected[j]);
+          i++;
+        }
+      }
+      catch (NotFound nf) {
+/*        Log.getInstance().logSYS("Processing Relationship" +
+                              nEdgeObject.getId() + " of type " +
+                              nEdgeObject.getType() +
+                              " not found " + userObject);*/
+      }
+    }
+    ids = nEdgeObject.getIds();
+
+    // Number of ids in the relationship can be less than initial number
+    if (ids.length != i) {
+      throw new RuntimeException(
+          "INTERNAL ERROR!!! Length of ids connected in " +
+          nEdgeObject.getId() + " of type " + nEdgeObject.getType() +
+          " a relationship does not match selected default graph cell number. I had " +
+          ids.length + " elements to find and I found " + i);
+    }
+    DefaultGraphCell[] newSelected = new DefaultGraphCell[ids.length];
+    for (int k=0;k<newSelected.length;k++){
+      newSelected[k]=(DefaultGraphCell)newselectedv.elementAt(k);
+    }
+/*
+    Copyright (C) 2002 Jorge Gomez Sanz, Ruben Fuentes, Juan Pavon
+
+    Modifications over original code from jgraph.sourceforge.net
+
+    This file is part of INGENIAS IDE, a support tool for the INGENIAS
+    methodology, availabe at http://grasia.fdi.ucm.es/ingenias or
+    http://ingenias.sourceforge.net
+
+    INGENIAS IDE is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    INGENIAS IDE is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with INGENIAS IDE; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+*/
+    return newSelected;
+
+  }
+
+  private void connect(ModelJGraph graph, DefaultGraphCell[] selected,
+                       NAryEdge nEdge,
+                       Map eas) throws NotFound {
+    ingenias.editor.entities.NAryEdgeEntity ne = (NAryEdgeEntity)
+        nEdge.getUserObject();
+
+    DefaultGraphCell[] newSelected = null;
+    // N-ary relationship.
+    if (nEdge != null) {
+      // Role assignations to classes are obtained from NAryEdgeEntity in NAryEdge.
+      // NAryEdgeEntity has a list of object ids that have to be in selected.
+      // assignations is a Vector of Vectors of Strings where Strings represents roles.
+      NAryEdgeEntity nEdgeObject = (NAryEdgeEntity) nEdge.getUserObject();
+      // ids of objects connected with nEdge.
+//      String[] ids = nEdgeObject.getIds(); // Not valid yet
+  /*    {
+        String idsres = "";
+        for (int k = 0; k < ids.length; k++) {
+          idsres = idsres + ids[k] + ",";
+        }
+        Log.getInstance().logSYS("Processing Relationship" +
+                              ne.getId() + " of type " + ne.getType() +
+                              " with elems " +
+                              idsres +
+                              " in graph " + graph.getID());
+      }*/
+
+      // Selected objects are reduced to those connected with nEdge
+      newSelected = this.
+          getEntitiesAlreadyInsertedInRelationshipAndUpdateDGCIds(selected,
+          nEdgeObject);
+
+/*      ids = nEdgeObject.getIds(); // Now valid ones, after the update
+      {
+        String idsres = "";
+        for (int k = 0; k < ids.length; k++) {
+          idsres = idsres + ids[k] + ",";
+        }
+        Log.getInstance().logSYS("Processing Relationship" +
+                              ne.getId() + " of type " + ne.getType() +
+                              " new ids " +
+                              idsres +
+                              " in graph " + graph.getID());
+      }*/
+
+      // Role assignation to objects is obtained.
+      String[] selectedAssignation = new String[newSelected.length];
+      for (int i = 0; i < newSelected.length; i++) {
+        selectedAssignation[i] = nEdgeObject.getRole(""+newSelected[i].hashCode());
+        // Auxiliary edges that will be inserted in the Model.
+      }
+      try {
+        DefaultEdge[] auxiliaryEdges = nEdge.connectionsEdges(newSelected,
+            selectedAssignation);
+        for (int i = 0; i < newSelected.length; i++) {
+          RoleEntity re = nEdgeObject.getRoleEntity(""+newSelected[i].hashCode());
+          auxiliaryEdges[i].setUserObject(re);
+        }
+
+        // Connections that will be inserted into the Model.
+        ConnectionSet cs = nEdge.connections(selectedAssignation,
+                                             auxiliaryEdges,
+                                             getPorts(graph, newSelected));
+        // Construct a Map from cells to Maps (for insert).
+        Hashtable attributes = new Hashtable();
+        // Associate the NAryEdge Vertex with its Attributes.
+        attributes.put(nEdge, eas);
+//////////-----------------------------------//////////
+        Hashtable edgesAttributes = new Hashtable();
+        for (int i = 0; i < selectedAssignation.length; i++) {
+          // Create a Map that holds the attributes for the edge
+          Map attr = ( (RoleEntity) auxiliaryEdges[i].getUserObject()).
+              getAttributes();
+          // Source
+          /*
+           *  if (selectedAssignation[i].indexOf("source") >= 0)
+           *  / Add a Line Begin Attribute
+           *  GraphConstants.setLineBegin(attr, GraphConstants.SIMPLE);
+           */
+          // Target
+          if (selectedAssignation[i].toUpperCase().indexOf("TARGET")>= 0 ||
+              selectedAssignation[i].endsWith("T")) {
+            // Add a Line End Attribute
+            GraphConstants.setLineEnd(attr, GraphConstants.ARROW_CLASSIC);
+            // Associate the Edge with its Attributes
+          }
+      GraphConstants.setDisconnectable(attr,false);
+
+      GraphConstants.setBendable(attr,false);
+          edgesAttributes.put(auxiliaryEdges[i], attr);
+        }
+//////////-----------------------------------//////////
+        // Insert the Edge and its Attributes. The order matters.
+        if (auxiliaryEdges.length >= 2) {
+//        nEdgeObject.updateCells(newSelected);
+          graph.getModel().insert(new Object[] {nEdge},attributes
+                                  , null, null, null);
+          String inserted = "";
+          for (int j = 0; j < auxiliaryEdges.length; j++) {
+            inserted = inserted + auxiliaryEdges[j];
+          }
+//          Log.getInstance().logSYS("Inserting " + inserted);
+          graph.getModel().insert( (Object[]) auxiliaryEdges,edgesAttributes, cs, null,
+                                  null);
+
+        }
+        else {
+          // There was an error. A relationship was found with less than 2 extremes
+          ne = (NAryEdgeEntity)
+              nEdge.getUserObject();
+          String[] tids = ne.getIds();
+          String result = "";
+          for (int k = 0; k < tids.length; k++) {
+            result = result + tids[k] + ",";
+          }
+          Log.getInstance().logSYS("WARNING Relationship removed:Relationship " +
+                                ne.getId() + " of type " + ne.getType() +
+                                " has not been saved properly among objects " +
+                                result + " in graph " + graph.getID());
+        }
+      }
+      catch (WrongParameters wp) {
+        Log.getInstance().logSYS(
+            "WARNING!!! Cannot produce edges for relationship " +
+            ne.getId() + " of type " + ne.getType());
+        wp.printStackTrace();
+      }
+    }
+  }
+
+  private Object[] getModelPath(org.w3c.dom.Node n, GraphManager gm) {
+    Object[] opath = null;
+    Vector path = new Vector();
+    NodeList packages = n.getChildNodes();
+    for (int k = 0; k < packages.getLength(); k++) {
+      org.w3c.dom.Node pack = packages.item(k);
+      if (pack.getNodeName().equalsIgnoreCase("path")) {
+        NodeList packs = pack.getChildNodes();
+        for (int j = 0; j < packs.getLength(); j++) {
+          org.w3c.dom.Node npack = packs.item(j);
+          if (npack.getNodeName().equalsIgnoreCase("package")) {
+            String id = npack.getAttributes().getNamedItem("id").getNodeValue().
+                toString();
+            path.add(id);
+          }
+        }
+        for (int j = 1; j < path.size(); j++) {
+          opath = new Object[j];
+          for (int l = 0; l < j; l++) {
+            opath[l] = path.elementAt(l);
+          }
+          gm.addPackage(opath, path.elementAt(j).toString());
+        }
+      }
+    }
+    return path.toArray();
+  }
+
+  
+  private DefaultGraphCell getGraphCell(ModelJGraph mj, String id) {
+    for (int k = 0; k < mj.getModel().getRootCount(); k++) {
+
+      DefaultGraphCell dgc = (DefaultGraphCell) mj.getModel().getRootAt(k);
+      ingenias.editor.entities.Entity ent = (ingenias.editor.entities.Entity)
+          dgc.getUserObject();
+      if (ent.getId().equalsIgnoreCase(id)) {
+        return dgc;
+      }
+
+    }
+
+    return null;
+  }
+
+  
+  private Vector getConnectedEntities(org.w3c.dom.Node n) {
+    Vector result = new Vector();
+    NodeList nl = n.getChildNodes();
+    for (int k = 0; k < nl.getLength(); k++) {
+      org.w3c.dom.Node current = nl.item(k);
+      if (current.getNodeName().equalsIgnoreCase("connected")) {
+        String id = current.getAttributes().getNamedItem("id").getNodeValue();
+        result.add(id);
+      }
+    }
+    return result;
+  }
+
+  public void restoreModels(IDEState ids,GUIResources resources,
+                            Document doc) throws CannotLoadDiagram {
+    // For compatibility and in case a future different RM is needed
+    RelationshipManager rm = new RelationshipManager();
+    NodeList models = doc.getElementsByTagName("models").item(0).getChildNodes();
+    boolean allrecovered = true;
+    String failureMessage = "";
+
+    for (int k = 0; k < models.getLength(); k++) {
+      org.w3c.dom.Node model = models.item(k);
+      String id = "";
+      String type = "";
+      try {
+        if (model.getNodeName().equalsIgnoreCase("model")) {
+          id = model.getAttributes().getNamedItem("id").getNodeValue().
+              toString();
+          Log.getInstance().logSYS("Loading model " + id);
+          type = model.getAttributes().getNamedItem("type").getNodeValue().
+              toString();
+          this.restoreModel(ids, rm, model);
+        }
+      }
+      catch (Exception e) {
+        allrecovered = false;
+        failureMessage = failureMessage + "\n Error loading model " + id +
+            " of type " + type + ". Original error message was \n " +
+            e.getMessage();
+        e.printStackTrace();
+      }
+    }
+    if (!allrecovered) {
+      throw new CannotLoadDiagram(failureMessage);
+    }
+  }
+
+  private void restoreModel(IDEState ids, RelationshipManager rm,
+                            org.w3c.dom.Node model) throws ClassNotFoundException,
+      IllegalAccessException, InstantiationException, NoSuchMethodException,
+      InvocationTargetException {
+    String id = model.getAttributes().getNamedItem("id").getNodeValue().
+        toString();
+    String type = model.getAttributes().getNamedItem("type").getNodeValue().
+        toString();
+
+    Object[] path = this.getModelPath(model, ids.gm);
+
+    org.w3c.dom.Node graph = null;
+    org.w3c.dom.Node layout = null;
+    NodeList children = model.getChildNodes();
+    ModelDataEntity mde = null;
+
+    for (int j = 0; j < children.getLength(); j++) {
+
+      org.w3c.dom.Node current = children.item(j);
+      if (current.getNodeName().equalsIgnoreCase("object")) {
+        mde = (ModelDataEntity) PersistenceManager.getOL().restoreObject(ids.om,
+            ids.gm, current);
+      }
+      if (current.getNodeName().equalsIgnoreCase("gxl")) {
+        NodeList gxls = current.getChildNodes();
+        for (int l = 0; l < gxls.getLength(); l++) {
+          org.w3c.dom.Node currentgxl = gxls.item(l);
+          if (currentgxl.getNodeName().equalsIgnoreCase("graph")) {
+            graph = currentgxl;
+          }
+          if (currentgxl.getNodeName().equalsIgnoreCase("layout")) {
+            layout = currentgxl;
+          }
+        }
+      }
+    }
+    ModelJGraph mjg = null;
+
+    if (mde != null) {
+        int indmarquee=type.indexOf("ModelJGraph");
+        String marqueetype=type.substring(0,indmarquee)+"MarqueeHandler";
+        Constructor consmarquee = Class.forName(marqueetype).getConstructor(new Class[]{Editor.class});
+        Object marquee=consmarquee.newInstance(new Object[]{ids.editor});
+        Class[] conspar = {
+                mde.getClass(), ingenias.editor.Editor.class, String.class,ObjectManager.class, Model.class,BasicMarqueeHandler.class};
+            Object[] valpar = {
+                mde, ids.editor,id,ids.om,new Model(ids),marquee};
+              
+        Constructor cons= Class.forName(type).getConstructor(conspar);
+        mjg = (ModelJGraph) cons.newInstance(valpar);
+    }
+    else {
+      Class[] conspar = {
+    		  ids.editor.getClass()};
+      Object[] valpar = {
+    		  ids.editor};
+      Constructor cons = Class.forName(type).getConstructor(conspar);
+      mjg = (ModelJGraph) cons.newInstance(valpar);
+    }
+
+    //mjg.setEditor(ids.editor);
+    //mjg.setOM(ids.om);
+    //mjg.setId(id);
+    this.fromGXL(ids.om, rm, mjg, graph, layout);
+    ids.gm.addModel(path, id, mjg);
+    ids.editor.setEnabled(true);
+
+  }
+
+  private Object[] GXL2Array(org.w3c.dom.Node node) throws WrongTypedDOMNode {
+    if (node.getNodeName().equals("array")) {
+      try {
+        Hashtable children = new Hashtable();
+
+        // Obtain children
+        NodeList values = node.getChildNodes();
+        for (int k = 0; k < values.getLength(); k++) {
+          try {
+            children.put(new Integer(k), GXL2Object(values.item(k)));
+          }
+          catch (WrongTypedDOMNode e) {
+            // It is not a valid child.
+          }
+        }
+
+        Object[] array = new Object[children.size()];
+        Iterator it = children.keySet().iterator();
+        while (it.hasNext()) {
+          Integer index = (Integer) it.next();
+          array[index.intValue()] = children.get(index);
+        }
+        // Construct the Array
+        return array;
+      }
+      catch (Exception e) {
+        throw new WrongTypedDOMNode(node.toString() +
+            "is a malformed representation of an Object[].");
+      }
+    }
+    else {
+      throw new WrongTypedDOMNode(node.toString() +
+                                  "does not represent an Object[]");
+    }
+  }
+
+  
+  private List GXL2List(org.w3c.dom.Node node) throws WrongTypedDOMNode {
+    if (node.getNodeName().equals("list")) {
+      try {
+        ArrayList children = new ArrayList();
+
+        // Obtain children
+        NodeList values = node.getChildNodes();
+        int index = 0;
+        for (int k = 0; k < values.getLength(); k++) {
+          try {
+            Object child = GXL2Object(values.item(k));
+            children.add(index++, child);
+          }
+          catch (WrongTypedDOMNode e) {
+            // It is not a valid child.
+          }
+        }
+        // Construct the List
+        return ( (List) children);
+      }
+      catch (Exception e) {
+        throw new WrongTypedDOMNode(node.toString() +
+                                    "is a malformed representation of an List.");
+      }
+    }
+    else {
+      throw new WrongTypedDOMNode(node.toString() +
+                                  "does not represent an List");
+    }
+  }
+
+  private Point GXL2Point(org.w3c.dom.Node node) throws WrongTypedDOMNode {
+    if (node.getNodeName().equals("point")) {
+      try {
+        // Obtain attributes
+        int x = (new Integer(node.getAttributes().getNamedItem("x").
+                             getNodeValue())).intValue();
+        int y = (new Integer(node.getAttributes().getNamedItem("y").
+                             getNodeValue())).intValue();
+        // Construct the Point
+        return new Point(x, y);
+      }
+      catch (Exception e) {
+        throw new WrongTypedDOMNode(node.toString() +
+            "is a malformed representation of a java.awt.Point.");
+      }
+    }
+    else {
+      throw new WrongTypedDOMNode(node.toString() +
+                                  "does not represent a java.awt.Point.");
+    }
+  }
+
+  private Rectangle GXL2Rectangle(org.w3c.dom.Node node) throws WrongTypedDOMNode {
+    if (node.getNodeName().equals("rectangle")) {
+      try {
+        // Obtain attributes
+        int x = (new Integer(node.getAttributes().getNamedItem("x").
+                             getNodeValue())).intValue();
+        int y = (new Integer(node.getAttributes().getNamedItem("y").
+                             getNodeValue())).intValue();
+        int width = (new Integer(node.getAttributes().getNamedItem("width").
+                                 getNodeValue())).intValue();
+        int height = (new Integer(node.getAttributes().getNamedItem("height").
+                                  getNodeValue())).intValue();
+        // Construct the Rectangle
+        return new Rectangle(x, y, width, height);
+      }
+      catch (Exception e) {
+        throw new WrongTypedDOMNode(node.toString() +
+            "is a malformed representation of a java.awt.Rectangle.");
+      }
+    }
+    else {
+      throw new WrongTypedDOMNode(node.toString() +
+                                  "does not represent a java.awt.Rectangle.");
+    }
+  }
+
+  private Object GXL2Object(org.w3c.dom.Node node) throws WrongTypedDOMNode {
+    Object object = null;
+
+    if (node.getNodeName().equals("point")) {
+      object = GXL2Point(node);
+    }
+    else if (node.getNodeName().equals("rectangle")) {
+      object = GXL2Rectangle(node);
+    }
+    else if (node.getNodeName().equals("list")) {
+      object = GXL2List(node);
+    }
+    else if (node.getNodeName().equals("array")) {
+      object = GXL2Array(node);
+    }
+    else if (node.getNodeName().equals("string")) {
+      org.w3c.dom.Node labelNode = node.getFirstChild();
+      if (labelNode != null) {
+        object = (String) labelNode.getNodeValue();
+      }
+    }
+    else if (node.getNodeName().equals("attr")) {
+      NodeList values = node.getChildNodes();
+
+      for (int k = 0; k < values.getLength(); k++) {
+        try {
+          Object objectAttr = GXL2Object(values.item(k));
+          if (object == null) {
+            object = objectAttr;
+          }
+        }
+        catch (WrongTypedDOMNode e) {
+        }
+      }
+
+      if (object == null) {
+        throw new WrongTypedDOMNode(node.toString() +
+                                    "does not represent any valid Object.");
+      }
+//        if (values.item(k).getNodeName().equals("string")) {
+//          Node labelNode = values.item(k).getFirstChild();
+//          if (labelNode != null)
+//            object = (String) labelNode.getNodeValue();
+//        }
+    }
+    else {
+      throw new WrongTypedDOMNode(node.toString() +
+                                  "does not represent any valid Object.");
+    }
+
+    return object;
+  }
+
+  // Fetch Cell Map from Node
+  protected Hashtable getMap(org.w3c.dom.Node node) {
+
+    Hashtable hashAttr = new Hashtable();
+
+    try {
+      // Common attributes
+      hashAttr.put(new String("id"),
+                   node.getAttributes().getNamedItem("id").getNodeValue());
+      hashAttr.put(new String("type"),
+                   node.getAttributes().getNamedItem("type").getNodeValue());
+      // Edge attributes
+      hashAttr.put("from",
+                   node.getAttributes().getNamedItem("from").getNodeValue());
+      hashAttr.put("to", node.getAttributes().getNamedItem("to").getNodeValue());
+    }
+    catch (Exception e) {
+      // If the node is a vertex there is neither from nor to attributes.
+    }
+    // Node specific attributes
+    NodeList children = node.getChildNodes();
+    for (int j = 0; j < children.getLength(); j++) {
+      org.w3c.dom.Node attr = children.item(j);
+      try {
+        Object object = GXL2Object(attr);
+        hashAttr.put(attr.getAttributes().getNamedItem("name").getNodeValue(),
+                     object);
+      }
+      catch (Exception e) {
+        // The node is not a valid attribute.
+      }
+    }
+//////////    return (lab != null) ? lab : new String("");
+    return hashAttr;
+  }
+
+  // Gives the ports in the model related with GraphCells in vertexList.
+  private Port[] getPorts(ModelJGraph graph, Object[] vertexList) {
+
+    // Ports of argument vertexs.
+    Port[] ports = new Port[vertexList.length];
+    // Obtain the model.
+    GraphModel model = graph.getModel();
+
+    // Iterate over all Objects.
+    for (int i = 0; i < vertexList.length; i++) {
+      Port objectPort = null;
+      // Iterate over all Children
+      for (int j = 0; j < model.getChildCount(vertexList[i]); j++) {
+        // Fetch the Child of Vertex at Index i
+        Object child = model.getChild(vertexList[i], j);
+        // Check if Child is a Port
+        if (child instanceof Port) {
+
+          // Return the Child as a Port
+          objectPort = (Port) child;
+        }
+      }
+      ports[i] = objectPort;
+    }
+
+    return ports;
+  }
+
+  public static void main(String[] args) {
+    GraphLoadImp1 graphLoad1 = new GraphLoadImp1();
+  }
+
+}
+
+
+
+
+@@@/text@@@
+	@@@/saveto@@@
+@@@/program@@@

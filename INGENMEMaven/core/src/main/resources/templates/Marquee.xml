@@ -1,0 +1,170 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+@@@repeat id="meta-models"@@@
+@@@saveto@@@
+@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/actions/diagram/@@@v@@@modelid@@@/v@@@ActionsFactory.java@@@/file@@@
+@@@text@@@
+
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz 
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+
+package ingenias.editor.actions.diagram;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import java.util.Map;
+import java.util.Hashtable;
+
+import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.net.URL;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.swing.event.UndoableEditEvent;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import java.util.Vector;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import org.jgraph.plaf.basic.*;
+import java.lang.reflect.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.widget.*;
+import ingenias.exception.NullEntity;
+import ingenias.generator.browser.BrowserImp;
+import ingenias.generator.browser.Graph;
+import ingenias.generator.browser.GraphEntity;
+import ingenias.exception.InvalidEntity;
+import ingenias.editor.*;
+
+// MarqueeHandler that Connects Vertices and Displays PopupMenus
+
+public class @@@v@@@modelid@@@/v@@@ActionsFactory extends DiagramMenuEntriesActionsFactory  implements java.io.Serializable {
+
+        public @@@v@@@modelid@@@/v@@@ActionsFactory(GUIResources resources, IDEState state){
+	super(resources,state);
+        }
+
+
+	 public Vector<AbstractAction> createChangeViewActions(final DefaultGraphCell cell, final ModelJGraph graph) {
+		 Vector<AbstractAction> possibleViews=new Vector<AbstractAction>();
+		final ingenias.editor.entities.Entity ent=((ingenias.editor.entities.Entity)cell.getUserObject());
+		@@@repeat id="vertexviewcreation"@@@
+			
+			@@@repeat id="views"@@@
+			 if (ent.getClass().getName().equals("ingenias.editor.entities.@@@v@@@object@@@/v@@@")){
+			 final ViewPreferences.ViewType current1=ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@;
+                   possibleViews.add(new AbstractAction("@@@v@@@viewid@@@/v@@@") {
+                     public void actionPerformed(ActionEvent e) {
+                      graph.getListenerContainer().storeContraints(cell);         
+		      graph.getModel().getAttributes(cell).put("view", "@@@v@@@viewid@@@/v@@@");     				
+		     ent.getPrefs(graph.getModel().getAttributes(cell)).setView(ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@);
+				 graph.getListenerContainer().restoreContraints(cell);
+				graph.invalidate();
+				graph.refresh();
+                     }
+                   });
+			 }
+			
+                  @@@/repeat@@@
+			@@@/repeat@@@
+    		      @@@repeat id="graphobject"@@@
+			
+			@@@repeat id="views"@@@
+			 if (ent.getClass().getName().equals("ingenias.editor.entities.@@@v@@@relationship@@@/v@@@")){
+			
+                   possibleViews.add(new AbstractAction("@@@v@@@viewid@@@/v@@@") {
+                     public void actionPerformed(ActionEvent e) {
+                      graph.getListenerContainer().storeContraints(cell);
+			graph.getModel().getAttributes(cell).put("view", "@@@v@@@viewid@@@/v@@@");     				
+		     ent.getPrefs(graph.getModel().getAttributes(cell)).setView(ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@);
+		     //ingenias.editor.cell.@@@v@@@relationship@@@/v@@@Renderer.setCurrent(ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@);
+				 graph.getListenerContainer().restoreContraints(cell);
+				graph.invalidate();
+				graph.refresh();
+                     }
+                   });
+			 }
+			 
+                  	@@@/repeat@@@
+		      @@@/repeat@@@
+			
+		  @@@repeat id="createedgeview"@@@
+			
+		    @@@repeat id="views"@@@
+			 if (ent.getClass().getName().equals("ingenias.editor.entities.@@@v@@@relationship@@@/v@@@")){
+			
+                   possibleViews.add(new AbstractAction("@@@v@@@viewid@@@/v@@@") {
+                     public void actionPerformed(ActionEvent e) {
+		     ingenias.editor.cell.RenderComponentManager.setRelationshipView(ViewPreferences.ViewType.@@@v@@@viewid@@@/v@@@,
+                    			 ent, cell, graph);
+	
+				graph.refresh();
+                     }
+                   });
+			 }
+			
+                     @@@/repeat@@@
+		 @@@/repeat@@@
+		 return possibleViews;
+		 }
+		 
+		 
+
+		 protected Vector<AbstractAction> createDiagramSpecificInsertActions(final Point pt, final ModelJGraph graph) {
+			 Vector<AbstractAction> nobjects=new Vector<AbstractAction>();
+@@@repeat id="agentbuttons"@@@
+		if (this.getState().getDiagramFilter().isValidEntity("@@@v@@@modelid@@@/v@@@", "@@@v@@@object@@@/v@@@")){
+		// Insert an object of type @@@v@@@object@@@/v@@@
+		AbstractAction aa=new AbstractAction("Insert @@@v@@@object@@@/v@@@") {
+				public void actionPerformed(ActionEvent ev) {
+					try {
+						graph.insert(pt, "@@@v@@@object@@@/v@@@");
+					} catch (InvalidEntity e) {						
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(graph, "Object type @@@v@@@object@@@/v@@@ is not allowed in this diagram",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			};
+		aa.putValue("tooltip", new @@@v@@@object@@@/v@@@("").getHelpDesc()+"\n\n"+new @@@v@@@object@@@/v@@@("").getHelpRecom());
+		nobjects.add(aa);
+		}
+@@@/repeat@@@
+			return nobjects;
+	}
+	
+	
+
+
+
+
+}
+
+@@@/text@@@
+@@@/saveto@@@
+@@@/repeat@@@
+@@@/program@@@
+

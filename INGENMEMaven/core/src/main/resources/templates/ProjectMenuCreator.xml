@@ -1,0 +1,320 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/ProjectMenuCreator.java@@@/file@@@
+		@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+
+package ingenias.editor;
+
+import ingenias.editor.actions.*;
+import ingenias.editor.actions.diagram.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.events.DiagramChangeHandler;
+import ingenias.editor.events.DiagramCreationAction;
+import ingenias.editor.*;
+import ingenias.editor.models.*;
+import ingenias.editor.widget.GraphicsUtils;
+import ingenias.editor.editionmode.EmbeddedAndPopupCellEditor;
+
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.util.Vector;
+
+import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+
+import org.jgraph.graph.BasicMarqueeHandler;
+
+public class ProjectMenuCreator {
+	private IDEState ids=null;	
+	private Frame owner=null;
+	private GUIResources resources=null; 
+
+	public ProjectMenuCreator(IDEState ids, 			
+			Frame owner, GUIResources resources
+	){
+		this.ids=ids;  		
+		this.owner=owner;
+		this.resources=resources;
+	}
+
+  public Vector<DiagramCreationAction> getDiagramCreation(){
+   
+   Vector<DiagramCreationAction> actions=new Vector<DiagramCreationAction>();
+   DiagramCreationAction ma=null;
+   @@@repeat id="meta-model-creation"@@@
+    if (ids.getDiagramFilter().isValidDiagram("@@@v@@@modelid@@@/v@@@")){
+   // Menu to add a @@@v@@@modelid@@@/v@@@ model instance
+		ma=new DiagramCreationAction(){
+			public String getActionName(){
+				return "Add @@@v@@@modelid@@@/v@@@";
+			}
+			public ModelJGraph execute(String diagramName,Object[] path, IDEState ids){
+				@@@v@@@modelid@@@/v@@@ModelJGraph mjg =
+					new @@@v@@@modelid@@@/v@@@ModelJGraph(new
+							@@@v@@@modelid@@@/v@@@DataEntity(
+									diagramName), diagramName, ids.om, new Model(ids),
+									new BasicMarqueeHandler(), ids.prefs );
+				@@@v@@@modelid@@@/v@@@ActionsFactory ema=new  @@@v@@@modelid@@@/v@@@ActionsFactory(resources,ids);
+				mjg.setUI(new EmbeddedAndPopupCellEditor(ids,resources));
+		   	        MarqueeHandler marquee=new MarqueeHandler(mjg, resources,ids,ema);
+				mjg.setMarqueeHandler(marquee);
+				ids.gm.addModel(path, diagramName, mjg);
+				ids.addNewDiagram(mjg);
+				return mjg;
+			}
+			public String getIconName() {
+				// TODO Auto-generated method stub
+				return "@@@v@@@modelicon@@@/v@@@";
+			}
+		};
+		actions.add(ma);
+   }
+
+   @@@/repeat@@@
+   return actions;
+}
+
+  public JPopupMenu menuProjectTree(MouseEvent me1) {
+ final CommonMenuEntriesActionFactory cme=new CommonMenuEntriesActionFactory(resources,ids);
+		JPopupMenu menu = new JPopupMenu();
+		final MouseEvent me = me1;
+
+		TreePath tp = ids.gm.arbolProyecto.getSelectionPath();
+		if (tp != null) {   
+			DefaultMutableTreeNode dmtn = (DefaultMutableTreeNode) 
+			tp.getLastPathComponent();
+
+			if (tp != null && dmtn.getUserObject()instanceof String) {
+				// Menu to add a EnvironmentModel model instance
+ @@@repeat id="meta-model-creation"@@@
+   if (ids.getDiagramFilter().isValidDiagram("@@@v@@@modelid@@@/v@@@")){
+				menu.add(
+						new AbstractAction("Add @@@v@@@modelid@@@/v@@@") {
+
+							public void actionPerformed(ActionEvent e) {
+								TreePath tp = ids.gm.arbolProyecto.getSelectionPath();
+								DefaultMutableTreeNode dmtn = (DefaultMutableTreeNode) tp.
+								getLastPathComponent();
+								if (tp != null && dmtn.getUserObject()instanceof String) {
+									String diagramName = JOptionPane.showInputDialog(owner,
+											"Type graph name",
+											"New graph",
+											JOptionPane.QUESTION_MESSAGE);
+									if (diagramName != null && ids.gm.existsModel(diagramName)) {
+
+										JOptionPane.showMessageDialog(owner,
+												"There exists a model with the same name. Please, select another",
+												"Warning",
+												JOptionPane.WARNING_MESSAGE);
+									}
+									else
+										if (diagramName != null) {
+											@@@v@@@modelid@@@/v@@@ModelJGraph mjg =
+												new @@@v@@@modelid@@@/v@@@ModelJGraph(new
+												@@@v@@@modelid@@@/v@@@DataEntity(
+												diagramName), diagramName, ids.om, new Model(ids),
+												new BasicMarqueeHandler(), ids.prefs );
+											@@@v@@@modelid@@@/v@@@ActionsFactory ema=new  @@@v@@@modelid@@@/v@@@ActionsFactory(resources,ids);
+											mjg.setUI(new EmbeddedAndPopupCellEditor(ids,resources));
+									   	        MarqueeHandler marquee=new MarqueeHandler(mjg, resources,ids,ema);
+											mjg.setMarqueeHandler(marquee);
+											ids.gm.addModel(tp.getPath(), diagramName, mjg);
+											ids.addNewDiagram(mjg);
+										
+										}
+								}
+
+							}
+						});
+}
+ 
+  
+@@@/repeat@@@
+	menu.add(
+						new AbstractAction("Add package") {
+
+							public void actionPerformed(ActionEvent e) {
+								TreePath tp = ids.gm.arbolProyecto.getSelectionPath();
+								if (tp != null) {
+									String nombre =
+										JOptionPane.showInputDialog(owner,
+												"Type a new package's name",
+												"New package",
+												JOptionPane.QUESTION_MESSAGE);
+									if (nombre != null) {
+										ids.gm.addPackage(tp.getPath(), nombre);
+
+										ids.gm.arbolProyecto.repaint();
+										ids.gm.arbolProyecto.expandPath(tp);
+										ids.gm.arbolProyecto.scrollPathToVisible(tp);
+										ids.addNewPackage(tp.getPath(),nombre);
+									
+									}
+								}
+							}
+						});
+} 
+			else {
+
+				// Edit
+				menu.add(
+						new AbstractAction("Edit diagram properties") {
+							public void actionPerformed(ActionEvent e) {
+								TreePath tp = ids.gm.arbolProyecto.getSelectionPath();
+								if (tp != null) {
+
+									DefaultMutableTreeNode dmtn = (DefaultMutableTreeNode) tp.
+									getLastPathComponent();
+
+									Object uo = dmtn.getUserObject();
+
+									if (!String.class.isAssignableFrom(uo.getClass())) {
+										boolean duplicated = true;
+										while (duplicated) {
+											ModelDataEntity mde = ( (ModelJGraph) uo).getProperties();
+
+											ingenias.editor.editiondialog.GeneralEditionFrame gef = new ingenias.
+											editor.editiondialog.GeneralEditionFrame(ids.editor, ids.om, ids.gm, owner,
+													"Edit diagram properties",
+													mde);
+											ModelJGraph mjg =
+												ids.gm.getModel(mde.getId());
+											//	              Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+											gef.setLocation(GraphicsUtils.getCenter(resources.getMainFrame(),gef.getSize()));
+											gef.pack();
+											gef.show();
+											duplicated =
+												ids.gm.isDuplicated(mde.getId());
+											if (duplicated) {
+												JOptionPane.showMessageDialog(owner,
+														"There exists a model with the same name. Please, select another",
+														"Warning", JOptionPane.WARNING_MESSAGE);
+											} else {
+												if (gef.getStatus()==gef.ACCEPTED){
+													ids.gm.arbolProyecto.storeTreeExpansionPaths();
+													( (DefaultTreeModel) ids.gm.arbolProyecto.getModel()).reload();
+													ids.gm.arbolProyecto.restoreTreeExpansionPath();
+													ids.diagramPropertiesChanged(mjg);
+													ids.setChanged(true);
+													resources.setChanged();
+												}
+											}
+										}
+										
+									}
+								}
+							}
+						});
+			}
+			if (tp.getPathCount()>1){
+			       menu.add(
+				new AbstractAction("rename") {
+
+							public void actionPerformed(ActionEvent e) {
+								TreePath tp = ids.gm.arbolProyecto.getSelectionPath();
+								if (tp != null) {
+									DefaultMutableTreeNode dmtn = (DefaultMutableTreeNode) tp.
+									getLastPathComponent();
+									Object uo = dmtn.getUserObject();
+									
+									String result = JOptionPane.showInputDialog(owner,
+											"Type in the new name", 
+											uo.toString());
+									if (result != null && !result.equals("")) {
+										if (String.class.isAssignableFrom(uo.getClass())) {
+											dmtn.setUserObject(result);
+
+											ids.setChanged(true);
+											ids.packageRenamed(result);											
+										}
+										else {
+											if (ids.gm.existsModel(result)) {
+												JOptionPane.showMessageDialog(owner,
+														"There exists a model with the same name. Please, select another",
+														"Warning",
+														JOptionPane.WARNING_MESSAGE);
+											}
+											else {
+
+												ModelJGraph mjg = (ModelJGraph) uo;
+												mjg.setId(result);
+												mjg.setName(result);
+												ids.diagramRenamed(mjg);
+												ids.setChanged(true);
+												resources.setChanged();		
+											}
+										}
+									}
+								}
+							}
+						});
+
+				menu.add(
+						new AbstractAction("remove package/model") {
+
+							public void actionPerformed(ActionEvent e) {
+								TreePath tp = ids.gm.arbolProyecto.getSelectionPath();
+								if (tp != null) {
+									int result = JOptionPane.showConfirmDialog(owner,
+											"This will remove permanently " + tp.getLastPathComponent() +
+											". Are you sure?",
+											"removing package", JOptionPane.YES_NO_OPTION);
+									if (result == JOptionPane.OK_OPTION) {
+										ModelJGraph mj = ids.gm.getModel(tp.getPath());
+										if (mj != null) {
+											ids.editor.closeTab(mj.getID());
+										}
+										ids.gm.arbolProyecto.storeTreeExpansionPaths();
+										ids.gm.removePackage(tp.getPath());
+
+										( (DefaultTreeModel) ids.gm.arbolProyecto.getModel()).reload();
+										ids.gm.arbolProyecto.repaint();
+										ids.gm.arbolProyecto.restoreTreeExpansionPath();
+										ids.diagramDeleted(mj);
+										ids.setChanged(true);
+										resources.setChanged();  
+									}
+								}
+							}
+						});
+			}
+		}
+		return menu;
+};
+	
+	
+
+}
+
+
+
+@@@/text@@@
+	@@@/saveto@@@
+@@@/program@@@

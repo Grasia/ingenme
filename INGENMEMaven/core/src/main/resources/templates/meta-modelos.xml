@@ -1,0 +1,1049 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+	@@@repeat id="meta-models"@@@
+
+@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/entities/@@@v@@@modelid@@@/v@@@DataEntity.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz 
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.entities;
+
+
+import java.util.*;
+
+public class @@@v@@@modelid@@@/v@@@DataEntity extends ModelDataEntity {
+
+@@@repeat id="attributes"@@@
+  public @@@v@@@type@@@/v@@@ @@@v@@@name@@@/v@@@;
+@@@/repeat@@@
+
+@@@repeat id="collectionattributes"@@@
+  public TypedVector @@@v@@@name@@@/v@@@=new TypedVector(@@@v@@@type@@@/v@@@.class);
+@@@/repeat@@@
+
+  public @@@v@@@modelid@@@/v@@@DataEntity(String id) {
+    super(id);
+
+  }
+
+
+@@@repeat id="methods"@@@
+      public @@@v@@@type@@@/v@@@ get@@@v@@@name@@@/v@@@(){
+        return @@@v@@@name@@@/v@@@;
+      }
+       public void set@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@
+					@@@v@@@name@@@/v@@@){
+        this.@@@v@@@name@@@/v@@@=@@@v@@@name@@@/v@@@;
+      }
+
+@@@/repeat@@@
+
+@@@repeat id="collectionmethods"@@@
+  public Class get@@@v@@@name@@@/v@@@Type(){
+   return @@@v@@@name@@@/v@@@.getType();
+  }
+  public void add@@@v@@@name@@@/v@@@(@@@v@@@type@@@/v@@@ element){
+   this.@@@v@@@name@@@/v@@@.add(element);
+  }
+
+  public Enumeration get@@@v@@@name@@@/v@@@Elements(){
+   return this.@@@v@@@name@@@/v@@@.elements();
+  }
+
+  public void remove@@@v@@@name@@@/v@@@Element(String id){
+    Enumeration enumeration=this.get@@@v@@@name@@@/v@@@Elements();
+    ingenias.editor.entities.Entity found=null;
+    while (enumeration.hasMoreElements() && found==null){
+     ingenias.editor.entities.Entity ent=(ingenias.editor.entities.Entity)enumeration.nextElement();
+     if (ent.getId().equalsIgnoreCase(id))
+      found=ent;
+    }
+    if (found!=null)
+     this.@@@v@@@name@@@/v@@@.remove(found);
+  }
+
+@@@/repeat@@@
+
+
+public void fromMap(Map ht){
+super.fromMap(ht);
+@@@repeat id="simpleattributes"@@@
+ if (ht.get("@@@v@@@name@@@/v@@@")!=null && ht.get("@@@v@@@name@@@/v@@@").equals(""))
+  this.set@@@v@@@name@@@/v@@@(null);
+ else
+  if (ht.get("@@@v@@@name@@@/v@@@")!=null)
+   this.set@@@v@@@name@@@/v@@@(new @@@v@@@type@@@/v@@@(ht.get("@@@v@@@name@@@/v@@@").toString()));
+@@@/repeat@@@
+
+
+}
+public void toMap(Map ht){
+super.toMap(ht);
+@@@repeat id="simpleattributes"@@@
+//if (this.get@@@v@@@name@@@/v@@@() instanceof String)
+ if (this.get@@@v@@@name@@@/v@@@()!=null)
+ 	ht.put("@@@v@@@name@@@/v@@@",this.get@@@v@@@name@@@/v@@@().toString());
+ else	
+ 	ht.put("@@@v@@@name@@@/v@@@","");
+@@@/repeat@@@
+
+}
+
+}
+			@@@/text@@@
+@@@/saveto@@@
+
+@@@saveto@@@
+@@@file overwrite="yes"@@@
+target/generated/src/main/java/ingenias/editor/entities/@@@v@@@modelid@@@/v@@@ModelEntity.java
+@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz 
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.entities;
+import java.util.*;
+
+public class @@@v@@@modelid@@@/v@@@ModelEntity extends ModelEntity {
+
+
+  public @@@v@@@modelid@@@/v@@@ModelEntity(String id) {
+    super(id);
+    this.setModelType("@@@v@@@modelid@@@/v@@@");
+  }
+
+public void fromMap(Map ht){
+super.fromMap(ht);
+}
+
+public void toMap(Map ht){
+super.toMap(ht);
+}
+
+
+public String toString(){
+if (getModelID()==null)
+ return "";
+else
+ return getModelID();
+}
+
+}
+
+
+@@@/text@@@
+@@@/saveto@@@
+
+@@@saveto@@@
+@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/widget/@@@v@@@modelid@@@/v@@@DataEntityWidgetPreferences.java@@@/file@@@
+			@@@text@@@
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+ 
+package ingenias.editor.widget;
+import org.jgraph.graph.*;
+import java.util.*;
+
+public class @@@v@@@modelid@@@/v@@@DataEntityWidgetPreferences extends EntityWidgetPreferences {
+
+  Hashtable preferredWidget=new Hashtable();
+  Hashtable defaultValues=new Hashtable();
+
+
+  public @@@v@@@modelid@@@/v@@@DataEntityWidgetPreferences() {
+  super();
+  String[] preferredOrder={@@@repeat id="preferredorder"@@@"@@@v@@@order@@@/v@@@",@@@/repeat@@@""};
+  this.setPreferredOrder(preferredOrder);
+  Vector result=null;
+  @@@repeat id="simpleattributes"@@@
+   preferredWidget.put("@@@v@@@name@@@/v@@@",@@@v@@@widget@@@/v@@@.class);
+   result=new Vector();
+   @@@repeat id="defaultvalues"@@@
+   result.add("@@@v@@@value@@@/v@@@");
+   @@@/repeat@@@
+   defaultValues.put("@@@v@@@name@@@/v@@@",result);
+  @@@/repeat@@@
+  };
+
+
+
+  public Object getWidget(String attName)  throws IllegalAccessException,InstantiationException{
+   Class result=null;
+   ConfigurableWidget instance=null;
+   if (preferredWidget.get(attName)!=null)
+    result= ((Class)preferredWidget.get(attName));
+   else
+    return (super.getWidget(attName));
+   if (result!=null){
+    instance=(ConfigurableWidget)result.newInstance();
+    Vector values=(Vector)defaultValues.get(attName);
+    instance.setDefaultValues(values);
+   }
+   return instance;
+  }
+
+  public void configureWidget(ConfigurableWidget cw){
+
+//   cw.setDefaultValues(result);
+  }
+
+
+
+}
+
+
+@@@/text@@@
+		@@@/saveto@@@
+
+
+		
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cellfactories/@@@v@@@modelid@@@/v@@@CellViewFactory.java@@@/file@@@
+@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.cellfactories;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import java.util.Map;
+import java.util.Hashtable;
+
+import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.net.URL;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.swing.event.UndoableEditEvent;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import java.util.Vector;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import org.jgraph.plaf.basic.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.cell.*;
+import ingenias.editor.events.*;
+
+public class @@@v@@@modelid@@@/v@@@CellViewFactory implements CellViewFactory {
+
+public @@@v@@@modelid@@@/v@@@CellViewFactory() {}
+ 
+
+ 	public org.jgraph.graph.CellView createView(GraphModel model, Object cell) {
+		
+			org.jgraph.graph.CellView view = null;
+			if (model.isPort(cell))
+				view = new PortView(cell);
+			else if (model.isEdge(cell))
+				view = createEdgeView(cell);
+			else
+				view = createVertexView(cell);
+			return view;
+		}
+
+  // Modificar agregando nuevas clases VIEW segun se vayan a?endo
+
+  protected org.jgraph.graph.VertexView createVertexView(Object v) {
+    Object userObject = ( (DefaultGraphCell) v).getUserObject();
+
+   // Diagram Objects start here
+
+@@@repeat id="vertexviewcreation"@@@
+   if (userObject.getClass().equals(@@@v@@@object@@@/v@@@.class)){
+           return new ingenias.editor.cell.@@@v@@@object@@@/v@@@View(v);
+   }
+@@@/repeat@@@
+
+   // Diagram Relationships start here
+@@@repeat id="createEdgeView"@@@
+   if (v.getClass().equals(@@@v@@@relationship@@@/v@@@Edge.class)){
+           return new ingenias.editor.cell.@@@v@@@relationship@@@/v@@@View(v);
+   }
+@@@/repeat@@@
+
+    return null;
+  }
+
+  protected org.jgraph.graph.EdgeView createEdgeView(Object v) {
+  return new org.jgraph.graph.EdgeView(v);
+
+//         if (v instanceof ExecuteEdge){
+//           return new ExecuteView(v,this,cm);
+//         }
+
+  }
+
+ 
+
+
+}
+@@@/text@@@
+@@@/saveto@@@
+
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@ target/generated/src/main/java/ingenias/editor/models/@@@v@@@modelid@@@/v@@@ModelJGraph.java@@@/file@@@
+@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes and Juan Pavon
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+
+package ingenias.editor.models;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import java.util.Map;
+import java.util.Hashtable;
+import java.awt.Point;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+
+import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.net.URL;
+import java.util.*;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.swing.event.UndoableEditEvent;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import java.util.Vector;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import org.jgraph.plaf.basic.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.cell.*;
+import ingenias.editor.rendererxml.*;
+import ingenias.editor.events.*;
+import ingenias.exception.InvalidEntity;
+import ingenias.editor.*;
+import java.util.concurrent.TimeUnit;
+
+public class @@@v@@@modelid@@@/v@@@ModelJGraph extends ModelJGraph {
+
+  private Preferences prefs;
+  
+ 
+
+  public @@@v@@@modelid@@@/v@@@ModelJGraph(@@@v@@@modelid@@@/v@@@DataEntity mde, 
+                               String nombre, ObjectManager om, Model
+                               m, BasicMarqueeHandler mh, Preferences prefs) {
+    super(mde, nombre, m, mh,om);
+    this.prefs=prefs;
+    @@@v@@@code@@@/v@@@
+    this.getGraphLayoutCache().setFactory(new ingenias.editor.cellfactories.@@@v@@@modelid@@@/v@@@CellViewFactory());
+
+  }
+
+
+  //
+  // Adding Tooltips
+  //
+
+  // Return Cell Label as a Tooltip
+  public String getToolTipText(MouseEvent e) {
+    if (e != null) {
+      // Fetch Cell under Mousepointer
+      Object c = getFirstCellForLocation(e.getX(), e.getY());
+      if (c != null) {
+
+        // Convert Cell to String and Return
+        return convertValueToString(c);
+      }
+    }
+    return null;
+  }
+
+
+
+
+
+  public JToolBar getPaleta() {
+    return toolbar;
+
+  }
+
+  protected void creaToolBar() {
+    if (toolbar==null){
+    toolbar = new FilteredJToolBar("@@@v@@@modelid@@@/v@@@");
+    toolbar.setFloatable(false);
+    ImageIcon undoIcon = null;
+    JButton jb = null;
+
+@@@repeat id="agentbuttons"@@@
+   if (@@@v@@@ismain@@@/v@@@){
+    Image img_@@@v@@@object@@@/v@@@ =
+        ImageLoader.getImage("@@@v@@@small_icon@@@/v@@@");
+    undoIcon = new ImageIcon(img_@@@v@@@object@@@/v@@@);
+    Action @@@v@@@object@@@/v@@@=
+        new AbstractAction("@@@v@@@object@@@/v@@@", undoIcon) {
+      public void actionPerformed(ActionEvent e) {
+       try{
+        insert(new Point(0, 0), "@@@v@@@object@@@/v@@@");
+	} catch (InvalidEntity e1) {			
+		e1.printStackTrace();
+	}
+      }
+    };
+    @@@v@@@object@@@/v@@@.setEnabled(true);
+    jb = new JButton(@@@v@@@object@@@/v@@@){
+					@Override
+					public JToolTip createToolTip() {
+						return new ingenias.editor.editiondialog.JMultiLineToolTip();
+					}
+				};
+    jb.setText("");
+    jb.setName("@@@v@@@object@@@/v@@@");	
+    jb.setToolTipText("@@@v@@@object@@@/v@@@:"+new @@@v@@@object@@@/v@@@("").getHelpDesc()+"\n\n"+new @@@v@@@object@@@/v@@@("").getHelpRecom());
+    jb.addMouseListener(new MouseAdapter() {
+				    final int defaultDismissTimeout = ToolTipManager.sharedInstance().getDismissDelay();
+				    final int dismissDelayMinutes = (int) TimeUnit.MINUTES.toMillis(10); // 10 minutes
+				    @Override
+				    public void mouseEntered(MouseEvent me) {
+				        ToolTipManager.sharedInstance().setDismissDelay(dismissDelayMinutes);
+				    }
+				 
+				    @Override
+				    public void mouseExited(MouseEvent me) {
+				        ToolTipManager.sharedInstance().setDismissDelay(defaultDismissTimeout);
+				    }
+				});
+    toolbar.add(jb);
+    }
+@@@/repeat@@@
+    }
+
+  }
+
+  public Vector<String> getAllowedRelationships(){
+   Vector<String> relationships=new   Vector<String>();
+
+@@@repeat id="relationshipsallowed"@@@
+          relationships.add("@@@v@@@relationship@@@/v@@@");
+@@@/repeat@@@
+   return relationships;
+  }
+
+  public  Vector<String> getAllowedEntities(){
+   Vector<String> entities=new   Vector<String>();
+
+@@@repeat id="agentbuttons"@@@
+ entities.add("@@@v@@@object@@@/v@@@");
+@@@/repeat@@@
+   return entities;
+  }
+
+  // Gets the name of the possible relationships for the selected GraphCells.
+  // A relationship can be binary (DefaultEdge) or n-ary (NAryEdge).
+  // The requested action is slightly different depending on selected items.
+  // According to the number of Edges in selected, the action can be:
+  // 0 => Propose a relationship between selected according included classes.
+  // 1 and it is NAryEdge => The class of that NAryEdge if it is possible according implements java.io.Serializable
+  //      current cardinality and included classes..
+  // other cases => Error, no relationships are allowed.
+  public Object[] getPossibleRelationships(GraphCell[] selected) {
+    // Possible relationships initialization.
+    Vector v = new Vector();
+
+    // Search for NAryEdges in selected.
+    int nAryEdgesNum = 0;
+    int edgesNum = 0;
+    NAryEdge selectedEdge = null;
+    for (int i = 0; i < selected.length; i++) {
+      if (selected[i] instanceof NAryEdge) {
+        nAryEdgesNum++;
+        selectedEdge = (NAryEdge) selected[i];
+      }
+      else if (selected[i] instanceof DefaultEdge) {
+        edgesNum++;
+
+        // Connections are only possible with two or more elements and without binary edges.
+      }
+    }
+    if (selected.length >= 2 && edgesNum == 0) {
+
+      // The number of NAryEdges is considered.
+      if (nAryEdgesNum == 0) {
+        // acceptConnection methods only admits vertex parameters.
+        // Binary relationships.
+@@@repeat id="relationshipsallowed"@@@
+        // N-ary relationships. Sometimes they can be also binary.
+        if (@@@v@@@relationship@@@/v@@@Edge.acceptConnection(this.getModel(), selected)) {
+          v.add("@@@v@@@relationship@@@/v@@@");
+	  }
+@@@/repeat@@@
+      }
+      else if (nAryEdgesNum == 1) {
+@@@repeat id="relationshipsallowed"@@@
+        if (selectedEdge instanceof @@@v@@@relationship@@@/v@@@Edge &&
+        (@@@v@@@relationship@@@/v@@@Edge.acceptConnection(this.getModel(), selected))) {
+          v.add("@@@v@@@relationship@@@/v@@@");
+        }
+@@@/repeat@@@
+      }
+    }
+
+    return v.toArray();
+  }
+
+  public DefaultGraphCell getInstanciaNRelacion(String relacion,
+                                                GraphCell[] selected) {
+
+    // Search for NAryEdges in selected.
+    int nAryEdgesNum = 0;
+    int edgesNum = 0;
+    NAryEdge selectedEdge = null;
+    for (int i = 0; i < selected.length; i++) {
+      if (selected[i] instanceof NAryEdge) {
+        nAryEdgesNum++;
+        selectedEdge = (NAryEdge) selected[i];
+      }
+      else if (selected[i] instanceof DefaultEdge) {
+        edgesNum++;
+
+      }
+    }
+    if (nAryEdgesNum <= 1 && edgesNum == 0) {
+@@@repeat id="relationshipsallowed"@@@
+      if (relacion.equalsIgnoreCase("@@@v@@@relationship@@@/v@@@")) {
+        // ResponsibleNEdge already exists.
+        if (nAryEdgesNum == 1 && selectedEdge instanceof @@@v@@@relationship@@@/v@@@Edge) {
+          return selectedEdge;
+        }
+        // There is no NAryEdges in selected.
+        else if (nAryEdgesNum == 0) {
+          return new @@@v@@@relationship@@@/v@@@Edge(new ingenias.editor.entities.@@@v@@@relationship@@@/v@@@(getMJGraph().getNewId()));
+        }
+      }
+@@@/repeat@@@
+    }
+
+    return null;
+  }
+  
+  public DefaultGraphCell createCell(String entity) throws InvalidEntity{
+  @@@repeat id="agentbuttons"@@@
+    if (entity.equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
+    @@@v@@@object@@@/v@@@ nentity=getOM().create@@@v@@@object@@@/v@@@(getMJGraph().getNewId("@@@v@@@object@@@/v@@@"));
+      DefaultGraphCell vertex = new
+          @@@v@@@object@@@/v@@@Cell(nentity);
+      // Default Size for the cell with the new entity
+     return vertex;
+    }
+    else
+@@@/repeat@@@
+	  throw new ingenias.exception.InvalidEntity("Entity type "+entity+" is not allowed in this diagram"); 
+  }
+  
+  public Dimension getDefaultSize(Entity entity) throws InvalidEntity{
+    @@@repeat id="agentbuttons"@@@
+    if (entity.getType().equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
+      return @@@v@@@object@@@/v@@@View.getSize((ingenias.editor.entities.@@@v@@@object@@@/v@@@)entity);      
+    }
+    else
+@@@/repeat@@@
+@@@repeat id="relationshipsallowed"@@@
+      if (entity.getType().equalsIgnoreCase("@@@v@@@relationship@@@/v@@@")) {
+      	return @@@v@@@relationship@@@/v@@@View.getSize((ingenias.editor.entities.@@@v@@@relationship@@@/v@@@)entity);
+      }
+@@@/repeat@@@
+    throw new ingenias.exception.InvalidEntity("Entity type "+entity+" is not allowed in this diagram"); 
+	    
+  }
+
+  public DefaultGraphCell insert(Point point, String entity) throws InvalidEntity {
+  // CellView information is not available after creating the cell.
+
+    // Create a Map that holds the attributes for the Vertex
+    Map map = new Hashtable();
+    // Snap the Point to the Grid
+    point = convert(this.snap(new Point(point)));
+
+    // Construct Vertex with no Label
+    DefaultGraphCell vertex;
+    Dimension size;
+
+    vertex=this.createCell(entity);
+    size=this.getDefaultSize((Entity)vertex.getUserObject());
+
+
+
+    // Add a Bounds Attribute to the Map
+    GraphConstants.setBounds(map, new Rectangle(point, size));
+
+    // Construct a Map from cells to Maps (for insert)
+    Hashtable attributes = new Hashtable();
+    // Associate the Vertex with its Attributes
+    attributes.put(vertex, map);
+    // Insert the Vertex and its Attributes
+    this.getModel().insert(new Object[] {vertex},attributes
+                           , null, null, null);
+
+	Entity newEntity=(Entity) vertex.getUserObject();
+	if (prefs.getModelingLanguage()==Preferences.ModelingLanguage.UML)
+		newEntity.getPrefs(null).setView(ViewPreferences.ViewType.UML);
+	if (prefs.getModelingLanguage()==Preferences.ModelingLanguage.INGENIAS)
+		newEntity.getPrefs(null).setView(ViewPreferences.ViewType.INGENIAS);
+
+	getGraphLayoutCache().setVisible(vertex,true);// makes the cell visible because
+      // the graphlayoutcache has partial set to true
+
+    return vertex;
+  }
+
+  
+
+
+public DefaultGraphCell insertDuplicated(Point point, ingenias.editor.entities.Entity
+                               entity) {
+    // CellView information is not available after creating the cell.
+
+    // Create a Map that holds the attributes for the Vertex
+    Map map =new Hashtable();
+    // Snap the Point to the Grid
+    point = convert(this.snap(new Point(point)));
+   
+
+    // Construct Vertex with no Label
+    DefaultGraphCell vertex = null;
+    Dimension size = null;
+
+@@@repeat id="agentbuttons"@@@
+    if (entity.getClass().equals(@@@v@@@object@@@/v@@@.class)) {
+      vertex = new @@@v@@@object@@@/v@@@Cell( (@@@v@@@object@@@/v@@@) entity);
+      // Default Size for the new Vertex with the new entity within
+      size = @@@v@@@object@@@/v@@@View.getSize((@@@v@@@object@@@/v@@@) entity);
+      
+    }
+    else
+@@@/repeat@@@
+   {}; // Just in case there is no allowed entity in the diagram
+
+    if (vertex == null) {
+JOptionPane.showMessageDialog(this,
+		 "Object not allowed in this diagram "+this.getID()+":"+ 
+		 entity.getId()+":"+entity.getClass().getName()+
+		 this.getClass().getName(),"Warning", JOptionPane.WARNING_MESSAGE);    }
+    else {
+
+      // Add a Bounds Attribute to the Map
+      GraphConstants.setBounds(map, new Rectangle(point, size));
+
+      // Construct a Map from cells to Maps (for insert)
+      Hashtable attributes = new Hashtable();
+      // Associate the Vertex with its Attributes
+      attributes.put(vertex, map);
+      // Insert the Vertex and its Attributes
+      this.getModel().insert(new Object[] {vertex},attributes
+                             , null, null, null);
+      getGraphLayoutCache().setVisible(vertex,true);// makes the cell visible because
+      // the graphlayoutcache has partial set to true  
+        // waits for the cellview to be created
+		boolean created=false;
+		VertexView vv=null;
+		while (!created){
+			CellView[] cellviews = this.getGraphLayoutCache().getCellViews();
+			for (CellView cv:cellviews){
+				if (cv.getCell()==vertex){
+					// created!
+					created=true;
+					vv=(VertexView)cv;
+				}
+			}
+			try {
+				Thread.currentThread().sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		// This should be used when the corresponding view for the entity has containers!
+		// It can be known by inspecting its renderer. To get it, a cellview is needed,
+		// but the cellview is created after a while via succesive callbacks to
+		// the view factories
+
+		if (!ListenerContainer.evaluate((CompositeRenderer) vv.getRenderer(),entity,null).isEmpty()){
+			// there are container renderers that need new cells corresponding to children to
+			// be inserted
+
+						Hashtable<String, CollectionPanel> renderers = ListenerContainer.evaluate((CompositeRenderer) vv.getRenderer(),entity,null);
+			for (String field:renderers.keySet()){
+				Method obtainenumeration;
+				try {
+					obtainenumeration = entity.getClass().getMethod("get"+field+"Elements");
+					Enumeration<ingenias.editor.entities.Entity>  enom=(Enumeration<ingenias.editor.entities.Entity>) obtainenumeration.invoke(entity,new Object[]{});
+					while (enom.hasMoreElements()){
+						DefaultGraphCell child=this.insertDuplicated(new Point(40,10), enom.nextElement());
+						try {
+							getListenerContainer().setParent(child,vertex);
+						} catch (WrongParent e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} 
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+							
+		}
+		
+                             
+    }
+   return vertex;
+
+  }
+
+
+ public synchronized JGraph cloneJGraph(IDEState ids){
+
+		
+
+		 @@@v@@@modelid@@@/v@@@ModelJGraph jg=new  @@@v@@@modelid@@@/v@@@ModelJGraph(
+				(@@@v@@@modelid@@@/v@@@DataEntity) this.mde,name, ids.om,
+				new Model(ids),new BasicMarqueeHandler(),ids.prefs); 
+
+		this.setSelectionCells(getGraphLayoutCache().getCells(false,true,false,false));
+		Action copyaction =new EventRedirectorForGraphCopy(this,this.getTransferHandler().getCopyAction(),null	); 			
+		Action pasteaction =new EventRedirectorPasteForGraphCopy(jg,jg.getTransferHandler().getPasteAction(),null	);
+		copyaction.actionPerformed(new ActionEvent(this,0,"hello"));		
+		pasteaction.actionPerformed(new ActionEvent(this,0,"hello"));
+		jg.invalidate();
+		jg.doLayout();
+		
+		return jg;
+
+	}
+
+
+  public String toString() {
+    return this.getID();
+  }
+
+}
+@@@/text@@@
+@@@/saveto@@@
+
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@ target/generated/src/main/java/ingenias/editor/panels/@@@v@@@modelid@@@/v@@@Panel.java@@@/file@@@
+@@@text@@@
+
+/** 
+ * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes and Juan Pavon
+ * 
+ *   Modifications over original code from jgraph.sourceforge.net
+ * 
+ * This file is part of the INGENME tool. INGENME is an open source meta-editor
+ * which produces customized editors for user-defined modeling languages
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation version 3 of the License
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ **/
+ 
+package ingenias.editor.panels;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import java.util.Map;
+import java.util.Hashtable;
+
+import java.awt.*;
+import java.awt.image.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.net.URL;
+import java.util.Map;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.swing.event.UndoableEditEvent;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import java.util.Vector;
+import org.jgraph.JGraph;
+import org.jgraph.graph.*;
+import org.jgraph.event.*;
+import org.jgraph.plaf.basic.*;
+import ingenias.editor.entities.*;
+import ingenias.editor.cell.*;
+import ingenias.editor.events.*;
+import ingenias.exception.InvalidEntity;
+import ingenias.editor.*;
+
+public class @@@v@@@modelid@@@/v@@@Panel extends JGraph {
+
+  public @@@v@@@modelid@@@/v@@@Panel(@@@v@@@modelid@@@/v@@@DataEntity mde, 
+                               String nombre, Model
+                               m, BasicMarqueeHandler mh) {
+    super(m, mh);
+    
+    this.getGraphLayoutCache().setFactory(new ingenias.editor.cellfactories.@@@v@@@modelid@@@/v@@@CellViewFactory());
+  }
+
+
+  //
+  // Adding Tooltips
+  //
+
+  // Return Cell Label as a Tooltip
+  public String getToolTipText(MouseEvent e) {
+    if (e != null) {
+      // Fetch Cell under Mousepointer
+      Object c = getFirstCellForLocation(e.getX(), e.getY());
+      if (c != null) {
+
+        // Convert Cell to String and Return
+        return convertValueToString(c);
+      }
+    }
+    return null;
+  }
+
+  public static Vector<String> getAllowedEntities(){
+   Vector<String> entities=new   Vector<String>();
+
+@@@repeat id="agentbuttons"@@@
+ entities.add("@@@v@@@object@@@/v@@@");
+@@@/repeat@@@
+   return entities;
+  }
+
+ 
+   
+  public DefaultGraphCell createCell(String entity) throws InvalidEntity{
+  @@@repeat id="agentbuttons"@@@
+    if (entity.equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
+    @@@v@@@object@@@/v@@@ nentity=new @@@v@@@object@@@/v@@@(((Model)getModel()).getNewId("@@@v@@@object@@@/v@@@"));
+      DefaultGraphCell vertex = new
+          @@@v@@@object@@@/v@@@Cell(nentity);
+      // Default Size for the cell with the new entity
+     return vertex;
+    }
+    else
+@@@/repeat@@@
+	  throw new ingenias.exception.InvalidEntity("Entity type "+entity+" is not allowed in this diagram"); 
+  }
+  
+  public Dimension getDefaultSize(Entity entity) throws InvalidEntity{
+    @@@repeat id="agentbuttons"@@@
+    if (entity.getType().equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
+      return @@@v@@@object@@@/v@@@View.getSize((@@@v@@@object@@@/v@@@)entity);      
+    }
+    else
+@@@/repeat@@@
+    throw new ingenias.exception.InvalidEntity("Entity type "+entity+" is not allowed in this diagram"); 
+	    
+  }
+
+  public DefaultGraphCell insert(Point point, String entity) throws InvalidEntity {
+  // CellView information is not available after creating the cell.
+
+    // Create a Map that holds the attributes for the Vertex
+    Map map = new Hashtable();
+    // Snap the Point to the Grid
+    
+    // Construct Vertex with no Label
+    DefaultGraphCell vertex;
+    Dimension size;
+
+    vertex=this.createCell(entity);
+    size=this.getDefaultSize((Entity)vertex.getUserObject());
+
+
+
+    // Add a Bounds Attribute to the Map
+    GraphConstants.setBounds(map, new Rectangle(point, size));
+
+    // Construct a Map from cells to Maps (for insert)
+    Hashtable attributes = new Hashtable();
+    // Associate the Vertex with its Attributes
+    attributes.put(vertex, map);
+    // Insert the Vertex and its Attributes
+    this.getModel().insert(new Object[] {vertex},attributes
+                           , null, null, null);
+    return vertex;
+  }
+
+  
+
+
+public DefaultGraphCell insertDuplicated(Point point, ingenias.editor.entities.Entity
+                               entity) {
+    // CellView information is not available after creating the cell.
+
+    // Create a Map that holds the attributes for the Vertex
+    Map map =new Hashtable();
+    // Snap the Point to the Grid
+      
+
+    // Construct Vertex with no Label
+    DefaultGraphCell vertex = null;
+    Dimension size = null;
+
+@@@repeat id="agentbuttons"@@@
+    if (entity.getClass().equals(@@@v@@@object@@@/v@@@.class)) {
+      vertex = new @@@v@@@object@@@/v@@@Cell( (@@@v@@@object@@@/v@@@) entity);
+      // Default Size for the new Vertex with the new entity within
+      size = @@@v@@@object@@@/v@@@View.getSize((@@@v@@@object@@@/v@@@) entity);
+    }
+    else
+@@@/repeat@@@
+   {}; // Just in case there is no allowed entity in the diagram
+
+    if (vertex == null) {
+     System.err.println(
+		 "Object not allowed in @@@v@@@modelid@@@/v@@@ diagram :"+ 
+		 entity.getId()+":"+entity.getClass().getName()+
+		 this.getClass().getName());    }
+    else {
+
+      // Add a Bounds Attribute to the Map
+      GraphConstants.setBounds(map, new Rectangle(point, size));
+
+      // Construct a Map from cells to Maps (for insert)
+      Hashtable attributes = new Hashtable();
+      // Associate the Vertex with its Attributes
+      attributes.put(vertex, map);
+      // Insert the Vertex and its Attributes
+      this.getModel().insert(new Object[] {vertex},attributes
+                             , null, null, null);
+    }
+   return vertex;
+
+  }
+
+
+}
+@@@/text@@@
+@@@/saveto@@@
+
+	@@@/repeat@@@
+@@@/program@@@
+
