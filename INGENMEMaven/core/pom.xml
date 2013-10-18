@@ -8,6 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.ingenme</groupId>
   <artifactId>core</artifactId>
+    <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>core</name>
   <description>The INGENIAS Meta-Editor core. It is a set of facilities to generate an editor from a detailed xml description</description>

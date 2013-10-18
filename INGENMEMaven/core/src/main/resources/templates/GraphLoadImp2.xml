@@ -1,6 +1,6 @@
 @@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
 	@@@saveto@@@
-		@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/persistence/GraphLoadImp2.java@@@/file@@@
+		@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/persistence/GraphLoadImp2.java@@@/file@@@
 		@@@text@@@
 
 

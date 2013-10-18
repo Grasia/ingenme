@@ -6,7 +6,7 @@
 		@@@!-- meta-class representation --@@@
 		@@@!-- ************************* --@@@
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/entities/@@@v@@@object@@@/v@@@.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/entities/@@@v@@@object@@@/v@@@.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz
@@ -141,7 +141,7 @@ return ""+@@@v@@@tostring@@@/v@@@;
 @@@/saveto@@@
 
 @@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/widget/@@@v@@@object@@@/v@@@WidgetPreferences.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/widget/@@@v@@@object@@@/v@@@WidgetPreferences.java@@@/file@@@
 			@@@text@@@
 
 /** 

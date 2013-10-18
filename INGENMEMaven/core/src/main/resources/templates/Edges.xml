@@ -2,7 +2,7 @@
 @@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
 @@@repeat id="relationshipedges"@@@
 @@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/entities/@@@v@@@relationship@@@/v@@@.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/entities/@@@v@@@relationship@@@/v@@@.java@@@/file@@@
 			@@@text@@@
 
 /** 
@@ -138,7 +138,7 @@ public String toString(){
 
 
 @@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@View.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@View.java@@@/file@@@
 			@@@text@@@
 
 /*
@@ -235,7 +235,7 @@ static @@@v@@@relationship@@@/v@@@Renderer renderer1 = new @@@v@@@relationship@@
 @@@repeat id="graphobject"@@@
 @@@repeat id="views"@@@
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/resources/rendererxml/@@@v@@@relationship@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/resources/rendererxml/@@@v@@@relationship@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml@@@/file@@@
 			@@@text@@@
 @@@v@@@content@@@/v@@@
 		@@@/text@@@
@@ -244,7 +244,7 @@ static @@@v@@@relationship@@@/v@@@Renderer renderer1 = new @@@v@@@relationship@@
 
 
 @@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@Renderer.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@Renderer.java@@@/file@@@
 			@@@text@@@
 
 /** 
@@ -404,7 +404,7 @@ current=ent.getPrefs(attributes).getView();
 
 
 @@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@Edge.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cell/@@@v@@@relationship@@@/v@@@Edge.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
@@ -663,7 +663,7 @@ int kk = currentSolution.size();//////////
 			@@@/text@@@
 			@@@/saveto@@@
 @@@saveto@@@
-@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/widget/@@@v@@@relationship@@@/v@@@WidgetPreferences.java@@@/file@@@
+@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/widget/@@@v@@@relationship@@@/v@@@WidgetPreferences.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz

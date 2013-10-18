@@ -5,7 +5,7 @@
 		@@@!-- meta-class representation --@@@
 		@@@!-- ************************* --@@@
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/persistence/ObjectSave.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/persistence/ObjectSave.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz

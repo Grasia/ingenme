@@ -2,7 +2,7 @@
 	@@@repeat id="meta-models"@@@
 
 @@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/entities/@@@v@@@modelid@@@/v@@@DataEntity.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/entities/@@@v@@@modelid@@@/v@@@DataEntity.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz 
@@ -112,7 +112,7 @@ super.toMap(ht);
 
 @@@saveto@@@
 @@@file overwrite="yes"@@@
-target/generated/src/main/java/ingenias/editor/entities/@@@v@@@modelid@@@/v@@@ModelEntity.java
+@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/entities/@@@v@@@modelid@@@/v@@@ModelEntity.java
 @@@/file@@@
 			@@@text@@@
 /** 
@@ -168,7 +168,7 @@ else
 @@@/saveto@@@
 
 @@@saveto@@@
-@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/widget/@@@v@@@modelid@@@/v@@@DataEntityWidgetPreferences.java@@@/file@@@
+@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/widget/@@@v@@@modelid@@@/v@@@DataEntityWidgetPreferences.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
@@ -248,7 +248,7 @@ public class @@@v@@@modelid@@@/v@@@DataEntityWidgetPreferences extends EntityWid
 
 		
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cellfactories/@@@v@@@modelid@@@/v@@@CellViewFactory.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cellfactories/@@@v@@@modelid@@@/v@@@CellViewFactory.java@@@/file@@@
 @@@text@@@
 
 /** 
@@ -358,7 +358,7 @@ public @@@v@@@modelid@@@/v@@@CellViewFactory() {}
 @@@/saveto@@@
 
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@ target/generated/src/main/java/ingenias/editor/models/@@@v@@@modelid@@@/v@@@ModelJGraph.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/models/@@@v@@@modelid@@@/v@@@ModelJGraph.java@@@/file@@@
 @@@text@@@
 
 /** 
@@ -842,7 +842,7 @@ JOptionPane.showMessageDialog(this,
 @@@/saveto@@@
 
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@ target/generated/src/main/java/ingenias/editor/panels/@@@v@@@modelid@@@/v@@@Panel.java@@@/file@@@
+			@@@file overwrite="yes"@@@ @@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/panels/@@@v@@@modelid@@@/v@@@Panel.java@@@/file@@@
 @@@text@@@
 
 /** 

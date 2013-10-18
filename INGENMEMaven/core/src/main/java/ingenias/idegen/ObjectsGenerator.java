@@ -105,7 +105,7 @@ public class ObjectsGenerator {
 	 *@exception  IOException   Description of Exception
 	 *@exception  SAXException  Description of Exception
 	 */
-	public String parse(String source) throws IOException, SAXException,
+	public String parse(String source, String directory) throws IOException, SAXException,
 	Exception {
 		DOMParser parser = new DOMParser();
 		//  Parse the Document
@@ -175,7 +175,8 @@ public class ObjectsGenerator {
 			Metamodel metamodel = (Metamodel) enumeration.nextElement();
 			result = result + this.generateMetamodelCode(metamodel);
 		}
-
+		result=result+"<v id=\"jadeproject\">"+directory+"</v>";
+		
 		result = result + "</sequences>";
 		return result;
 	}
@@ -993,14 +994,14 @@ public class ObjectsGenerator {
 			}
 
 			ObjectsGenerator og = new ObjectsGenerator();
-			String result = og.parse(metamodelfile);
+			String result = og.parse(metamodelfile,args[1]);
 			File tfile = File.createTempFile("objgen", "xml");
 			tfile.deleteOnExit();
 			FileOutputStream fos = new FileOutputStream(tfile);
 			fos.write(result.getBytes());
 			fos.close();
-			if (args.length >1) {
-				String file = args[1];
+			if (args.length >2) {
+				String file = args[2];
 				if (!new File(file).exists()){
 					System.err.println("The template file "+args[1]+" does not exist");
 					// instead of doing a System.exit, a runtimeException is created
@@ -1009,6 +1010,7 @@ public class ObjectsGenerator {
 					throw new RuntimeException(new Exception("The template file "+args[1]+" does not exist")); 
 				}
 				System.err.println(file);
+					
 				Codegen.applyArroba(result, new FileInputStream(file));
 			}
 			else {

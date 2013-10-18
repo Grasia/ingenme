@@ -4,7 +4,7 @@
 		@@@!-- editor objects            --@@@
 		@@@!-- ************************* --@@@
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@Cell.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@Cell.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes
@@ -48,7 +48,7 @@ public class @@@v@@@object@@@/v@@@Cell extends  DefaultGraphCell {
 
 @@@repeat id="views"@@@
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/resources/rendererxml/@@@v@@@object@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/resources/rendererxml/@@@v@@@object@@@/v@@@@@@v@@@viewid@@@/v@@@Panel.xml@@@/file@@@
 			@@@text@@@
 @@@v@@@content@@@/v@@@
 		@@@/text@@@
@@ -56,7 +56,7 @@ public class @@@v@@@object@@@/v@@@Cell extends  DefaultGraphCell {
 @@@/repeat@@@
 
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@Renderer.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@Renderer.java@@@/file@@@
 			@@@text@@@
 
 
@@ -218,7 +218,7 @@ public class @@@v@@@object@@@/v@@@Renderer extends CompositeRenderer implements 
 @@@/text@@@
 		@@@/saveto@@@
 		@@@saveto@@@
-			@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@View.java@@@/file@@@
+			@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/cell/@@@v@@@object@@@/v@@@View.java@@@/file@@@
 			@@@text@@@
 /** 
  * Copyright (C) 2010  Jorge J. Gomez-Sanz over original code from Ruben Fuentes

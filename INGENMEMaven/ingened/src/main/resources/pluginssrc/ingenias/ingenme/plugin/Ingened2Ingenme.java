@@ -241,6 +241,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	private GraphFactory gfact;
 	private Graph tmpdiagram;
 	private GraphAttributeFactory atfact;
+	private String folder="";
 
 
 	/**
@@ -250,8 +251,9 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	 *@exception  Exception  Error accessing any file or malformed XML exception
 	 */
 
-	public Ingened2Ingenme(String file) throws Exception {
+	public Ingened2Ingenme(String file, String folder) throws Exception {
 		super(file);
+		this.folder=folder;
 	}
 
 	/**
@@ -803,10 +805,10 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		return saveLocation.getText();
 		}
 		else{
-		String saveLocation=		"src/main/resources/metamodel/metamodel.xml";
+		String saveLocation=		folder+"/src/main/resources/metamodel/metamodel.xml";
 		File location=new File(saveLocation);
 		writeFileContent(output, null, location);
-		 return "src/main/resources/metamodel/metamodel.xml";
+		 return folder+"/src/main/resources/metamodel/metamodel.xml";
 		 }
 		
 	}
@@ -977,12 +979,11 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}else 
 					output.append("<normal-icon>"+basicRepresentation.getAttributeByName("NormalIcon").getSimpleValue()+"</normal-icon>\n");				
 			} else {
-				new File("tmp").mkdir(); // creates a temp folder
-				File smallicon=new File("tmp/m"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
+				File smallicon=new File(folder+"/target/m"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
 				this.iconsToMove.add(smallicon.getAbsolutePath());
 				inventIcon(metamodelEntity, smallicon);
 
-				File bigicon=new File("tmp/"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
+				File bigicon=new File(folder+"/target/"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
 				this.iconsToMove.add(bigicon.getAbsolutePath());
 				inventIcon(metamodelEntity, bigicon);
 
@@ -1374,7 +1375,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	 */
 	public static void main(String args[]) throws Exception {
 		ingenias.editor.Log.initInstance(new java.io.PrintWriter(System.err));
-		Ingened2Ingenme ingened=new Ingened2Ingenme(args[0]);
+		Ingened2Ingenme ingened=new Ingened2Ingenme(args[0], args[1]);
 		ingened.run();
 		// Prints the result
 

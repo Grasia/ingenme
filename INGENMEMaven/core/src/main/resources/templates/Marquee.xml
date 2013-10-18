@@ -1,7 +1,7 @@
 @@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
 @@@repeat id="meta-models"@@@
 @@@saveto@@@
-@@@file overwrite="yes"@@@target/generated/src/main/java/ingenias/editor/actions/diagram/@@@v@@@modelid@@@/v@@@ActionsFactory.java@@@/file@@@
+@@@file overwrite="yes"@@@@@@v@@@jadeproject@@@/v@@@/target/generated/src/main/java/ingenias/editor/actions/diagram/@@@v@@@modelid@@@/v@@@ActionsFactory.java@@@/file@@@
 @@@text@@@
 
 
