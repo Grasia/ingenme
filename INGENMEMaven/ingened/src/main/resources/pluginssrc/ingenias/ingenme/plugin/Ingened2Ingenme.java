@@ -289,7 +289,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		return "INGENME translator";
 	}
 
-
+	private boolean error=false;
 	/**
 	 *  It opens the different files generated under the ingenias/jade/components folder looking
 	 *  for specific tags. These tags mark the beginning and the end of the modification
@@ -322,13 +322,14 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}
 			} else
 			{
-				javax.swing.JOptionPane.showMessageDialog(getResources().getMainFrame(), "There are errors in the metamodel. Check the editor panels","Error",javax.swing.JOptionPane.ERROR_MESSAGE);
+			/*	javax.swing.JOptionPane.showMessageDialog(getResources().getMainFrame(), "There are errors in the metamodel. Check the editor panels","Error",javax.swing.JOptionPane.ERROR_MESSAGE);*/
 				ingenias.editor.Log.getInstance().logERROR("There were errors processing the metamodel");					
 				int k=0;
 				for (String errorEntry:errors){
 					ingenias.editor.Log.getInstance().logERROR(k+":"+errorEntry);						
 					k++;
 				}
+				error=true;
 			}
 		}
 		catch (NotFound ex) {
@@ -1378,8 +1379,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		Ingened2Ingenme ingened=new Ingened2Ingenme(args[0], args[1]);
 		ingened.run();
 		// Prints the result
-
-		if (Log.getInstance().areThereErrors()){
+		if (ingenias.editor.Log.getInstance().areThereErrors() || ingened.error){
 			for (Frame f:Frame.getFrames()){
 				f.dispose();
 
