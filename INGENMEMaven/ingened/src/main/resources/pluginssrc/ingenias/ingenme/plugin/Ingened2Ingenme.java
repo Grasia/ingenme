@@ -1145,11 +1145,11 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		HashSet<GraphEntity> ancestors = getAllAncestors(ge);
 		producePropertiesForEntity(errors, output, ge,
 				propertiesToConsider, ge);
-		for (GraphEntity ancestor:ancestors){
+		/*for (GraphEntity ancestor:ancestors){
 			producePropertiesForEntity(errors, output, ge,
 					propertiesToConsider, ancestor);
 
-		}
+		}*/
 
 	}
 
@@ -1157,6 +1157,14 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			StringBuffer output, GraphEntity ge,
 			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
 					throws NullEntity, NotFound {
+		HashSet<GraphRelationship> aggregationToConsider = getInternalExternalProps(
+				propertiesToConsider, ancestor);
+		generateProperties(errors, output, ancestor,ge.getID(), propertiesToConsider,aggregationToConsider);
+	}
+
+	private HashSet<GraphRelationship> getInternalExternalProps(
+			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
+			throws NullEntity, NotFound {
 		HashSet<GraphRelationship> aggregationToConsider=new HashSet<GraphRelationship>();
 		GraphRelationship[] rels = getRelatedElementsRels(ancestor,"HasMO", "HasMOtarget");		
 		for (GraphRelationship gr:rels){
@@ -1165,7 +1173,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		}
 		getExternalProperties(ancestor, propertiesToConsider);
 		getInternalProperties(ancestor, propertiesToConsider);
-		generateProperties(errors, output, ancestor,ge.getID(), propertiesToConsider,aggregationToConsider);
+		return aggregationToConsider;
 	}
 
 	private void generateProperties(Vector<String> errors, StringBuffer output,
@@ -1235,10 +1243,32 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}
 			}
 		} else {
-			int order=0;
+			int order=0;			
 			for (GraphEntity property:propertiesToConsider){			
 				table.put(new Integer(order),property);
 				order=order+1;
+			}
+			HashSet<GraphEntity> otherprops=new HashSet<GraphEntity>();
+			if (ge instanceof GraphEntity){
+				HashSet<GraphEntity> ancestors = getAllAncestors((GraphEntity)ge);
+				for (GraphEntity ancestor:ancestors){
+					HashSet<GraphRelationship> aggregationRels=getInternalExternalProps(otherprops, ancestor);
+					for (GraphRelationship aggregation:aggregationRels){					
+					if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaObject")){
+						try{
+							GraphEntity metadiagramEntity=aggregation.getRoles("HasMOtarget")[0].getPlayer();
+							otherprops.add(metadiagramEntity);
+						}catch (NullEntity ne){
+							ne.printStackTrace();
+						}
+					}
+					}
+				}
+				otherprops.removeAll(propertiesToConsider);
+				for (GraphEntity property:otherprops){			
+					table.put(new Integer(order),property);
+					order=order+1;
+				}
 			}
 		}
 
