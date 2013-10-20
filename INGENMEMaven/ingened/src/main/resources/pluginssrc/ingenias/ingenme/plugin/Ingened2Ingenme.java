@@ -322,7 +322,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}
 			} else
 			{
-			/*	javax.swing.JOptionPane.showMessageDialog(getResources().getMainFrame(), "There are errors in the metamodel. Check the editor panels","Error",javax.swing.JOptionPane.ERROR_MESSAGE);*/
+				/*	javax.swing.JOptionPane.showMessageDialog(getResources().getMainFrame(), "There are errors in the metamodel. Check the editor panels","Error",javax.swing.JOptionPane.ERROR_MESSAGE);*/
 				ingenias.editor.Log.getInstance().logERROR("There were errors processing the metamodel");					
 				int k=0;
 				for (String errorEntry:errors){
@@ -703,115 +703,115 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 
 
 	private String saveMetamodel(final StringBuffer output) {
-	if (super.getResources()!=null) // command line execution
-	{
-		final javax.swing.JDialog saveSpecField=new javax.swing.JDialog(super.getResources().getMainFrame(),"Save metamodel");
+		if (super.getResources()!=null) // command line execution
+		{
+			final javax.swing.JDialog saveSpecField=new javax.swing.JDialog(super.getResources().getMainFrame(),"Save metamodel");
 
-		saveSpecField.getContentPane().setLayout(new BorderLayout());
-		saveSpecField.getContentPane().add(new JLabel("Generation sucessful. Select a name and location for the generated file"),BorderLayout.NORTH);
+			saveSpecField.getContentPane().setLayout(new BorderLayout());
+			saveSpecField.getContentPane().add(new JLabel("Generation sucessful. Select a name and location for the generated file"),BorderLayout.NORTH);
 
-		JPanel locationPanel=new JPanel();
-		if (lastValue==null || lastValue.isEmpty()){
-			lastValue=this.getProperty("defaultOutput").value;
-		}
-		final JTextField saveLocation=new JTextField(lastValue,30);
-		JButton chooseLocation=new JButton("Browse files");
-		locationPanel.add(new JLabel("Save location:"));
-		locationPanel.add(saveLocation);
-		locationPanel.add(chooseLocation);
-		chooseLocation.addActionListener(new java.awt.event.ActionListener(){
+			JPanel locationPanel=new JPanel();
+			if (lastValue==null || lastValue.isEmpty()){
+				lastValue=this.getProperty("defaultOutput").value;
+			}
+			final JTextField saveLocation=new JTextField(lastValue,30);
+			JButton chooseLocation=new JButton("Browse files");
+			locationPanel.add(new JLabel("Save location:"));
+			locationPanel.add(saveLocation);
+			locationPanel.add(chooseLocation);
+			chooseLocation.addActionListener(new java.awt.event.ActionListener(){
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String cpath="";
-				if (lastValue!=null && new File(lastValue).exists() && new File(lastValue).getParent()!=null){
-					cpath=new File(lastValue).getParent();
-				} else {
-					cpath=System.getProperty("user.dir");
-				}
-
-				javax.swing.JFileChooser chooser=new javax.swing.JFileChooser(new File(cpath).getParentFile());
-				chooser.setDialogTitle("Choose a file to write to:");
-				chooser.setFileFilter(new FileFilter(){
-					@Override
-					public boolean accept(File arg0) {
-						return  arg0.getName().toLowerCase().endsWith(".xml") || arg0.isDirectory();
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String cpath="";
+					if (lastValue!=null && new File(lastValue).exists() && new File(lastValue).getParent()!=null){
+						cpath=new File(lastValue).getParent();
+					} else {
+						cpath=System.getProperty("user.dir");
 					}
 
-					@Override
-					public String getDescription() {
-						return "XML files";
-					}});
+					javax.swing.JFileChooser chooser=new javax.swing.JFileChooser(new File(cpath).getParentFile());
+					chooser.setDialogTitle("Choose a file to write to:");
+					chooser.setFileFilter(new FileFilter(){
+						@Override
+						public boolean accept(File arg0) {
+							return  arg0.getName().toLowerCase().endsWith(".xml") || arg0.isDirectory();
+						}
 
-				chooser.showOpenDialog(saveSpecField);
-				if (chooser.getSelectedFile()!=null){					
+						@Override
+						public String getDescription() {
+							return "XML files";
+						}});
 
-					if (!chooser.getSelectedFile().getName().toLowerCase().endsWith(".xml"))
-						saveLocation.setText(chooser.getSelectedFile().getAbsolutePath()+".xml");
-					else
-						saveLocation.setText(chooser.getSelectedFile().getAbsolutePath());
+					chooser.showOpenDialog(saveSpecField);
+					if (chooser.getSelectedFile()!=null){					
+
+						if (!chooser.getSelectedFile().getName().toLowerCase().endsWith(".xml"))
+							saveLocation.setText(chooser.getSelectedFile().getAbsolutePath()+".xml");
+						else
+							saveLocation.setText(chooser.getSelectedFile().getAbsolutePath());
+					}
 				}
-			}
 
-		});
+			});
 
-		saveSpecField.getContentPane().add(locationPanel,BorderLayout.CENTER);
+			saveSpecField.getContentPane().add(locationPanel,BorderLayout.CENTER);
 
-		JPanel savePanel=new JPanel();
-		JButton accept=new JButton("Save");
-		JButton cancel=new JButton("Cancel");
-		cancel.addActionListener(new java.awt.event.ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				saveSpecField.setVisible(false);						
-			}
-		});
-		accept.addActionListener(new java.awt.event.ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				File location=new File(saveLocation.getText());
-				if (location.getParentFile().getName().equals("metamodel")) // the specfile must be stored in a metamodel folder
-				{
-					if (!(new File(location.getParentFile().getParent()+"/images").exists())){
-						JOptionPane.showMessageDialog(null,"The folder structure is not valid. There should be a folder named images at the same level as the metamodel folder", "error",JOptionPane.ERROR_MESSAGE);
-					} else
-						if (location.exists()){
-							int result = javax.swing.JOptionPane.showConfirmDialog(saveSpecField, "The file already exists. Do you want to overwrite?","Warning",javax.swing.JOptionPane.OK_CANCEL_OPTION);
-							if (result==javax.swing.JOptionPane.OK_OPTION){
+			JPanel savePanel=new JPanel();
+			JButton accept=new JButton("Save");
+			JButton cancel=new JButton("Cancel");
+			cancel.addActionListener(new java.awt.event.ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					saveSpecField.setVisible(false);						
+				}
+			});
+			accept.addActionListener(new java.awt.event.ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					File location=new File(saveLocation.getText());
+					if (location.getParentFile().getName().equals("metamodel")) // the specfile must be stored in a metamodel folder
+					{
+						if (!(new File(location.getParentFile().getParent()+"/images").exists())){
+							JOptionPane.showMessageDialog(null,"The folder structure is not valid. There should be a folder named images at the same level as the metamodel folder", "error",JOptionPane.ERROR_MESSAGE);
+						} else
+							if (location.exists()){
+								int result = javax.swing.JOptionPane.showConfirmDialog(saveSpecField, "The file already exists. Do you want to overwrite?","Warning",javax.swing.JOptionPane.OK_CANCEL_OPTION);
+								if (result==javax.swing.JOptionPane.OK_OPTION){
+									writeFileContent(output, saveLocation, location);
+									saveSpecField.setVisible(false);
+								}							
+							} else {
 								writeFileContent(output, saveLocation, location);
 								saveSpecField.setVisible(false);
-							}							
-						} else {
-							writeFileContent(output, saveLocation, location);
-							saveSpecField.setVisible(false);
-						}
-				} else
-					JOptionPane.showMessageDialog(null,"The folder structure is not valid. Metamodel file should be stored in a folder named metamodel and current one is "+location.getParent(), "error",JOptionPane.ERROR_MESSAGE);
+							}
+					} else
+						JOptionPane.showMessageDialog(null,"The folder structure is not valid. Metamodel file should be stored in a folder named metamodel and current one is "+location.getParent(), "error",JOptionPane.ERROR_MESSAGE);
 
-			}
+				}
 
 
-		});
-		savePanel.add(accept);
-		savePanel.add(cancel);
+			});
+			savePanel.add(accept);
+			savePanel.add(cancel);
 
-		saveSpecField.getContentPane().add(savePanel,BorderLayout.SOUTH);
+			saveSpecField.getContentPane().add(savePanel,BorderLayout.SOUTH);
 
 
 
-		saveSpecField.getContentPane().add(savePanel,BorderLayout.SOUTH);
-		saveSpecField.setModal(true);
-		saveSpecField.pack();
-		saveSpecField.setVisible(true);
-		return saveLocation.getText();
+			saveSpecField.getContentPane().add(savePanel,BorderLayout.SOUTH);
+			saveSpecField.setModal(true);
+			saveSpecField.pack();
+			saveSpecField.setVisible(true);
+			return saveLocation.getText();
 		}
 		else{
-		String saveLocation=		folder+"/src/main/resources/metamodel/metamodel.xml";
-		File location=new File(saveLocation);
-		writeFileContent(output, null, location);
-		 return folder+"/src/main/resources/metamodel/metamodel.xml";
-		 }
-		
+			String saveLocation=		folder+"/src/main/resources/metamodel/metamodel.xml";
+			File location=new File(saveLocation);
+			writeFileContent(output, null, location);
+			return folder+"/src/main/resources/metamodel/metamodel.xml";
+		}
+
 	}
 	private void writeFileContent(final StringBuffer output,
 			final JTextField saveLocation, File location) {
@@ -824,7 +824,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 
 			fos.close();
 			if (saveLocation!=null)
-			javax.swing.JOptionPane.showMessageDialog(saveLocation, "File saved successfully","Finished",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+				javax.swing.JOptionPane.showMessageDialog(saveLocation, "File saved successfully","Finished",javax.swing.JOptionPane.INFORMATION_MESSAGE);
 			ingenias.editor.Log.getInstance().logSYS("Metamodel saved in location "+location);
 		} catch (FileNotFoundException e1) {
 			ingenias.editor.Log.getInstance().logERROR(e1.getMessage());
@@ -836,7 +836,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			e2.printStackTrace();
 		}
 		if (saveLocation!=null)
-		lastValue=saveLocation.getText();
+			lastValue=saveLocation.getText();
 	}
 
 	private void appendVisualRepresentationRelationship(Vector<String> errors, StringBuffer output, AttributedElement metarelationship) throws NotFound, NullEntity {
@@ -1115,21 +1115,57 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		generateProperties(errors, output, ge, gid, propertiesToConsider,aggregationToConsider);
 
 	}
+
+	public HashSet<GraphEntity> getAllAncestors(GraphEntity ge){
+		HashSet<GraphEntity> result=new HashSet<GraphEntity>();
+		try {
+			getAllAncestorsAux(ge,result);
+		} catch (NullEntity e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public void getAllAncestorsAux(GraphEntity ge, HashSet<GraphEntity> result) throws NullEntity{
+		Hashtable<GraphEntity, GraphRole> inheriting = getRelatedElementsHashtable(ge,"InheritsO", "InheritsOtarget");
+		Set<GraphEntity> inheritingKeySet = inheriting.keySet();
+		for (GraphEntity parent:inheritingKeySet){
+			if (!result.contains(parent)){
+				result.add(parent);
+				getAllAncestorsAux(parent, result);
+			}
+		}
+	}
+
 	private void appendProperties(Vector<String> errors,StringBuffer output, GraphEntity ge) throws NullEntity, NotFound {
 		HashSet<GraphEntity> propertiesToConsider=new HashSet<GraphEntity>();
+
+
+		HashSet<GraphEntity> ancestors = getAllAncestors(ge);
+		producePropertiesForEntity(errors, output, ge,
+				propertiesToConsider, ge);
+		for (GraphEntity ancestor:ancestors){
+			producePropertiesForEntity(errors, output, ge,
+					propertiesToConsider, ancestor);
+
+		}
+
+	}
+
+	private void producePropertiesForEntity(Vector<String> errors,
+			StringBuffer output, GraphEntity ge,
+			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
+					throws NullEntity, NotFound {
 		HashSet<GraphRelationship> aggregationToConsider=new HashSet<GraphRelationship>();
-		GraphRelationship[] rels = getRelatedElementsRels(ge,"HasMO", "HasMOtarget");
+		GraphRelationship[] rels = getRelatedElementsRels(ancestor,"HasMO", "HasMOtarget");		
 		for (GraphRelationship gr:rels){
-			if (gr.getRoles("Hassource")[0].getPlayer().getID().equalsIgnoreCase(ge.getID()))
+			if (gr.getRoles("Hassource")[0].getPlayer().getID().equalsIgnoreCase(ancestor.getID()))
 				aggregationToConsider.add(gr);
 		}
-		getExternalProperties(ge, propertiesToConsider);
-		getInternalProperties(ge, propertiesToConsider);
-
-
-
-		generateProperties(errors, output, ge,ge.getID(), propertiesToConsider,aggregationToConsider);
-
+		getExternalProperties(ancestor, propertiesToConsider);
+		getInternalProperties(ancestor, propertiesToConsider);
+		generateProperties(errors, output, ancestor,ge.getID(), propertiesToConsider,aggregationToConsider);
 	}
 
 	private void generateProperties(Vector<String> errors, StringBuffer output,
