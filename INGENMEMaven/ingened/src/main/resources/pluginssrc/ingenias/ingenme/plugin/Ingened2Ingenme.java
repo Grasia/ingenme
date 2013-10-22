@@ -23,15 +23,21 @@ import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 import ingenias.editor.Log;
+
 import java.awt.Frame;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+
 
 
 import ingenias.editor.ProjectProperty;
@@ -81,6 +87,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
+
 
 
 import java.io.BufferedReader;
@@ -834,6 +841,8 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			ingenias.editor.Log.getInstance().logERROR(e2.getMessage());
 			javax.swing.JOptionPane.showMessageDialog(saveLocation,"Failure on writing the file. More details in the editor panel and console output","Error",javax.swing.JOptionPane.ERROR_MESSAGE);
 			e2.printStackTrace();
+		} finally {			
+			ingenias.editor.Log.getInstance().logERROR("Content that was going to be written:\n"+output.toString());			
 		}
 		if (saveLocation!=null)
 			lastValue=saveLocation.getText();
@@ -1380,7 +1389,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 						output.append("<value>");
 						String value=defaultValuesCollection.getElementAt(j).getAttributeByName("DefaultValue").getSimpleValue();
 						output.append(value);
-						output.append("<value>\n");
+						output.append("</value>\n");
 					}
 					output.append("</defaultvalues>");
 				}
