@@ -84,11 +84,11 @@ public class RelationshipLoadImp2
               // the old hash code
               nedge.addObject("old"+dgcid,ent, re, role, classID);
             }
-            else {
+            /*else {
               Log.getInstance().logERROR("Relationship of type "+type+" could not load role "+entID);
               Log.getInstance().logERROR("Relationship "+nedge+" discarded");
               wrongRelationship=true;
-            }
+            }*/
           }
         }
         if (!wrongRelationship){
