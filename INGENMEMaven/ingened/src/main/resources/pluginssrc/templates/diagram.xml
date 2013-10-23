@@ -1,0 +1,85 @@
+@@@program @@@
+	@@@repeat id="graph1"@@@
+		@@@saveto@@@
+			@@@file overwrite="yes"@@@
+				@@@v@@@output@@@/v@@@/@@@v@@@fname@@@/v@@@.html@@@/file@@@
+			@@@text@@@
+<HTML>
+<BODY>
+	<center><A href="index.html">Main Index</A></center>
+	<hr/>
+<H1>Diagram name : <font color="#0000CC">@@@v@@@name@@@/v@@@ </font> <font size="6"> </font></H1>
+<H1> Diagram type : <font color="#0000CC">@@@v@@@tipo@@@/v@@@</font></H1>
+<H2>Description :</H2>
+@@@v@@@description@@@/v@@@ 
+<P>
+<div align="center"><img src="@@@v@@@image@@@/v@@@" usemap="#mymap">
+<map name="mymap">
+  @@@repeat id="mapentities"@@@
+   <AREA SHAPE=rect COORDS="@@@v@@@coordrect@@@/v@@@" HREF="#@@@v@@@link@@@/v@@@">
+  @@@/repeat@@@
+</map>
+</P>
+<H2 align="left">Entities appearing in this diagram :</H2>
+	<TABLE BORDER="1" bgcolor="#FFFF00">
+      <tr>
+       <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>NAME</strong></font>           
+       </td>
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TYPE</strong></font>           
+       </td>       
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>DESCRIPTION</strong></font>           
+       </td>           
+  </tr>
+	
+	 @@@repeat id="entities"@@@
+	<TR><TD valign="top">
+	<a name="@@@v@@@name@@@/v@@@"/>
+	  <strong> @@@v@@@name@@@/v@@@</strong><br>
+	</TD><TD valign="top">
+	<strong>@@@v@@@tipo@@@/v@@@</strong>
+	</TD><TD valign="top">
+	@@@v@@@description@@@/v@@@
+		<p> It appears in diagrams:
+		<ul>
+		@@@repeat id="relateddiagrams"@@@
+		 <li><a href="@@@v@@@diagramname@@@/v@@@.html">@@@v@@@diagramname@@@/v@@@</a>: @@@v@@@diagramtype@@@/v@@@ </li>
+		@@@/repeat@@@
+		</ul>
+			</p>
+	</TD></TR>
+	 @@@/repeat@@@
+	</TABLE>
+	
+	
+<H2 align="left"> Relationships appearing in this diagram:</H2>
+	
+	<TABLE BORDER="1" bgcolor="#FFFF00">
+      <tr>
+       </td>
+       <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TYPE</strong></font>           
+       </td>
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>SOURCE</strong></font>           
+       </td>       
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TARGET</strong></font>           
+       </td>           
+  </tr>
+	
+	 @@@repeat id="entities"@@@
+             	 @@@repeat id="relationship"@@@	   
+                   <TR><TD valign="top">
+	             @@@v@@@name@@@/v@@@<br>
+	             @@@repeat id="roles"@@@
+	                 </TD><TD valign="top">
+	                 @@@v@@@player@@@/v@@@
+	              @@@/repeat@@@
+       	 @@@/repeat@@@
+               </TD></TR>
+       @@@/repeat@@@
+	</TABLE>
+	
+</BODY>
+</htML>
+@@@/text@@@
+		@@@/saveto@@@
+	@@@/repeat@@@
+@@@/program@@@
