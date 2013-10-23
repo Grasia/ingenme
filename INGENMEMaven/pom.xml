@@ -67,7 +67,7 @@
       </build>
     </profile>
   </profiles>
-  <reporting>
+  <!--reporting>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -75,7 +75,7 @@
         <version>2.5.2</version>
       </plugin>
     </plugins>
-  </reporting>
+  </reporting-->
   <build>
     <plugins>
       <plugin>
@@ -89,7 +89,7 @@
           <encoding>ISO-8859-1</encoding>
         </configuration>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
@@ -191,7 +191,7 @@
             </plugin>
           </reportPlugins>
         </configuration>
-      </plugin>
+      </plugin-->
     </plugins>
   </build>
 </project>
