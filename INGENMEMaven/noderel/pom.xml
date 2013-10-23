@@ -234,7 +234,7 @@
 			</build>
 		</profile>
 	</profiles>
-	<reporting>
+	<!--reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -242,24 +242,24 @@
 				<version>2.5.2</version>
 			</plugin>
 		</plugins>
-	</reporting>
+	</reporting-->
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
-    <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version>
-        <executions>
-          <execution>
-            <id>auto-clean</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<executions>
+					<execution>
+						<id>auto-clean</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -282,41 +282,58 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2.1</version>
 				<executions>
-				<execution>
-					<!-- by default associated with generate-sources phase -->
+					<execution>
+						<!-- by default associated with generate-sources phase -->
 						<id>apply ingened plugin</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>java</goal>
 						</goals>
-					<configuration>
-					<keepAlive>false</keepAlive>
-					<mainClass>ingenias.ingenme.plugin.Ingened2Ingenme</mainClass>
-					<arguments>
-						<argument>${project.basedir}/src/main/resources/metamodel/metamodelINGENED.xml</argument>
-						<argument>${project.basedir}</argument>
-					</arguments>
-					</configuration>						
+						<configuration>
+							<keepAlive>false</keepAlive>
+							<mainClass>ingenias.ingenme.plugin.Ingened2Ingenme</mainClass>
+							<arguments>
+								<argument>${project.basedir}/src/main/resources/metamodel/metamodelINGENED.xml</argument>
+								<argument>${project.basedir}</argument>
+							</arguments>
+						</configuration>
 					</execution>
-				<execution>
-					<!-- by default associated with generate-sources phase -->
+					<execution>
+						<!-- by default associated with generate-sources phase -->
 						<id>generate sources for IAF</id>
 						<phase>generate-sources</phase>
 						<goals>
 							<goal>java</goal>
 						</goals>
-					<configuration>
-					<keepAlive>false</keepAlive>
-					<mainClass>ingenias.idegen.ObjectsGenerator</mainClass>
-					<arguments>
-						<argument>${project.basedir}/src/main/resources/metamodel/metamodel.xml</argument>
-						<argument>${project.basedir}</argument>
-					</arguments>
-					</configuration>						
+						<configuration>
+							<keepAlive>false</keepAlive>
+							<mainClass>ingenias.idegen.ObjectsGenerator</mainClass>
+							<arguments>
+								<argument>${project.basedir}/src/main/resources/metamodel/metamodel.xml</argument>
+								<argument>${project.basedir}</argument>
+							</arguments>
+						</configuration>
 					</execution>
-					
+
+					<execution>
+						<!-- It generates the documentation associated wiht the metamodel -->
+						<id>generate document for metamodel</id>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<keepAlive>false</keepAlive>
+							<mainClass>ingenias.codeproc.HTMLDocumentGenerator</mainClass>
+							<arguments>
+								<argument>${project.basedir}/src/main/resources/metamodel/metamodelINGENED.xml</argument>
+								<argument>${project.basedir}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+
 				</executions>
-				
+
 			</plugin>
 			<plugin>
 				<!-- Create the necessary resources in the target folder -->
@@ -430,14 +447,14 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-		
-			
+
+
+
 
 			<!-- *************************************** -->
 			<!-- End of editor generation specific code -->
 			<!-- ************************************** -->
-			<plugin>
+			<!-- plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<configuration>
@@ -530,7 +547,7 @@
 						</plugin>
 					</reportPlugins>
 				</configuration>
-			</plugin>
+			</plugin-->
 
 			<!-- now shading is perfomed and an executable produced -->
 			<!-- shade plugin must go before izpack to be executed first -->
@@ -574,8 +591,8 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.0</version>
 				<executions>
-				<!-- The needed resources do belong to another project -->
-				<!-- Suggestion from http://stackoverflow.com/questions/4177327/maven-copying-resources-from-client-project-to-webapp -->
+					<!-- The needed resources do belong to another project -->
+					<!-- Suggestion from http://stackoverflow.com/questions/4177327/maven-copying-resources-from-client-project-to-webapp -->
 					<execution>
 						<id>build-classpath</id>
 						<phase>validate</phase>
@@ -607,7 +624,7 @@
 							</artifactItems>
 						</configuration>
 					</execution>
-					
+
 					<execution>
 						<id>unpack-licenses</id>
 						<phase>generate-resources</phase>
@@ -628,7 +645,7 @@
 							</artifactItems>
 						</configuration>
 					</execution>
-<!-- this is for izpack-->
+					<!-- this is for izpack -->
 					<execution>
 						<id>standard-installer</id>
 						<phase>package</phase>
@@ -645,7 +662,7 @@
 			</plugin>
 
 
-			<plugin> 
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.7</version>
@@ -660,10 +677,12 @@
 										<include name="**/*.java" />
 									</fileset>
 								</move>
-								<copy failonerror="false" file="src/izpack/Readme.temp" tofile="src/izpack/Readme.txt" overwrite="yes"/>
-								<delete failonerror="false"  dir="target/generated/src/main/java/commonsrc" />
+								<copy failonerror="false" file="src/izpack/Readme.temp"
+									tofile="src/izpack/Readme.txt" overwrite="yes" />
+								<delete failonerror="false"
+									dir="target/generated/src/main/java/commonsrc" />
 								<!-- search and replace certain tokens to further customize -->
-								
+
 								<replace dir="target/generated/src/" token="@toolname@"
 									value="${project.artifactId}">
 									<include name="**/*.java" />
@@ -704,7 +723,7 @@
 								<replace file="target/generated/pom.xml" token="@toolexecutable@"
 									value="${project.artifactId}-${project.version}-selfcontained" />
 
-<echo>replacing in readme</echo>
+								<echo>replacing in readme</echo>
 
 								<replace file="src/izpack/Readme.txt" token="@toolname@"
 									value="${project.artifactId}" />
@@ -727,7 +746,7 @@
 						</goals>
 					</execution>
 
-					<!-- this is part of izipack-->
+					<!-- this is part of izipack -->
 					<execution>
 						<id>create-staging-area</id>
 						<phase>package</phase>
@@ -826,8 +845,10 @@
 	</build>
 	<properties>
 		<vendor>GRASIA Research Group</vendor>
-		<!-- maven does not allow to refer to developers property defined at the beginning-->
-		<!-- an echoproperties task shows there is no accesible project.developers property-->
+		<!-- maven does not allow to refer to developers property defined at the 
+			beginning -->
+		<!-- an echoproperties task shows there is no accesible project.developers 
+			property -->
 		<developername>Jorge J. Gomez-Sanz</developername>
 		<developeremail>jjgomez@fdi.ucm.es</developeremail>
 		<!-- begin: izpack configuration -->

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta-models examplefile="example/demo.xml">
-  <object id="MetaObject0" inherits="NRNode" instanciable="yes"
-    keyfield="id" package="">
+  <object id="Performable" instanciable="no" keyfield="id" package="">
     <description/>
     <recommendation/>
     <properties>
@@ -10,28 +9,18 @@
       </preferredorder>
     </properties>
     <graphics>
-      <small-icon>images/mnode.png</small-icon>
-      <normal-icon>images/node.png</normal-icon>
+      <small-icon>images/mPerformable.png</small-icon>
+      <normal-icon>images/Performable.png</normal-icon>
       <layout>
         <properties>
           <property id="id"/>
         </properties>
         <views>
           <content id="INGENIAS">
-##panel layout="BorderLayout(0,0)"  Background="white"#
-##panel constraints="BorderLayout.NORTH" Background="white" layout="GridBagLayout"#
-##htmllabel id="Id"#
-##gridbagconstraints id="gbc_1" insets="0,0,0,0" gridx="0" gridy="0" fill="GridBagLayout.BOTH" anchor="GridBagLayout.CENTER"/#
-##/htmllabel#
-##/panel#
-##label Foreground="blue" icon="images/node.png" constraints="BorderLayout.CENTER" HorizontalAlignment="CENTER" /#
-##/panel#
-</content>
-          <content id="UML">
 ##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
 ##vbox Background="white" constraints="BorderLayout.CENTER"#
 ##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)"#
-##stereotype text="Node" HorizontalAlignment="CENTER"/#
+##stereotype text="Performable" HorizontalAlignment="CENTER"/#
 ##/panel#
 ##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)"#
 ##label id="Id"/#
@@ -44,79 +33,41 @@
       </layout>
     </graphics>
   </object>
-  <relationship id="NREdge">
+  <object id="PTask" inherits="Performable" instanciable="yes"
+    keyfield="id" package="" type="ingenias.editor.entities.MetaObject">
+    <description/>
+    <recommendation/>
     <properties>
-      <property id="CostField"
-        preferredwidget="ingenias.editor.widget.IntegerJTextField" type="java.lang.Integer">
-        <defaultvalues/>
-        <label lang="en">Description</label>
-      </property>
       <preferredorder>
         <order>id</order>
-        <order>CostField</order>
       </preferredorder>
     </properties>
     <graphics>
-      <small-icon>images/mNREdge.png</small-icon>
-      <normal-icon>images/NREdge.png</normal-icon>
+      <small-icon>images/mPTask.png</small-icon>
+      <normal-icon>images/PTask.png</normal-icon>
       <layout>
         <properties>
           <property id="id"/>
         </properties>
         <views>
           <content id="INGENIAS">
-##panel layout="BorderLayout(0,0)"  Background="white"#
+##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
 ##vbox Background="white" constraints="BorderLayout.CENTER"#
-##stereotype text="NREdge" HorizontalAlignment="CENTER"/#
+##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)"#
+##stereotype text="PTask" HorizontalAlignment="CENTER"/#
+##/panel#
+##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)"#
+##label id="Id"/#
+##/panel#
+##linepanel Background="white"/#
 ##/vbox#
-##/panel#
-</content>
-          <content id="LABEL">
-##panel layout="BorderLayout(0,0)"  Background="white"#
-##htmllabel id="Id"/#
-##/panel#
-</content>
-          <content id="NOICON">
-##panel layout="BorderLayout(0,0)"  Background="white"#
 ##/panel#
 </content>
         </views>
       </layout>
     </graphics>
-    <roles>
-      <role id="NREdgeConnectorsource" maxcard="1" mincard="1" type="source"/>
-      <role id="NREdgeConnectortarget" maxcard="1" mincard="1" type="target"/>
-    </roles>
-  </relationship>
-  <role id="NREdgeConnectortarget">
-    <graphics>
-      <small-icon/>
-      <normal-icon/>
-    </graphics>
-    <properties>
-      <preferredorder>
-        <order>id</order>
-      </preferredorder>
-    </properties>
-    <validplayers>
-      <player id="NRNode"/>
-    </validplayers>
-  </role>
-  <role id="NREdgeConnectorsource">
-    <graphics>
-      <small-icon/>
-      <normal-icon/>
-    </graphics>
-    <properties>
-      <preferredorder>
-        <order>id</order>
-      </preferredorder>
-    </properties>
-    <validplayers>
-      <player id="NRNode"/>
-    </validplayers>
-  </role>
-  <metamodel icon="images/mdiagram.png" id="NRGraph" name="">
+  </object>
+  <metamodel icon="images/mPerformables.png" id="Performables" name="">
     <properties>
       <preferredorder>
         <order>id</order>
@@ -127,46 +78,33 @@ this.getModel().addGraphModelListener(new ChangeNARYEdgeLocation(this));
 this.getModel().addGraphModelListener(new ChangeEntityLocation(this));
 ]]></code>
     <objects>
-      <object id="MetaObject0"/>
-      <object id="NRNode"/>
+      <object id="PTask"/>
+      <object id="PActivity"/>
     </objects>
-    <relationships>
-      <relationship id="NREdge"/>
-    </relationships>
+    <relationships/>
   </metamodel>
-  <object id="NRNode" instanciable="yes" keyfield="id" package="ninguno">
-    <description>
-Nada</description>
-    <recommendation>
-NAda</recommendation>
+  <object id="PActivity" inherits="Performable" instanciable="yes"
+    keyfield="id" package="" type="ingenias.editor.entities.MetaObject">
+    <description/>
+    <recommendation/>
     <properties>
       <preferredorder>
         <order>id</order>
       </preferredorder>
     </properties>
     <graphics>
-      <small-icon>images/mnode.png</small-icon>
-      <normal-icon>images/node.png</normal-icon>
+      <small-icon>images/mPActivity.png</small-icon>
+      <normal-icon>images/PActivity.png</normal-icon>
       <layout>
         <properties>
           <property id="id"/>
         </properties>
         <views>
           <content id="INGENIAS">
-##panel layout="BorderLayout(0,0)"  Background="white"#
-##panel constraints="BorderLayout.NORTH" Background="white" layout="GridBagLayout"#
-##htmllabel id="Id"#
-##gridbagconstraints id="gbc_1" insets="0,0,0,0" gridx="0" gridy="0" fill="GridBagLayout.BOTH" anchor="GridBagLayout.CENTER"/#
-##/htmllabel#
-##/panel#
-##label Foreground="blue" icon="images/node.png" constraints="BorderLayout.CENTER" HorizontalAlignment="CENTER" /#
-##/panel#
-</content>
-          <content id="UML">
 ##panel layout="BorderLayout(0,0)"  Background="white" border="LineBorder(Color.black,1)"#
 ##vbox Background="white" constraints="BorderLayout.CENTER"#
 ##panel Background="white"  HorizontalAlignment="CENTER" layout="FlowLayout(FlowLayout.CENTER,0,0)"#
-##stereotype text="Node" HorizontalAlignment="CENTER"/#
+##stereotype text="PActivity" HorizontalAlignment="CENTER"/#
 ##/panel#
 ##panel Background="white"  HorizontalAlignment="CENTER"  layout="FlowLayout(FlowLayout.CENTER,0,0)"#
 ##label id="Id"/#

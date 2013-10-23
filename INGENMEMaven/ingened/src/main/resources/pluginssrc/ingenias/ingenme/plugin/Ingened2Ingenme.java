@@ -518,7 +518,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 							if (inheritingSet.size()>1){
 								errors.add("Entity "+ge.getID()+" inherits from more than one entity. Only simple inheritance is permitted.");
 							} else 
-								output.append("<object id=\""+ge.getID()+"\" instanciable=\""+
+								output.append("<object type=\"ingenias.editor.entities."+ge.getType()+"\" id=\""+ge.getID()+"\" instanciable=\""+
 										ge.getAttributeByName("Instantiable").getSimpleValue()+"\" package=\""+
 										ge.getAttributeByName("Package").getSimpleValue()+"\"  keyfield=\""+keyfield+"\" " +
 										"inherits=\"" +inheritingSet.iterator().next().getID()+"\" "+
