@@ -362,6 +362,8 @@ public class PersistenceManager {
 
 		FileChannel channel=null;
 		FileLock lock=null;
+		if (!new File(System.getProperty("user.home")+"/.idk").exists())
+			new File(System.getProperty("user.home")+"/.idk").mkdir();
 		File lockFile=new File(System.getProperty("user.home")+"/.idk/lock");
 		if (!lockFile.exists())
 			try {

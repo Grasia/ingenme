@@ -56,7 +56,7 @@ import org.apache.xerces.parsers.SAXParser;
 
 public class Property {
  String id;
- String type;
+ private String type;
  String preferredwidget;
  boolean ismetaclassinstance;
  boolean ismetamodelinstance;

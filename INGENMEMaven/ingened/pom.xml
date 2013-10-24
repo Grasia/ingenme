@@ -368,9 +368,8 @@
 							</resources>
 						</configuration>
 					</execution>
-					<execution>
-						<id>copy-resources-pluginsrc</id>
-						<!-- here the phase you need -->
+					<!-- execution>
+						<id>copy-resources-pluginsrc</id>					
 						<phase>validate</phase>
 						<goals>
 							<goal>copy-resources</goal>
@@ -384,7 +383,7 @@
 								</resource>
 							</resources>
 						</configuration>
-					</execution>
+					</execution-->
 					
 
 				</executions>
@@ -405,6 +404,7 @@
 						<configuration>
 							<sources>
 								<source>target/generated/src/main/java</source>
+								<source>${basedir}/src/main/resources/pluginssrc</source>
 							</sources>
 						</configuration>
 					</execution>

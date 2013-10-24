@@ -702,6 +702,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		} catch (ParserConfigurationException e) {
 			throw new RuntimeException(e);
 		} catch (SAXException e) {
+			ingenias.editor.Log.getInstance().logERROR("Content that was going to be written:\n"+in);
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -841,9 +842,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			ingenias.editor.Log.getInstance().logERROR(e2.getMessage());
 			javax.swing.JOptionPane.showMessageDialog(saveLocation,"Failure on writing the file. More details in the editor panel and console output","Error",javax.swing.JOptionPane.ERROR_MESSAGE);
 			e2.printStackTrace();
-		} finally {			
-			ingenias.editor.Log.getInstance().logERROR("Content that was going to be written:\n"+output.toString());			
-		}
+		} 
 		if (saveLocation!=null)
 			lastValue=saveLocation.getText();
 	}
@@ -1360,6 +1359,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 						String isCollection=wrappedTypeEntity.getAttributeByName("Iscollection").getSimpleValue();
 						output.append(" iscollection=\""+isCollection+"\"");
 						output.append(" ismetamodelinstance=\"yes\" ");
+						output.append(" type=\""+metadiagramEntity.getID()+"\"");
 						output.append(">\n");
 					}catch (NullEntity ne){
 						errors.add(" MetaDiagramType field in wrappedtype attribute in field "+propertyFieldElement.getID()+" of entity "+gid +" does not contain a reference to an entity");
