@@ -88,10 +88,10 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 		Vector<ProjectProperty> result=new Vector<ProjectProperty>();
 		Properties p = new Properties();
 
-		result.add(
+		/*result.add(
 				new ingenias.editor.ProjectProperty(this.getName(),"htmldoc", "HTML document folder",
 						"html",
-						"The document folder that will contain HTML version of this specification"));
+						"The document folder that will contain HTML version of this specification"));*/
 		return result;
 	}
 

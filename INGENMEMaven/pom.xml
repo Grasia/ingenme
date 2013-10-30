@@ -36,7 +36,7 @@
   <modules>
     <module>core</module>
     <module>ingened</module>
-    <module>noderel</module>
+    <module>nodereled</module>
   </modules>
   <profiles>
     <profile>
