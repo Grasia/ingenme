@@ -21,8 +21,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:https://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven</connection>
-    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven</developerConnection>
+    <connection>scm:git:git://git.code.sf.net/p/ingenme/codegit</connection>
+    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit</developerConnection>
     <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/</url>
   </scm>
   <developers>
