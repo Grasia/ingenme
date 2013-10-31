@@ -22,7 +22,7 @@
   </licenses>
   <scm>
     <connection>scm:git:git://git.code.sf.net/p/ingenme/codegit</connection>
-    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit</developerConnection>
+    <developerConnection>scm:git:ssh://escalope@git.code.sf.net/p/ingenme/codegit</developerConnection>
     <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/</url>
   </scm>
   <developers>
