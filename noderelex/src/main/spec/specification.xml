@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project cid="0" version="1.2">
+<projectproperties>
+<projectproperty id="extfolder" module="IDK"  name="Extension Module Folder" value="ext"  tooltip="Folder where the IDE will find its new modules" />
+</projectproperties>
+<leafpackages>
+   <path>
+    <package id="Project"/>
+   </path>
+</leafpackages>
+<objects>
+</objects>
+<relationships>
+</relationships>
+<models> 
+</models>
+</project>

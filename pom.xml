@@ -37,6 +37,7 @@
     <module>core</module>
     <module>ingened</module>
     <module>nodereled</module>
+    <module>noderelex</module>
   </modules>
   <profiles>
     <profile>
