@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>net.sf.ingenme</groupId>
 		<artifactId>ingenme</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.ingenme</groupId>
@@ -30,13 +31,13 @@
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>ingened</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>core</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -568,7 +569,8 @@
 								</filter>
 							</filters>
 							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>ingenias.editor.IDE</mainClass>
 								</transformer>
 							</transformers>
@@ -670,46 +672,67 @@
 										<include name="**/*.java" />
 									</fileset>
 								</move>
-								<copy failonerror="false" file="src/izpack/Readme.temp" tofile="src/izpack/Readme.txt" overwrite="yes" />
-								<delete failonerror="false" dir="target/generated/src/main/java/commonsrc" />
+								<copy failonerror="false" file="src/izpack/Readme.temp"
+									tofile="src/izpack/Readme.txt" overwrite="yes" />
+								<delete failonerror="false"
+									dir="target/generated/src/main/java/commonsrc" />
 								<!-- search and replace certain tokens to further customize -->
 
-								<replace dir="target/generated/src/" token="@toolname@" value="${project.artifactId}">
+								<replace dir="target/generated/src/" token="@toolname@"
+									value="${project.artifactId}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@authorname@" value="${developername}">
+								<replace dir="target/generated/src/" token="@authorname@"
+									value="${developername}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@versionnumber@" value="${project.version}">
+								<replace dir="target/generated/src/" token="@versionnumber@"
+									value="${project.version}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@vendor@" value="${vendor}">
+								<replace dir="target/generated/src/" token="@vendor@"
+									value="${vendor}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@distributionURL@" value="${project.url}">
+								<replace dir="target/generated/src/" token="@distributionURL@"
+									value="${project.url}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@toolexecutable@" value="${project.artifactId}-${project.version}-selfcontained">
+								<replace dir="target/generated/src/" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained">
 									<include name="**/*.java" />
 								</replace>
 
 
 
-								<replace file="target/generated/pom.xml" token="@toolname@" value="${project.artifactId}" />
-								<replace file="target/generated/pom.xml" token="@authorname@" value="${developername}" />
-								<replace file="target/generated/pom.xml" token="@versionnumber@" value="${project.version}" />
-								<replace file="target/generated/pom.xml" token="@vendor@" value="${vendor}" />
-								<replace file="target/generated/pom.xml" token="@distributionURL@" value="${project.url}" />
-								<replace file="target/generated/pom.xml" token="@toolexecutable@" value="${project.artifactId}-${project.version}-selfcontained" />
+								<replace file="target/generated/pom.xml" token="@toolname@"
+									value="${project.artifactId}" />
+								<replace file="target/generated/pom.xml" token="@authorname@"
+									value="${developername}" />
+								<replace file="target/generated/pom.xml" token="@versionnumber@"
+									value="${project.version}" />
+								<replace file="target/generated/pom.xml" token="@vendor@"
+									value="${vendor}" />
+								<replace file="target/generated/pom.xml" token="@distributionURL@"
+									value="${project.url}" />
+								<replace file="target/generated/pom.xml" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained" />
 
 								<echo>replacing in readme</echo>
 
-								<replace file="src/izpack/Readme.txt" token="@toolname@" value="${project.artifactId}" />
-								<replace file="src/izpack/Readme.txt" token="@authorname@" value="${developername}" />
-								<replace file="src/izpack/Readme.txt" token="@versionnumber@" value="${project.version}" />
-								<replace file="src/izpack/Readme.txt" token="@vendor@" value="${vendor}" />
-								<replace file="src/izpack/Readme.txt" token="@distributionURL@" value="${project.url}" />
-								<replace file="src/izpack/Readme.txt" token="@toolexecutable@" value="${project.artifactId}-${project.version}-selfcontained" />
+								<replace file="src/izpack/Readme.txt" token="@toolname@"
+									value="${project.artifactId}" />
+								<replace file="src/izpack/Readme.txt" token="@authorname@"
+									value="${developername}" />
+								<replace file="src/izpack/Readme.txt" token="@versionnumber@"
+
+									value="${project.version}" />
+								<replace file="src/izpack/Readme.txt" token="@vendor@"
+									value="${vendor}" />
+								<replace file="src/izpack/Readme.txt" token="@distributionURL@"
+									value="${project.url}" />
+								<replace file="src/izpack/Readme.txt" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained" />
 
 							</target>
 						</configuration>
