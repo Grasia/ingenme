@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.sf.ingenme</groupId>
 		<artifactId>ingenme</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.ingenme</groupId>
@@ -21,10 +21,10 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:svn:http://svn.code.sf.net/p/ingenme/code/trunk/ingenme/noderel</connection>
-		<developerConnection>scm:svn:https://svn.code.sf.net/p/ingenme/code/trunk/ingenme/noderel</developerConnection>
-		<url>http://svn.code.sf.net/p/ingenme/code/trunk/ingenme/noderel</url>
-	</scm>
+	   <connection>scm:git:https://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven/nodereled</connection>
+    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven/nodereled</developerConnection>
+    <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/nodereled</url>
+  </scm>		
 	<developers>
 		<developer>
 			<id>escalope</id>
@@ -36,13 +36,13 @@
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>ingened</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>core</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -788,7 +788,7 @@
 							<goal>izpack</goal>
 						</goals>
 						<configuration>
-							<installerFile>${project.build.directory}/${project.artifactId}-${project.version}-installer</installerFile>
+							<installerFile>${project.build.directory}/${project.artifactId}-${project.version}-installer.jar</installerFile>
 						</configuration>
 					</execution>
 				</executions>

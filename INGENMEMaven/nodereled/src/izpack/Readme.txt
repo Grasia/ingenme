@@ -1,8 +1,8 @@
-To run this program, please execute the file noderel-1.0-SNAPSHOT-selfcontained. 
+To run this program, please execute the file noderel-1.0.0-SNAPSHOT-selfcontained. 
 
 This can be done either from your file explorer or from command line with:
 
-java -jar noderel-1.0-SNAPSHOT-selfcontained
+java -jar noderel-1.0.0-SNAPSHOT-selfcontained
 
 The editor was made using the INGENME framework which is a tool developed for the INGENIAS mehodology
 

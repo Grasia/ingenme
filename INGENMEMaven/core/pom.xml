@@ -3,12 +3,11 @@
   <parent>
     <groupId>net.sf.ingenme</groupId>
     <artifactId>ingenme</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.ingenme</groupId>
   <artifactId>core</artifactId>
-    <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>core</name>
   <description>The INGENIAS Meta-Editor core. It is a set of facilities to generate an editor from a detailed xml description</description>
@@ -21,9 +20,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/ingenme/code/trunk/ingenme/core</connection>
-    <developerConnection>scm:svn:https://svn.code.sf.net/p/ingenme/code/trunk/ingenme/core</developerConnection>
-    <url>http://svn.code.sf.net/p/ingenme/code/trunk/ingenme/core</url>
+    <connection>scm:git:https://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven/core</connection>
+    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven/core</developerConnection>
+    <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/core</url>
   </scm>
   <developers>
     <developer>
