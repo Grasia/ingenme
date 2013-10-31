@@ -9,7 +9,7 @@
   <groupId>net.sf.ingenme</groupId>
   <artifactId>ingenme</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>ingenme</name>
   <description>The INGENME editor framework</description>
   <url>http://ingenme.sf.net</url>
@@ -22,7 +22,7 @@
   </licenses>
   <scm>
     <connection>scm:git:git://git.code.sf.net/p/ingenme/codegit</connection>
-    <developerConnection>scm:git:ssh://escalope@git.code.sf.net/p/ingenme/codegit</developerConnection>
+    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit</developerConnection>
     <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/</url>
   </scm>
   <developers>
