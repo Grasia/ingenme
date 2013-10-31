@@ -21,8 +21,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:https://git.code.sf.net/p/ingenme/codegit</connection>
-    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit</developerConnection>
+    <connection>scm:svn:https://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven</connection>
+    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven</developerConnection>
     <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/</url>
   </scm>
   <developers>
@@ -52,7 +52,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.4</version>
+            <version>1.1</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>

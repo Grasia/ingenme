@@ -20,7 +20,11 @@
 			<distribution />
 		</license>
 	</licenses>
-	
+	<scm>
+	   <connection>scm:git:https://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven/nodereled</connection>
+    <developerConnection>scm:git:ssh://git.code.sf.net/p/ingenme/codegit/master/INGENMEMaven/nodereled</developerConnection>
+    <url>https://sourceforge.net/p/ingenme/codegit/ci/master/tree/INGENMEMaven/nodereled</url>
+  </scm>		
 	<developers>
 		<developer>
 			<id>escalope</id>
