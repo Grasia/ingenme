@@ -8,7 +8,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.ingenme</groupId>
-	<artifactId>noderel</artifactId>
+	<artifactId>nodereled</artifactId>
 	<packaging>jar</packaging>
 	<name>noderel</name>
 	<description>A simple node-relationship editor</description>
