@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>net.sf.ingenme</groupId>
 		<artifactId>ingenme</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.ingenme</groupId>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>core</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -735,7 +735,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -754,7 +754,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
