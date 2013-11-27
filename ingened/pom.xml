@@ -274,7 +274,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/generated/licenses</outputDirectory>
+							<outputDirectory>${basedir}/target/generated</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${basedir}/src/main/resources/licenses</directory>
@@ -317,9 +317,8 @@
 							</resources>
 						</configuration>
 					</execution>
-					<execution>
+					<!--execution>
 						<id>copy-resources-src</id>
-						<!-- here the phase you need -->
 						<phase>validate</phase>
 						<goals>
 							<goal>copy-resources</goal>
@@ -333,23 +332,8 @@
 								</resource>
 							</resources>
 						</configuration>
-					</execution>
-					<!-- execution>
-						<id>copy-resources-pluginsrc</id>					
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/generated/src/main/java</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/resources/pluginssrc</directory>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-						</configuration>
 					</execution-->
+
 					
 
 				</executions>
@@ -559,7 +543,7 @@
 									<type>jar</type>
 									<overWrite>true</overWrite>
 									<includes>licenses/*.*</includes>
-									<outputDirectory>target/generated/src/main/resources/licenses</outputDirectory>
+									<outputDirectory>target/generated/src/main/resources</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
@@ -733,6 +717,44 @@
 									</pluginExecutionFilter>
 									<action>
 										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-clean-plugin
+										</artifactId>
+										<versionRange>
+											[2.4.1,)
+										</versionRange>
+										<goals>
+											<goal>clean</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-antrun-plugin
+										</artifactId>
+										<versionRange>
+											[1.7,)
+										</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

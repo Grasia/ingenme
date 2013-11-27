@@ -9,7 +9,7 @@
 	<groupId>net.sf.ingenme</groupId>
 	<artifactId>nodereled</artifactId>
 	<packaging>jar</packaging>
-	<name>noderel</name>
+	<name>nodereled</name>
 	<description>A simple node-relationship editor</description>
 	<url>http://ingenme.sf.net</url>
 	<licenses>
@@ -343,7 +343,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/generated/licenses</outputDirectory>
+							<outputDirectory>${basedir}/target/generated</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${basedir}/src/main/resources/licenses</directory>
@@ -608,7 +608,7 @@
 								<artifactItem>
 									<groupId>net.sf.ingenme</groupId>
 									<artifactId>core</artifactId>
-									<version>1.0-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
 									<includes>commonsrc/**/*.java</includes>
@@ -629,11 +629,63 @@
 								<artifactItem>
 									<groupId>net.sf.ingenme</groupId>
 									<artifactId>core</artifactId>
-									<version>1.0-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
 									<includes>licenses/*.*</includes>
-									<outputDirectory>target/generated/src/main/resources/licenses</outputDirectory>
+									<outputDirectory>target/generated/src/main/resources</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-htmldoc</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>net.sf.ingenme</groupId>
+									<artifactId>ingened</artifactId>
+									<version>${project.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<includes>pluginssrc/**/*.*</includes>
+									<outputDirectory>target/generated/src/main/java</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-htmldoc-templates</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>net.sf.ingenme</groupId>
+									<artifactId>ingened</artifactId>
+									<version>${project.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<includes>pluginssrc/templates/*.*</includes>
+									<outputDirectory>target/generated/src/main/resources</outputDirectory>
+								</artifactItem>
+
+								<artifactItem>
+									<groupId>net.sf.ingenme</groupId>
+									<artifactId>ingened</artifactId>
+									<version>${project.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<includes>pluginssrc/logograsia.jpg</includes>
+									<outputDirectory>target/generated/src/main/resources</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 						</configuration>

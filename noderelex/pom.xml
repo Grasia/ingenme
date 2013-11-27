@@ -9,7 +9,7 @@
   <groupId>net.sf.ingenme</groupId>
   <artifactId>noderelex</artifactId>
   <packaging>jar</packaging>
-  <name>noderel</name>
+  <name>noderelex</name>
   <description>A simple node-relationship editor</description>
   <url>http://ingenme.sf.net</url>
   <licenses>
@@ -69,10 +69,37 @@
 	      </execution>
 	    </executions>
 	  </plugin>
+<plugin>
+				<!-- Generate the meta-model editor sources in the target folder -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<!-- It generates the documentation associated wiht the metamodel -->
+						<id>generate document for metamodel</id>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<keepAlive>false</keepAlive>
+							<mainClass>ingenias.codeproc.HTMLDocumentGenerator</mainClass>
+							<arguments>
+								<argument>${project.basedir}/src/main/spec/specification.xml</argument>
+								<argument>${project.basedir}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+
+				</executions>
+
+			</plugin>
 	  
 	</plugins>
 	<pluginManagement>
 	  <plugins>
+
 	    <!--This plugin's configuration is used to store Eclipse m2e settings 
 	      only. It has no influence on the Maven build itself. -->
 	      
