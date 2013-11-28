@@ -12,11 +12,13 @@
 <objects>
 <object id="NRNode0" type="ingenias.editor.entities.NRNode">
 <mapproperties>
+<key id="Description"></key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
 <object id="NRNode1" type="ingenias.editor.entities.NRNode">
 <mapproperties>
+<key id="Description"></key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
@@ -26,17 +28,20 @@
 <object id="0" type="ingenias.editor.entities.NREdge">
 <mapproperties>
 <key id="CostField"></key>
+<key id="Description"></key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
-<role idEntity="NRNode0" class="ingenias.editor.entities.NRNode" roleName="NREdgeConnectortarget" type="ingenias.editor.entities.NREdgeConnectortargetRole" dgcid="1337128430">
+<role idEntity="NRNode0" class="ingenias.editor.entities.NRNode" roleName="NREdgeConnectortarget" type="ingenias.editor.entities.NREdgeConnectortargetRole" dgcid="1291455029">
 <mapproperties>
 <key id="attributeToShow">0</key>
+<key id="Description"></key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="NRNode1" class="ingenias.editor.entities.NRNode" roleName="NREdgeConnectorsource" type="ingenias.editor.entities.NREdgeConnectorsourceRole" dgcid="720643744">
+</role><role idEntity="NRNode1" class="ingenias.editor.entities.NRNode" roleName="NREdgeConnectorsource" type="ingenias.editor.entities.NREdgeConnectorsourceRole" dgcid="217921760">
 <mapproperties>
 <key id="attributeToShow">0</key>
+<key id="Description"></key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </role></relationship>
@@ -45,6 +50,12 @@
  <model id="n1" type="ingenias.editor.models.NRGraphModelJGraph">
 <object id="n1" type="ingenias.editor.entities.NRGraphDataEntity">
 <mapproperties>
+<key id="Description">This is a sample diagram. You can draw as many nodes as you want. 
+
+You can also insert HTML in the description of the diagram:
+&lt;ul&gt;
+&lt;li&gt;like this bullet list&lt;/li&gt;
+&lt;/ul&gt;</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
@@ -55,20 +66,31 @@
 
 	<graph>
 			
-	<node id="0" nid="node0" type="NREdge">
+	<node id="NRNode0" nid="node1" type="NRNode">
+		<attr name="bounds">
+			<rectangle x="307" y="39" width="58" height="47"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="0" nid="node2" type="NREdge">
+		<attr name="bounds">
+			<rectangle x="173" y="110" width="66" height="17"></rectangle>		</attr>
 		<attr name="view">
 			<string>ingenias</string>
 		</attr>
 
-		<attr name="bounds">
-			<rectangle x="173" y="110" width="66" height="17"></rectangle>		</attr>
 
 
-	<connected id="node1"><attr name="extraLabels">
-			<array>
+	<connected id="node0">
 
-</array>
-</attr>
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
 
 
 
@@ -76,7 +98,16 @@
 
 
 	</connected>
-	<connected id="node2">
+	<connected id="node1">
+
+
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
 
 
 
@@ -86,16 +117,9 @@
 	</connected>
 	</node>
 			
-	<node id="NRNode1" nid="node1" type="NRNode">
+	<node id="NRNode1" nid="node0" type="NRNode">
 		<attr name="bounds">
 			<rectangle x="47" y="150" width="58" height="47"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="NRNode0" nid="node2" type="NRNode">
-		<attr name="bounds">
-			<rectangle x="307" y="39" width="58" height="47"></rectangle>		</attr>
 
 
 	</node><parentship>
@@ -109,27 +133,27 @@
 
 	<layout>
 			
-	<node id="node0">
-		<attr name="view">
-			<string>ingenias</string>
-		</attr>
-
-		<attr name="bounds">
-			<rectangle x="173" y="110" width="66" height="17"></rectangle>		</attr>
-
-
-	</node>
-			
 	<node id="node1">
 		<attr name="bounds">
-			<rectangle x="47" y="150" width="58" height="47"></rectangle>		</attr>
+			<rectangle x="307" y="39" width="58" height="47"></rectangle>		</attr>
 
 
 	</node>
 			
 	<node id="node2">
 		<attr name="bounds">
-			<rectangle x="307" y="39" width="58" height="47"></rectangle>		</attr>
+			<rectangle x="173" y="110" width="66" height="17"></rectangle>		</attr>
+		<attr name="view">
+			<string>ingenias</string>
+		</attr>
+
+
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="47" y="150" width="58" height="47"></rectangle>		</attr>
 
 
 	</node>

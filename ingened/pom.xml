@@ -530,7 +530,7 @@
 								<artifactItem>
 									<groupId>net.sf.ingenme</groupId>
 									<artifactId>core</artifactId>
-									<version>1.0-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
 									<includes>commonsrc/**/*.java</includes>
@@ -539,7 +539,7 @@
 								<artifactItem>
 									<groupId>net.sf.ingenme</groupId>
 									<artifactId>core</artifactId>
-									<version>1.0-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
 									<includes>licenses/*.*</includes>

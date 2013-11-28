@@ -51,12 +51,28 @@ public class GraphCollectionImp implements GraphCollection {
 	
   }
 
-protected TypedVector getValue() {
+public TypedVector getValue() {
 	// TODO Auto-generated method stub
 	return this.tv;
 }
+
+@Override
+public void addElementAt(int k, GraphEntity ge) {
+	this.tv.add(k,ge.getEntity());
+	
+}
+
+@Override
+public void addElementAt( GraphEntity ge) {
+	this.tv.add(ge.getEntity());
+	
+}
   
- 
+@Override
+public boolean contains( GraphEntity ge) {
+	return tv.contains(ge);
+	
+} 
 
 
 }
