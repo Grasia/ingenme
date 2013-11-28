@@ -331,7 +331,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			if (errors.isEmpty()) {
 				String saveLocation=saveMetamodel(output);
 				String projectHome = new File(saveLocation).getParentFile().getParent();
-				for (String icon:iconsToMove){
+				/*for (String icon:iconsToMove){
 					File iconFile = new File(icon);
 					try {
 						FileCopy.copy(icon, projectHome+"/images/"+iconFile.getName());
@@ -339,7 +339,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
+				}*/
 			} else
 			{
 				/*	javax.swing.JOptionPane.showMessageDialog(getResources().getMainFrame(), "There are errors in the metamodel. Check the editor panels","Error",javax.swing.JOptionPane.ERROR_MESSAGE);*/
@@ -463,8 +463,8 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				String smalliconPath=null;
 
 				if (basicrepre==null){
-					smalliconPath="images/m"+ge.getID().replace(' ', '_').replace(':', '_')+".png";
-					File smallicon=new File(folder+"/target/"+smalliconPath);
+					smalliconPath=folder+"/target/generated/src/main/resources/images/m"+ge.getID().replace(' ', '_').replace(':', '_')+".png";
+					File smallicon=new File(smalliconPath);
 					inventIcon(ge, smallicon);
 					iconsToMove.add(smallicon.getAbsolutePath());
 				} else {
@@ -1001,11 +1001,11 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}else 
 					output.append("<normal-icon>"+basicRepresentation.getAttributeByName("NormalIcon").getSimpleValue()+"</normal-icon>\n");				
 			} else {
-				File smallicon=new File(folder+"/target/m"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
+				File smallicon=new File(folder+"/target/generated/src/main/resources/images/m"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
 				this.iconsToMove.add(smallicon.getAbsolutePath());
 				inventIcon(metamodelEntity, smallicon);
 
-				File bigicon=new File(folder+"/target/"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
+				File bigicon=new File(folder+"/target/generated/src/main/resources/images/"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
 				this.iconsToMove.add(bigicon.getAbsolutePath());
 				inventIcon(metamodelEntity, bigicon);
 
