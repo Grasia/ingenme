@@ -9,7 +9,7 @@
   <groupId>net.sf.ingenme</groupId>
   <artifactId>ingenme</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.3-SNAPSHOT</version>
+  <version>1.0.3</version>
   <name>ingenme</name>
   <description>The INGENME editor framework</description>
   <url>http://ingenme.sf.net</url>
@@ -17,7 +17,7 @@
     <license>
       <name>The GPL V3</name>
       <url>http://www.gnu.org/copyleft/gpl.html</url>
-      <distribution/>
+      <distribution />
     </license>
   </licenses>
   <scm>
@@ -32,7 +32,7 @@
       <email>jjgomez@fdi.ucm.es</email>
     </developer>
   </developers>
-  <properties/>
+  <properties />
   <modules>
     <module>core</module>
     <module>ingened</module>
@@ -102,7 +102,7 @@
 			    </goals>
 			  </pluginExecutionFilter>
 			  <action>
-			  <ignore/>
+			  <ignore />
 			  <!-- to avoid errors in the eclipse m2e plugin -->
 			  </action>
 			</pluginExecution>
@@ -116,7 +116,7 @@
 			    </goals>
 			  </pluginExecutionFilter>
 			  <action>
-			    <ignore/>
+			    <ignore />
 			  </action>
 			</pluginExecution>
 		      </pluginExecutions>
