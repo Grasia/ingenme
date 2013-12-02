@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>net.sf.ingenme</groupId>
 		<artifactId>ingenme</artifactId>
@@ -18,7 +19,7 @@
 			<url>http://www.gnu.org/copyleft/gpl.html</url>
 			<distribution />
 		</license>
-	</licenses>		
+	</licenses>
 	<developers>
 		<developer>
 			<id>escalope</id>
@@ -199,6 +200,7 @@
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
+
 	<profiles>
 		<profile>
 			<id>release-sign-artifacts</id>
@@ -228,19 +230,22 @@
 			</build>
 		</profile>
 	</profiles>
-	<!--reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.5.2</version>
-			</plugin>
-		</plugins>
-	</reporting-->
+	<!--reporting> <plugins> <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
+		<version>2.5.2</version> </plugin> </plugins> </reporting -->
 	<build>
 		<defaultGoal>package</defaultGoal>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <siteDirectory>target/dochtml</siteDirectory>
+        </configuration>
+      </plugin>
+
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
@@ -308,9 +313,9 @@
 							</arguments>
 						</configuration>
 					</execution>
-
+<!-- It generates the documentation associated wiht the metamodel -->
 					<execution>
-						<!-- It generates the documentation associated wiht the metamodel -->
+						
 						<id>generate document for metamodel</id>
 						<phase>pre-site</phase>
 						<goals>
@@ -448,100 +453,7 @@
 			<!-- *************************************** -->
 			<!-- End of editor generation specific code -->
 			<!-- ************************************** -->
-			<!-- plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-jxr-plugin</artifactId>
-							<version>2.2</version>
-							<configuration>
-								<aggregate>true</aggregate>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-pmd-plugin</artifactId>
-							<version>2.5</version>
-							<configuration>
-								<linkXref>true</linkXref>
-								<sourceEncoding>utf-8</sourceEncoding>
-								<minimumTokens>100</minimumTokens>
-								<targetJdk>1.6</targetJdk>
-								<aggregate>true</aggregate>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-project-info-reports-plugin</artifactId>
-							<version>2.3.1</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>taglist-maven-plugin</artifactId>
-							<version>2.4</version>
-							<configuration>
-								<tags>
-									<tag>TODO</tag>
-									<tag>@todo</tag>
-									<tag>@deprecated</tag>
-									<tag>FIXME</tag>
-								</tags>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>2.7</version>
-							<configuration>
-								<minmemory>512m</minmemory>
-								<maxmemory>1g</maxmemory>
-								<linksource>true</linksource>
-							</configuration>
-							<reportSets>
-								<reportSet>
-									<reports>
-										<report>aggregate</report>
-										<report>test-aggregate</report>
-										<report>fix</report>
-										<report>test-fix</report>
-									</reports>
-								</reportSet>
-							</reportSets>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>findbugs-maven-plugin</artifactId>
-							<version>2.3.1</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>cobertura-maven-plugin</artifactId>
-							<version>2.4</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.6</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>l10n-maven-plugin</artifactId>
-							<version>1.0-alpha-2</version>
-							<configuration>
-								<locales>
-									<locale>en</locale>
-									<locale>de</locale>
-									<locale>fr</locale>
-								</locales>
-								<aggregate>true</aggregate>
-							</configuration>
-						</plugin>
-					</reportPlugins>
-				</configuration>
-			</plugin-->
+			
 
 			<!-- now shading is perfomed and an executable produced -->
 			<!-- shade plugin must go before izpack to be executed first -->
@@ -568,7 +480,8 @@
 								</filter>
 							</filters>
 							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>ingenias.editor.IDE</mainClass>
 								</transformer>
 							</transformers>
@@ -722,46 +635,66 @@
 										<include name="**/*.java" />
 									</fileset>
 								</move>
-								<copy failonerror="false" file="src/izpack/Readme.temp" tofile="src/izpack/Readme.txt" overwrite="yes" />
-								<delete failonerror="false" dir="target/generated/src/main/java/commonsrc" />
+								<copy failonerror="false" file="src/izpack/Readme.temp"
+									tofile="src/izpack/Readme.txt" overwrite="yes" />
+								<delete failonerror="false"
+									dir="target/generated/src/main/java/commonsrc" />
 								<!-- search and replace certain tokens to further customize -->
 
-								<replace dir="target/generated/src/" token="@toolname@" value="${project.artifactId}">
+								<replace dir="target/generated/src/" token="@toolname@"
+									value="${project.artifactId}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@authorname@" value="${developername}">
+								<replace dir="target/generated/src/" token="@authorname@"
+									value="${developername}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@versionnumber@" value="${project.version}">
+								<replace dir="target/generated/src/" token="@versionnumber@"
+									value="${project.version}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@vendor@" value="${vendor}">
+								<replace dir="target/generated/src/" token="@vendor@"
+									value="${vendor}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@distributionURL@" value="${project.url}">
+								<replace dir="target/generated/src/" token="@distributionURL@"
+									value="${project.url}">
 									<include name="**/*.java" />
 								</replace>
-								<replace dir="target/generated/src/" token="@toolexecutable@" value="${project.artifactId}-${project.version}-selfcontained">
+								<replace dir="target/generated/src/" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained">
 									<include name="**/*.java" />
 								</replace>
 
 
 
-								<replace file="target/generated/pom.xml" token="@toolname@" value="${project.artifactId}" />
-								<replace file="target/generated/pom.xml" token="@authorname@" value="${developername}" />
-								<replace file="target/generated/pom.xml" token="@versionnumber@" value="${project.version}" />
-								<replace file="target/generated/pom.xml" token="@vendor@" value="${vendor}" />
-								<replace file="target/generated/pom.xml" token="@distributionURL@" value="${project.url}" />
-								<replace file="target/generated/pom.xml" token="@toolexecutable@" value="${project.artifactId}-${project.version}-selfcontained" />
+								<replace file="target/generated/pom.xml" token="@toolname@"
+									value="${project.artifactId}" />
+								<replace file="target/generated/pom.xml" token="@authorname@"
+									value="${developername}" />
+								<replace file="target/generated/pom.xml" token="@versionnumber@"
+									value="${project.version}" />
+								<replace file="target/generated/pom.xml" token="@vendor@"
+									value="${vendor}" />
+								<replace file="target/generated/pom.xml" token="@distributionURL@"
+									value="${project.url}" />
+								<replace file="target/generated/pom.xml" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained" />
 
 								<echo>replacing in readme</echo>
 
-								<replace file="src/izpack/Readme.txt" token="@toolname@" value="${project.artifactId}" />
-								<replace file="src/izpack/Readme.txt" token="@authorname@" value="${developername}" />
-								<replace file="src/izpack/Readme.txt" token="@versionnumber@" value="${project.version}" />
-								<replace file="src/izpack/Readme.txt" token="@vendor@" value="${vendor}" />
-								<replace file="src/izpack/Readme.txt" token="@distributionURL@" value="${project.url}" />
-								<replace file="src/izpack/Readme.txt" token="@toolexecutable@" value="${project.artifactId}-${project.version}-selfcontained" />
+								<replace file="src/izpack/Readme.txt" token="@toolname@"
+									value="${project.artifactId}" />
+								<replace file="src/izpack/Readme.txt" token="@authorname@"
+									value="${developername}" />
+								<replace file="src/izpack/Readme.txt" token="@versionnumber@"
+									value="${project.version}" />
+								<replace file="src/izpack/Readme.txt" token="@vendor@"
+									value="${vendor}" />
+								<replace file="src/izpack/Readme.txt" token="@distributionURL@"
+									value="${project.url}" />
+								<replace file="src/izpack/Readme.txt" token="@toolexecutable@"
+									value="${project.artifactId}-${project.version}-selfcontained" />
 
 							</target>
 						</configuration>

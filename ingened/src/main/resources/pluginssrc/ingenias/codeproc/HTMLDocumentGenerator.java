@@ -58,7 +58,10 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 	public HTMLDocumentGenerator(String file) throws Exception {
 		super(file);
 		this.addTemplate("pluginssrc/templates/index.xml");
+		this.addTemplate("pluginssrc/templates/index-xdoc.xml");
+		this.addTemplate("pluginssrc/templates/diagram-xdoc.xml");
 		this.addTemplate("pluginssrc/templates/diagram.xml");
+		this.addTemplate("pluginssrc/templates/site.xml");
 	}
 
 	/**
@@ -72,7 +75,10 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 	public HTMLDocumentGenerator(Browser browser) throws Exception {
 		super(browser);
 		this.addTemplate("pluginssrc/templates/index.xml");
+		this.addTemplate("pluginssrc/templates/index-xdoc.xml");
 		this.addTemplate("pluginssrc/templates/diagram.xml");
+		this.addTemplate("pluginssrc/templates/diagram-xdoc.xml");
+		this.addTemplate("pluginssrc/templates/site.xml");
 	}
 
 	@Override
@@ -198,11 +204,12 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 			rp2.add(new Var("tipo", g.getType()));
 			rp2.add(new Var("image", toSafeName(g.getName()) + ".png"));
 			g.generateImage( ( (ProjectProperty)this.getProperty("htmldoc:output")).
-					value + "/" + toSafeName(g.getName()) + ".png");
+					value + "/images/" + toSafeName(g.getName()) + ".png");
+			if (!new File(((ProjectProperty)this.getProperty("htmldoc:output")).value + "/resources/images/").exists())
+				new File(((ProjectProperty)this.getProperty("htmldoc:output")).value + "/resources/images/").mkdirs();
+			g.generateImage( ( (ProjectProperty)this.getProperty("htmldoc:output")).
+					value + "/resources/images/" + toSafeName(g.getName()) + ".png");
 			rp1.add(rp2);
-
-
-
 		}
 
 	}

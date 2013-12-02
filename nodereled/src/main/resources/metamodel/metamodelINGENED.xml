@@ -3,7 +3,7 @@
 <projectproperties>
 <projectproperty id="extfolder" module="IDK"  name="Extension Module Folder" value="ext"  tooltip="Folder where the IDE will find its new modules" />
 <projectproperty id="htmldoc" module="HTML Document generator"  name="HTML document folder" value="html"  tooltip="The document folder that will contain HTML version of this specification" />
- <openeddiagram>abstract syntax</openeddiagram> <openeddiagram>concrete syntax</openeddiagram></projectproperties>
+ <openeddiagram>concrete syntax</openeddiagram> <openeddiagram>abstract syntax</openeddiagram></projectproperties>
 <leafpackages>
    <path>
     <package id="Project"/>
@@ -11,6 +11,7 @@
    </path>
    <path>
     <package id="Project"/>
+    <package id="p1"/>
     <package id="concrete syntax"/>
    </path>
 </leafpackages>
@@ -148,22 +149,18 @@
 </object>
 </objects>
 <relationships>
-<relationship id="0" type="ingenias.editor.entities.AssociationEnd">
-<object id="0" type="ingenias.editor.entities.AssociationEnd">
+<relationship id="4" type="ingenias.editor.entities.PlayedBy">
+<object id="4" type="ingenias.editor.entities.PlayedBy">
 <mapproperties>
-<key id="MaxCardinality">1</key>
-<key id="MinCardinality">1</key>
 <key id="_view_type">INGENIAS</key>
-<key id="Label"></key>
-<key id="SourceOrTarget">source</key>
 </mapproperties>
 </object>
-<role idEntity="NREdgeConnector" class="ingenias.editor.entities.MetaRole" roleName="AssociationEndtarget" type="ingenias.editor.entities.AssociationEndtargetRole" dgcid="345352515">
+<role idEntity="NREdgeConnector" class="ingenias.editor.entities.MetaRole" roleName="PlayedBysource" type="ingenias.editor.entities.PlayedBysourceRole" dgcid="1273543789">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="AssociationEndsource" type="ingenias.editor.entities.AssociationEndsourceRole" dgcid="654206246">
+</role><role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="PlayedBytarget" type="ingenias.editor.entities.PlayedBytargetRole" dgcid="332169508">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
@@ -179,63 +176,12 @@
 <key id="SourceOrTarget">target</key>
 </mapproperties>
 </object>
-<role idEntity="NREdgeConnector" class="ingenias.editor.entities.MetaRole" roleName="AssociationEndtarget" type="ingenias.editor.entities.AssociationEndtargetRole" dgcid="345352515">
+<role idEntity="NREdgeConnector" class="ingenias.editor.entities.MetaRole" roleName="AssociationEndtarget" type="ingenias.editor.entities.AssociationEndtargetRole" dgcid="1273543789">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="AssociationEndsource" type="ingenias.editor.entities.AssociationEndsourceRole" dgcid="654206246">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role></relationship>
-<relationship id="2" type="ingenias.editor.entities.Contains">
-<object id="2" type="ingenias.editor.entities.Contains">
-<mapproperties>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</object>
-<role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="Containstarget" type="ingenias.editor.entities.ContainstargetRole" dgcid="654206246">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role><role idEntity="NRGraph" class="ingenias.editor.entities.MetaDiagram" roleName="Containssource" type="ingenias.editor.entities.ContainssourceRole" dgcid="1711904876">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role></relationship>
-<relationship id="1" type="ingenias.editor.entities.Contains">
-<object id="1" type="ingenias.editor.entities.Contains">
-<mapproperties>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</object>
-<role idEntity="NRGraph" class="ingenias.editor.entities.MetaDiagram" roleName="Containssource" type="ingenias.editor.entities.ContainssourceRole" dgcid="1711904876">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role><role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="Containstarget" type="ingenias.editor.entities.ContainstargetRole" dgcid="1212995398">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role></relationship>
-<relationship id="4" type="ingenias.editor.entities.PlayedBy">
-<object id="4" type="ingenias.editor.entities.PlayedBy">
-<mapproperties>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</object>
-<role idEntity="NREdgeConnector" class="ingenias.editor.entities.MetaRole" roleName="PlayedBysource" type="ingenias.editor.entities.PlayedBysourceRole" dgcid="345352515">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role><role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="PlayedBytarget" type="ingenias.editor.entities.PlayedBytargetRole" dgcid="1212995398">
+</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="AssociationEndsource" type="ingenias.editor.entities.AssociationEndsourceRole" dgcid="1446735914">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
@@ -247,46 +193,67 @@
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
-<role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="Hassource" type="ingenias.editor.entities.HassourceRole" dgcid="654206246">
+<role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="Hassource" type="ingenias.editor.entities.HassourceRole" dgcid="1446735914">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="CostField" class="ingenias.editor.entities.PropertyField" roleName="Hastarget" type="ingenias.editor.entities.HastargetRole" dgcid="1453621382">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role></relationship>
-<relationship id="9" type="ingenias.editor.entities.VisualizedAs">
-<object id="9" type="ingenias.editor.entities.VisualizedAs">
-<mapproperties>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</object>
-<role idEntity="EdgeVisualRepr" class="ingenias.editor.entities.VisualRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="577421855">
-<mapproperties>
-<key id="attributeToShow">0</key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="1357690824">
+</role><role idEntity="CostField" class="ingenias.editor.entities.PropertyField" roleName="Hastarget" type="ingenias.editor.entities.HastargetRole" dgcid="1586756621">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </role></relationship>
-<relationship id="5" type="ingenias.editor.entities.VisualizedAs">
-<object id="5" type="ingenias.editor.entities.VisualizedAs">
+<relationship id="0" type="ingenias.editor.entities.AssociationEnd">
+<object id="0" type="ingenias.editor.entities.AssociationEnd">
 <mapproperties>
+<key id="MaxCardinality">1</key>
+<key id="MinCardinality">1</key>
 <key id="_view_type">INGENIAS</key>
+<key id="Label"></key>
+<key id="SourceOrTarget">source</key>
 </mapproperties>
 </object>
-<role idEntity="GraphToolConfig" class="ingenias.editor.entities.BasicRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="2135772025">
+<role idEntity="NREdgeConnector" class="ingenias.editor.entities.MetaRole" roleName="AssociationEndtarget" type="ingenias.editor.entities.AssociationEndtargetRole" dgcid="1273543789">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="NRGraph" class="ingenias.editor.entities.MetaDiagram" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="510587575">
+</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="AssociationEndsource" type="ingenias.editor.entities.AssociationEndsourceRole" dgcid="1446735914">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="2" type="ingenias.editor.entities.Contains">
+<object id="2" type="ingenias.editor.entities.Contains">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="NRGraph" class="ingenias.editor.entities.MetaDiagram" roleName="Containssource" type="ingenias.editor.entities.ContainssourceRole" dgcid="1576376250">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="Containstarget" type="ingenias.editor.entities.ContainstargetRole" dgcid="1446735914">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="1" type="ingenias.editor.entities.Contains">
+<object id="1" type="ingenias.editor.entities.Contains">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="NRGraph" class="ingenias.editor.entities.MetaDiagram" roleName="Containssource" type="ingenias.editor.entities.ContainssourceRole" dgcid="1576376250">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="Containstarget" type="ingenias.editor.entities.ContainstargetRole" dgcid="332169508">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
@@ -298,12 +265,46 @@
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
-<role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="2085706567">
+<role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="1094453670">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="NodeToolConfig" class="ingenias.editor.entities.BasicRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="1076843683">
+</role><role idEntity="NodeToolConfig" class="ingenias.editor.entities.BasicRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="1412010552">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="9" type="ingenias.editor.entities.VisualizedAs">
+<object id="9" type="ingenias.editor.entities.VisualizedAs">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EdgeVisualRepr" class="ingenias.editor.entities.VisualRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="2098028772">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="NREdge" class="ingenias.editor.entities.MetaRelationship" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="518238941">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="5" type="ingenias.editor.entities.VisualizedAs">
+<object id="5" type="ingenias.editor.entities.VisualizedAs">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="NRGraph" class="ingenias.editor.entities.MetaDiagram" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="61840721">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="GraphToolConfig" class="ingenias.editor.entities.BasicRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="2117144240">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
@@ -315,12 +316,12 @@
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
 </object>
-<role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="2085706567">
+<role idEntity="NRNode" class="ingenias.editor.entities.MetaObject" roleName="VisualizedAssource" type="ingenias.editor.entities.VisualizedAssourceRole" dgcid="1094453670">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
 </mapproperties>
-</role><role idEntity="NodeVisualRepr" class="ingenias.editor.entities.VisualRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="183102102">
+</role><role idEntity="NodeVisualRepr" class="ingenias.editor.entities.VisualRepresentation" roleName="VisualizedAstarget" type="ingenias.editor.entities.VisualizedAstargetRole" dgcid="1743991327">
 <mapproperties>
 <key id="attributeToShow">0</key>
 <key id="_view_type">INGENIAS</key>
@@ -343,117 +344,9 @@
 
 	<graph>
 			
-	<node id="NREdge" nid="node1" type="MetaRelationship">
+	<node id="1" nid="node10" type="Contains">
 		<attr name="bounds">
-			<rectangle x="372" y="203" width="124" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="NRGraph" nid="node0" type="MetaDiagram">
-		<attr name="bounds">
-			<rectangle x="477" y="76" width="133" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="NREdgeConnector" nid="node2" type="MetaRole">
-		<attr name="bounds">
-			<rectangle x="54" y="124" width="96" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="CostField" nid="node4" type="PropertyField">
-		<attr name="bounds">
-			<rectangle x="366" y="295" width="98" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="4" nid="node9" type="PlayedBy">
-		<attr name="bounds">
-			<rectangle x="68" y="83" width="69" height="17"></rectangle>		</attr>
-
-
-	<connected id="node2">
-
-
-
-
-		<attr name="labelposition">
-			<point x="500.0" y="-20.0"></point>
-		</attr>
-
-
-
-
-
-
-
-	</connected>
-	<connected id="node3">
-
-
-
-
-
-		<attr name="labelposition">
-			<point x="500.0" y="-20.0"></point>
-		</attr>
-
-
-
-
-
-
-
-	</connected>
-	</node>
-			
-	<node id="3" nid="node6" type="AssociationEnd">
-		<attr name="bounds">
-			<rectangle x="180" y="147" width="162" height="72"></rectangle>		</attr>
-
-
-	<connected id="node1">
-
-
-
-
-		<attr name="labelposition">
-			<point x="500.0" y="-20.0"></point>
-		</attr>
-
-
-
-
-
-
-
-	</connected>
-	<connected id="node2">
-
-
-
-
-
-		<attr name="labelposition">
-			<point x="500.0" y="-20.0"></point>
-		</attr>
-
-
-
-
-
-
-
-	</connected>
-	</node>
-			
-	<node id="8" nid="node10" type="Has">
-		<attr name="bounds">
-			<rectangle x="406" y="263" width="37" height="17"></rectangle>		</attr>
+			<rectangle x="184" y="90" width="70" height="17"></rectangle>		</attr>
 
 
 	<connected id="node1">
@@ -491,12 +384,19 @@
 	</connected>
 	</node>
 			
-	<node id="0" nid="node5" type="AssociationEnd">
+	<node id="NRGraph" nid="node1" type="MetaDiagram">
+		<attr name="bounds">
+			<rectangle x="477" y="76" width="133" height="44"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="0" nid="node8" type="AssociationEnd">
 		<attr name="bounds">
 			<rectangle x="124" y="247" width="162" height="72"></rectangle>		</attr>
 
 
-	<connected id="node1">
+	<connected id="node0">
 
 
 
@@ -531,19 +431,66 @@
 	</connected>
 	</node>
 			
-	<node id="NRNode" nid="node3" type="MetaObject">
+	<node id="2" nid="node9" type="Contains">
+		<attr name="bounds">
+			<rectangle x="453" y="153" width="70" height="17"></rectangle>		</attr>
+
+
+	<connected id="node1">
+
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
+
+
+
+
+
+
+	</connected>
+	<connected id="node0">
+
+
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
+
+
+
+
+
+
+	</connected>
+	</node>
+			
+	<node id="NRNode" nid="node4" type="MetaObject">
 		<attr name="bounds">
 			<rectangle x="59" y="14" width="86" height="44"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="2" nid="node7" type="Contains">
+	<node id="NREdge" nid="node0" type="MetaRelationship">
 		<attr name="bounds">
-			<rectangle x="453" y="153" width="70" height="17"></rectangle>		</attr>
+			<rectangle x="372" y="203" width="124" height="44"></rectangle>		</attr>
 
 
-	<connected id="node0">
+	</node>
+			
+	<node id="4" nid="node5" type="PlayedBy">
+		<attr name="bounds">
+			<rectangle x="68" y="83" width="69" height="17"></rectangle>		</attr>
+
+
+	<connected id="node2">
 
 
 
@@ -559,7 +506,7 @@
 
 
 	</connected>
-	<connected id="node1">
+	<connected id="node4">
 
 
 
@@ -578,9 +525,9 @@
 	</connected>
 	</node>
 			
-	<node id="1" nid="node8" type="Contains">
+	<node id="8" nid="node7" type="Has">
 		<attr name="bounds">
-			<rectangle x="184" y="90" width="70" height="17"></rectangle>		</attr>
+			<rectangle x="406" y="263" width="37" height="17"></rectangle>		</attr>
 
 
 	<connected id="node0">
@@ -616,123 +563,21 @@
 
 
 	</connected>
-	</node><parentship>
-</parentship>
-<entityconstraints>
-</entityconstraints>
-
-
-	</graph>
-
-
-	<layout>
-			
-	<node id="node1">
-		<attr name="bounds">
-			<rectangle x="372" y="203" width="124" height="44"></rectangle>		</attr>
-
-
 	</node>
 			
-	<node id="node0">
-		<attr name="bounds">
-			<rectangle x="477" y="76" width="133" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node2">
-		<attr name="bounds">
-			<rectangle x="54" y="124" width="96" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node4">
+	<node id="CostField" nid="node3" type="PropertyField">
 		<attr name="bounds">
 			<rectangle x="366" y="295" width="98" height="44"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="node9">
-		<attr name="bounds">
-			<rectangle x="68" y="83" width="69" height="17"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node6">
+	<node id="3" nid="node6" type="AssociationEnd">
 		<attr name="bounds">
 			<rectangle x="180" y="147" width="162" height="72"></rectangle>		</attr>
 
 
-	</node>
-			
-	<node id="node10">
-		<attr name="bounds">
-			<rectangle x="406" y="263" width="37" height="17"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node5">
-		<attr name="bounds">
-			<rectangle x="124" y="247" width="162" height="72"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node3">
-		<attr name="bounds">
-			<rectangle x="59" y="14" width="86" height="44"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node7">
-		<attr name="bounds">
-			<rectangle x="453" y="153" width="70" height="17"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node8">
-		<attr name="bounds">
-			<rectangle x="184" y="90" width="70" height="17"></rectangle>		</attr>
-
-
-	</node>
-	</layout>
-</gxl> </model>
- <model id="concrete syntax" type="ingenias.editor.models.MetamodelModelJGraph">
-<object id="concrete syntax" type="ingenias.editor.entities.MetamodelDataEntity">
-<mapproperties>
-<key id="Id">concrete syntax</key>
-<key id="Description"></key>
-<key id="_view_type">INGENIAS</key>
-</mapproperties>
-</object>
-  <path>
-    <package id="Project"/>
-   </path>
-<gxl>
-
-	<graph>
-			
-	<node id="NodeVisualRepr" nid="node1" type="VisualRepresentation">
-		<attr name="bounds">
-			<rectangle x="308" y="248" width="702" height="231"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="7" nid="node9" type="VisualizedAs">
-		<attr name="bounds">
-			<rectangle x="103" y="223" width="90" height="15"></rectangle>		</attr>
-
-
-	<connected id="node6">
+	<connected id="node0">
 
 
 
@@ -767,23 +612,140 @@
 	</connected>
 	</node>
 			
-	<node id="NREdge" nid="node5" type="MetaRelationship">
+	<node id="NREdgeConnector" nid="node2" type="MetaRole">
+		<attr name="bounds">
+			<rectangle x="54" y="124" width="96" height="44"></rectangle>		</attr>
+
+
+	</node><parentship>
+</parentship>
+<entityconstraints>
+</entityconstraints>
+
+
+	</graph>
+
+
+	<layout>
+			
+	<node id="node10">
+		<attr name="bounds">
+			<rectangle x="184" y="90" width="70" height="17"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="477" y="76" width="133" height="44"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node8">
+		<attr name="bounds">
+			<rectangle x="124" y="247" width="162" height="72"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node9">
+		<attr name="bounds">
+			<rectangle x="453" y="153" width="70" height="17"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node4">
+		<attr name="bounds">
+			<rectangle x="59" y="14" width="86" height="44"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="372" y="203" width="124" height="44"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node5">
+		<attr name="bounds">
+			<rectangle x="68" y="83" width="69" height="17"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node7">
+		<attr name="bounds">
+			<rectangle x="406" y="263" width="37" height="17"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="366" y="295" width="98" height="44"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node6">
+		<attr name="bounds">
+			<rectangle x="180" y="147" width="162" height="72"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="54" y="124" width="96" height="44"></rectangle>		</attr>
+
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="concrete syntax" type="ingenias.editor.models.MetamodelModelJGraph">
+<object id="concrete syntax" type="ingenias.editor.entities.MetamodelDataEntity">
+<mapproperties>
+<key id="Id">concrete syntax</key>
+<key id="Description"></key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="p1"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="NREdge" nid="node1" type="MetaRelationship">
 		<attr name="bounds">
 			<rectangle x="80" y="92" width="124" height="40"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="NRGraph" nid="node3" type="MetaDiagram">
+	<node id="NodeVisualRepr" nid="node0" type="VisualRepresentation">
 		<attr name="bounds">
-			<rectangle x="102" y="429" width="99" height="40"></rectangle>		</attr>
+			<rectangle x="308" y="248" width="702" height="231"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="9" nid="node7" type="VisualizedAs">
+	<node id="GraphToolConfig" nid="node4" type="BasicRepresentation">
 		<attr name="bounds">
-			<rectangle x="241" y="105" width="90" height="15"></rectangle>		</attr>
+			<rectangle x="42" y="310" width="215" height="70"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="7" nid="node7" type="VisualizedAs">
+		<attr name="bounds">
+			<rectangle x="103" y="223" width="90" height="15"></rectangle>		</attr>
 
 
 	<connected id="node5">
@@ -802,54 +764,7 @@
 
 
 	</connected>
-	<connected id="node4">
-
-
-
-
-
-		<attr name="labelposition">
-			<point x="500.0" y="-20.0"></point>
-		</attr>
-
-
-
-
-
-
-
-	</connected>
-	</node>
-			
-	<node id="NodeToolConfig" nid="node2" type="BasicRepresentation">
-		<attr name="bounds">
-			<rectangle x="147" y="142" width="185" height="70"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="5" nid="node8" type="VisualizedAs">
-		<attr name="bounds">
-			<rectangle x="104" y="397" width="90" height="15"></rectangle>		</attr>
-
-
 	<connected id="node3">
-
-
-
-
-		<attr name="labelposition">
-			<point x="500.0" y="-20.0"></point>
-		</attr>
-
-
-
-
-
-
-
-	</connected>
-	<connected id="node0">
 
 
 
@@ -873,7 +788,7 @@
 			<rectangle x="172" y="283" width="90" height="15"></rectangle>		</attr>
 
 
-	<connected id="node6">
+	<connected id="node5">
 
 
 
@@ -889,11 +804,51 @@
 
 
 	</connected>
+	<connected id="node0">
+
+
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
+
+
+
+
+
+
+	</connected>
+	</node>
+			
+	<node id="9" nid="node8" type="VisualizedAs">
+		<attr name="bounds">
+			<rectangle x="241" y="105" width="90" height="15"></rectangle>		</attr>
+
+
 	<connected id="node1">
 
 
 
 
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
+
+
+
+
+
+
+	</connected>
+	<connected id="node6">
+
+
+
+
 
 		<attr name="labelposition">
 			<point x="500.0" y="-20.0"></point>
@@ -908,23 +863,70 @@
 	</connected>
 	</node>
 			
-	<node id="GraphToolConfig" nid="node0" type="BasicRepresentation">
+	<node id="EdgeVisualRepr" nid="node6" type="VisualRepresentation">
 		<attr name="bounds">
-			<rectangle x="42" y="310" width="215" height="70"></rectangle>		</attr>
+			<rectangle x="369" y="0" width="439" height="231"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="NRNode" nid="node6" type="MetaObject">
+	<node id="NRNode" nid="node5" type="MetaObject">
 		<attr name="bounds">
 			<rectangle x="40" y="249" width="87" height="40"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="EdgeVisualRepr" nid="node4" type="VisualRepresentation">
+	<node id="5" nid="node9" type="VisualizedAs">
 		<attr name="bounds">
-			<rectangle x="369" y="0" width="439" height="231"></rectangle>		</attr>
+			<rectangle x="104" y="397" width="90" height="15"></rectangle>		</attr>
+
+
+	<connected id="node2">
+
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
+
+
+
+
+
+
+	</connected>
+	<connected id="node4">
+
+
+
+
+
+		<attr name="labelposition">
+			<point x="500.0" y="-20.0"></point>
+		</attr>
+
+
+
+
+
+
+
+	</connected>
+	</node>
+			
+	<node id="NodeToolConfig" nid="node3" type="BasicRepresentation">
+		<attr name="bounds">
+			<rectangle x="147" y="142" width="185" height="70"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="NRGraph" nid="node2" type="MetaDiagram">
+		<attr name="bounds">
+			<rectangle x="102" y="429" width="99" height="40"></rectangle>		</attr>
 
 
 	</node><parentship>
@@ -940,49 +942,28 @@
 			
 	<node id="node1">
 		<attr name="bounds">
-			<rectangle x="308" y="248" width="702" height="231"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node9">
-		<attr name="bounds">
-			<rectangle x="103" y="223" width="90" height="15"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node5">
-		<attr name="bounds">
 			<rectangle x="80" y="92" width="124" height="40"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="node3">
+	<node id="node0">
 		<attr name="bounds">
-			<rectangle x="102" y="429" width="99" height="40"></rectangle>		</attr>
+			<rectangle x="308" y="248" width="702" height="231"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node4">
+		<attr name="bounds">
+			<rectangle x="42" y="310" width="215" height="70"></rectangle>		</attr>
 
 
 	</node>
 			
 	<node id="node7">
 		<attr name="bounds">
-			<rectangle x="241" y="105" width="90" height="15"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node2">
-		<attr name="bounds">
-			<rectangle x="147" y="142" width="185" height="70"></rectangle>		</attr>
-
-
-	</node>
-			
-	<node id="node8">
-		<attr name="bounds">
-			<rectangle x="104" y="397" width="90" height="15"></rectangle>		</attr>
+			<rectangle x="103" y="223" width="90" height="15"></rectangle>		</attr>
 
 
 	</node>
@@ -994,23 +975,44 @@
 
 	</node>
 			
-	<node id="node0">
+	<node id="node8">
 		<attr name="bounds">
-			<rectangle x="42" y="310" width="215" height="70"></rectangle>		</attr>
+			<rectangle x="241" y="105" width="90" height="15"></rectangle>		</attr>
 
 
 	</node>
 			
 	<node id="node6">
 		<attr name="bounds">
+			<rectangle x="369" y="0" width="439" height="231"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node5">
+		<attr name="bounds">
 			<rectangle x="40" y="249" width="87" height="40"></rectangle>		</attr>
 
 
 	</node>
 			
-	<node id="node4">
+	<node id="node9">
 		<attr name="bounds">
-			<rectangle x="369" y="0" width="439" height="231"></rectangle>		</attr>
+			<rectangle x="104" y="397" width="90" height="15"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="147" y="142" width="185" height="70"></rectangle>		</attr>
+
+
+	</node>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="102" y="429" width="99" height="40"></rectangle>		</attr>
 
 
 	</node>

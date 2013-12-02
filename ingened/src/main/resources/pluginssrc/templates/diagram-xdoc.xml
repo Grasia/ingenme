@@ -1,28 +1,34 @@
-
 @@@program @@@
 	@@@repeat id="graph1"@@@
 		@@@saveto@@@
 			@@@file overwrite="yes"@@@
-				@@@v@@@output@@@/v@@@/@@@v@@@fname@@@/v@@@.html@@@/file@@@
+				@@@v@@@output@@@/v@@@/xdoc/@@@v@@@fname@@@/v@@@.xml@@@/file@@@
 			@@@text@@@
-<HTML>
-<BODY>
-	<center><A href="index.html">Main Index</A></center>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>Page Title</title>
+    <author email="user@company.com">John Doe</author>
+  </properties>
+  <body>
+	<center><a href="index.html">Main Index</a></center>
 	<hr/>
-<H1>Diagram name : <font color="#0000CC">@@@v@@@name@@@/v@@@ </font> <font size="6"> </font></H1>
-<H1> Diagram type : <font color="#0000CC">@@@v@@@tipo@@@/v@@@</font></H1>
-<H2>Description :</H2>
+	
+<section name="Diagram Name: @@@v@@@name@@@/v@@@">
+ Diagram type :@@@v@@@tipo@@@/v@@@
+<subsection name="Description">
 @@@v@@@description@@@/v@@@ 
-<P>
-<div align="center"><img src="@@@v@@@image@@@/v@@@" usemap="#mymap">
+<div align="center"><img src="images/@@@v@@@image@@@/v@@@" usemap="#mymap"/>
 <map name="mymap">
   @@@repeat id="mapentities"@@@
-   <AREA SHAPE=rect COORDS="@@@v@@@coordrect@@@/v@@@" HREF="#@@@v@@@link@@@/v@@@">
+   <area shape="rect" coords="@@@v@@@coordrect@@@/v@@@" href="#@@@v@@@link@@@/v@@@"/>
   @@@/repeat@@@
-</map>
-</P>
-<H2 align="left">Entities appearing in this diagram :</H2>
-	<TABLE BORDER="1" bgcolor="#FFFF00">
+</map></div>
+</subsection>
+<subsection name="Entities appearing in this diagram">
+<h2 align="left"> :</h2>
+	<table border="1" bgcolor="#FFFF00">
       <tr>
        <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>NAME</strong></font>           
        </td>
@@ -33,12 +39,12 @@
   </tr>
 	
 	 @@@repeat id="entities"@@@
-	<TR><TD valign="top">
+	<tr><td valign="top">
 	<a name="@@@v@@@name@@@/v@@@"/>
-	  <strong> @@@v@@@name@@@/v@@@</strong><br>
-	</TD><TD valign="top">
+	  <strong> @@@v@@@name@@@/v@@@</strong><br/>
+	</td><td valign="top">
 	<strong>@@@v@@@tipo@@@/v@@@</strong>
-	</TD><TD valign="top">
+	</td><td valign="top">
 	@@@v@@@description@@@/v@@@
 		<p> It appears in diagrams:
 		<ul>
@@ -47,16 +53,15 @@
 		@@@/repeat@@@
 		</ul>
 			</p>
-	</TD></TR>
+	</td></tr>
 	 @@@/repeat@@@
-	</TABLE>
+	</table>
+	</subsection>
 	
+<subsection name="Relationships appearing in this diagram">
 	
-<H2 align="left"> Relationships appearing in this diagram:</H2>
-	
-	<TABLE BORDER="1" bgcolor="#FFFF00">
-      <tr>
-       </td>
+	<table border="1" bgcolor="#FFFF00">
+      <tr>       
        <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TYPE</strong></font>           
        </td>
 <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>SOURCE</strong></font>           
@@ -67,20 +72,23 @@
 	
 	 @@@repeat id="entities"@@@
              	 @@@repeat id="relationship"@@@	   
-                   <TR><TD valign="top">
-	             @@@v@@@name@@@/v@@@<br>
+                   <tr><td valign="top">
+	             @@@v@@@name@@@/v@@@<br/>
 	             @@@repeat id="roles"@@@
-	                 </TD><TD valign="top">
+	                 </td><td valign="top">
 	                 @@@v@@@player@@@/v@@@
 	              @@@/repeat@@@
+	                </td></tr>
        	 @@@/repeat@@@
-               </TD></TR>
+             
        @@@/repeat@@@
-	</TABLE>
-	
-</BODY>
-</htML>
+	</table>
+	</subsection>
+	</section>
+</body>
+</document>
 @@@/text@@@
 		@@@/saveto@@@
 	@@@/repeat@@@
 @@@/program@@@
+
