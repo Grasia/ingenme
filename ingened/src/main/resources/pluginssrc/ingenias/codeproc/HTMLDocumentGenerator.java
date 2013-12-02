@@ -122,7 +122,7 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 			copyResourceFromTo("pluginssrc/logograsia.jpg", ( (ProjectProperty)this.getProperty("htmldoc:output")).
 					value+"/logograsia.jpg");
 		}
-		catch (Exception ex) {
+		catch (Throwable ex) {
 			ex.printStackTrace();
 		}
 		return seq;
