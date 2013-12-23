@@ -1,0 +1,41 @@
+@@@program xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../plantilla.xsd"@@@
+@@@repeat id="packageindexrepeat"@@@
+	@@@saveto@@@
+		@@@file overwrite="yes"@@@
+			@@@v@@@output@@@/v@@@/xdoc/@@@v@@@pname@@@/v@@@-index-diag.xml@@@/file@@@
+		@@@text@@@
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>Page Title</title>
+    <author email="user@company.com">John Doe</author>
+  </properties>
+  <body>
+	<center><A href="index.html">Main Index</A></center>
+	<hr/>
+	
+<section name="Defined Diagrams">
+<ul>
+
+ @@@repeat id="paquete"@@@
+    @@@repeat id="level"@@@ <ul> @@@/repeat@@@	   	
+       @@@repeat id="graph"@@@
+            <ul><li>Diagram name: <a href="@@@v@@@fname@@@/v@@@.html">@@@v@@@name@@@/v@@@</a> type : @@@v@@@tipo@@@/v@@@ 
+            </li></ul>
+       @@@/repeat@@@    
+       @@@repeat id="onlypackage"@@@
+           <li>@@@v@@@name@@@/v@@@</li>
+       @@@/repeat@@@   				
+    @@@repeat id="level"@@@ </ul> @@@/repeat@@@	   				
+  @@@/repeat@@@    
+ 
+ </ul>
+ </section>
+</body>
+ </document>
+
+@@@/text@@@
+	@@@/saveto@@@
+	 @@@/repeat@@@
+@@@/program@@@
