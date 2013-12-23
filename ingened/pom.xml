@@ -27,6 +27,12 @@
 		</developer>
 	</developers>
 	<dependencies>
+	<!--  to get a reference to pegdown markdown module -->
+		<dependency>
+                  <groupId>org.apache.maven.doxia</groupId>
+                  <artifactId>doxia-module-markdown</artifactId>
+                  <version>1.5</version>
+                </dependency>
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>core</artifactId>
