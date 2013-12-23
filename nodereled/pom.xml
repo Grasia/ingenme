@@ -598,6 +598,15 @@
 									<includes>pluginssrc/logograsia.jpg</includes>
 									<outputDirectory>target/generated/src/main/resources</outputDirectory>
 								</artifactItem>
+								<artifactItem>
+									<groupId>net.sf.ingenme</groupId>
+									<artifactId>ingened</artifactId>
+									<version>${ingenme.version}</version>
+									<type>jar</type>
+									<overWrite>true</overWrite>
+									<includes>images/*.*</includes>
+									<outputDirectory>${project.basedir}/target/generated/src/main/resources</outputDirectory>
+								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>
