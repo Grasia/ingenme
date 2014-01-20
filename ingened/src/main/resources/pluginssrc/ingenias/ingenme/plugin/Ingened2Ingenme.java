@@ -461,12 +461,14 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				// generate diagram entry
 				GraphEntity basicrepre=obtainBasicRepresentation(errors, ge);
 				String smalliconPath=null;
+				String smallIconRelativePath="images/m"+ge.getID().replace(' ', '_').replace(':', '_')+".png";
 
 				if (basicrepre==null){
-					smalliconPath=folder+"/target/generated/src/main/resources/images/m"+ge.getID().replace(' ', '_').replace(':', '_')+".png";
+					smalliconPath=folder+"/target/generated/src/main/resources/"+smallIconRelativePath;
 					File smallicon=new File(smalliconPath);
 					inventIcon(ge, smallicon);
 					iconsToMove.add(smallicon.getAbsolutePath());
+					smalliconPath=smallIconRelativePath;
 				} else {
 					if (basicrepre.getAttributeByName("SmallIcon")==null){
 						errors.add("smallicon field of entity "+basicrepre.getID()+" is empty");

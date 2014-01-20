@@ -1,8 +1,8 @@
-To run this program, please execute the file nodereled-1.0.4-SNAPSHOT-selfcontained. 
+To run this program, please execute the file nodereled-1.0.5-SNAPSHOT-selfcontained. 
 
 This can be done either from your file explorer or from command line with:
 
-java -jar nodereled-1.0.4-SNAPSHOT-selfcontained
+java -jar nodereled-1.0.5-SNAPSHOT-selfcontained
 
 The editor was made using the INGENME framework which is a tool developed for the INGENIAS mehodology
 

@@ -8,13 +8,15 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>Diagram @@@v@@@name@@@/v@@@</title>
+    <title>Page Title</title>
+    <author email="user@company.com">John Doe</author>
   </properties>
   <body>
 	<center><a href="index.html">Main Index</a></center>
 	<hr/>
 	
-<section name="@@@v@@@name@@@/v@@@:@@@v@@@tipo@@@/v@@@">
+<section name="Diagram Name: @@@v@@@name@@@/v@@@">
+ Diagram type :@@@v@@@tipo@@@/v@@@
 <subsection name="Description">
 @@@v@@@description@@@/v@@@ 
 <div align="center"><img src="images/@@@v@@@image@@@/v@@@" usemap="#mymap"/>
@@ -25,14 +27,16 @@
 </map></div>
 </subsection>
 <subsection name="Entities appearing in this diagram">
-	<table border="1" >
-	<thead>
+<h2 align="left"> :</h2>
+	<table border="1" bgcolor="#FFFF00">
       <tr>
-       <th>NAME</th>
-	   <th>TYPE</th>       
-	   <th>DESCRIPTION</th>           
-      </tr>
-  </thead>
+       <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>NAME</strong></font>           
+       </td>
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TYPE</strong></font>           
+       </td>       
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>DESCRIPTION</strong></font>           
+       </td>           
+  </tr>
 	
 	 @@@repeat id="entities"@@@
 	<tr><td valign="top">
@@ -56,15 +60,16 @@
 	
 <subsection name="Relationships appearing in this diagram">
 	
-	<table >
-	<thead>
-      <tr>
-       <th>TYPE</th>
-	   <th>SOURCE</th>       
-	   <th>TARGET</th>           
-      </tr>
-  </thead>
-
+	<table border="1" bgcolor="#FFFF00">
+      <tr>       
+       <td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TYPE</strong></font>           
+       </td>
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>SOURCE</strong></font>           
+       </td>       
+<td align="center" bgcolor="666666"><font color="#FFFFFF"><strong>TARGET</strong></font>           
+       </td>           
+  </tr>
+	
 	 @@@repeat id="entities"@@@
              	 @@@repeat id="relationship"@@@	   
                    <tr><td valign="top">
