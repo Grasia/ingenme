@@ -4,7 +4,9 @@ import ingenias.editor.Model;
 import ingenias.editor.ModelJGraph;
 import ingenias.editor.cell.CompositeRenderer;
 import ingenias.editor.cell.NAryEdge;
+import ingenias.editor.cell.RenderComponentManager;
 import ingenias.editor.entities.Entity;
+import ingenias.editor.entities.ViewPreferences.ViewType;
 import ingenias.editor.rendererxml.*;
 
 import java.awt.Color;
@@ -28,11 +30,13 @@ import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.CellRendererPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.jgraph.JGraph;
 import org.jgraph.event.GraphModelEvent;
 import org.jgraph.event.GraphModelListener;
+import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.CellView;
 import org.jgraph.graph.ConnectionSet;
 import org.jgraph.graph.DefaultEdge;
@@ -244,12 +248,12 @@ public class ListenerContainer implements GraphModelListener {
 		children.addAll(newNAryEdges);
 	}
 
-	private boolean isAncestor(Object candidate, Object changed) {
-		if (parentship.containsKey(changed)
-				&& !parentship.get(changed).equals(candidate)) {
-			return isAncestor(candidate, parentship.get(changed));
-		} else if (parentship.containsKey(changed)
-				&& parentship.get(changed).equals(candidate))
+	private boolean isAncestor(Object candidateParent, Object child) {
+		if (parentship.containsKey(child)
+				&& !parentship.get(child).equals(candidateParent)) {
+			return isAncestor(candidateParent, parentship.get(child));
+		} else if (parentship.containsKey(child)
+				&& parentship.get(child).equals(candidateParent))
 			return true;
 		else
 			return false;
@@ -998,9 +1002,23 @@ public class ListenerContainer implements GraphModelListener {
 	 * @return
 	 */
 	public static boolean isContainer(final DefaultGraphCell object, final JGraph jg){
-		boolean found=false;		
+		boolean found=false;
+		//boolean result=false;
 		final Hashtable<String, CollectionPanel> vc = new Hashtable<String, CollectionPanel>();
+		/*	if (object.getUserObject() instanceof Entity){
+			Entity ent=(Entity) object.getUserObject();
 
+			for (ViewType view: ViewType.values()){		 
+				JPanel panel = RenderComponentManager.retrievePanel(ent.getType(), view);
+				if (panel!=null && hasContainerPanel(panel)){
+					result=true;
+				}
+			}
+		}
+
+		return result;
+
+	}*/	
 
 		// this verification needs to be done within the event dispatch thread.
 		// otherwise, the cell update and refresh will not work properly. Sometimes, it may
@@ -1020,17 +1038,25 @@ public class ListenerContainer implements GraphModelListener {
 
 					Component element = ((VertexView) cv)
 							.getRendererComponent(jg, false, false, false); // to
-							// set
+					// set
 					// the
 					// entity
 
 					CompositeRenderer jc = (CompositeRenderer) ((VertexView) cv)
 							.getRenderer();
+					AttributeMap atts = new AttributeMap(jg.getModel().getAttributes(object));
+					for(ViewType vt:ViewType.values()){			
+						if (RenderComponentManager.isSupported(((ingenias.editor.entities.Entity) object
+								.getUserObject()).getType(), vt)){
+							atts.put("view", vt.toString());
+							Hashtable<String, CollectionPanel> result = evaluate(jc,
+									(ingenias.editor.entities.Entity) object
+									.getUserObject(),atts);
 
-					vc.putAll(evaluate(jc,
-							(ingenias.editor.entities.Entity) object
-							.getUserObject(),jg.getModel().getAttributes(object)));
-
+							vc.putAll(result);
+						}
+					}
+					// now, check other possible renderers				
 				}
 			}
 		}
@@ -1038,6 +1064,27 @@ public class ListenerContainer implements GraphModelListener {
 
 		return vc.size()>0;
 	}
+
+
+	private static boolean hasContainerPanel(Container panel) {
+		boolean found=false;
+		if (panel!=null){
+			Component[] compoments = panel.getComponents();
+			int k=0;			
+			while (k<compoments.length && found){
+				if (!(compoments[k] instanceof ContainerPanel)){
+					if (compoments[k] instanceof Container && compoments[k]!=null )
+						found = found || hasContainerPanel((Container) compoments[k]);				
+				} else
+					found =true;
+				k=k+1;
+
+			}
+		}
+		return found;
+	}
+
+
 	public boolean isContainer(
 			DefaultGraphCell object) {
 		return isContainer(object,jg);
@@ -1353,13 +1400,13 @@ public class ListenerContainer implements GraphModelListener {
 		return newBound;
 	}
 
-	public void setParent(DefaultGraphCell principal, DefaultGraphCell nested1) throws WrongParent {
-		if (nested1!=null && isContainer(nested1))
-			parentship.put(principal, nested1);
+	public void setParent(DefaultGraphCell child, DefaultGraphCell parent) throws WrongParent {
+		if (parent!=null && isContainer(parent))
+			parentship.put(child, parent);
 		else 
 			throw new WrongParent("Tried to use as a container entity the cell "+
-					nested1+" when it is not a container. "+
-					"Error triggered while "+principal+" was set as the child of "+nested1);
+					parent+" when it is not a container. "+
+					"Error triggered while "+child+" was set as the child of "+parent);
 		// principal.setParent(nested1); // The JGRaph parentship relationship
 		// cannot be used. Only the root in a parental relationship is visible
 		// everytime. Children are not.
@@ -1464,7 +1511,9 @@ public class ListenerContainer implements GraphModelListener {
 								// is called within the EDT.
 								setParent(nodeids.get(childid), nodeids.get(parentid));
 							} catch (WrongParent e) {
-								// TODO Auto-generated catch block
+								// the selected parent cannot accept children. It may be the
+								// case there is another view having containers. This view
+								// has to be found and used for the 
 								e.printStackTrace();
 							}		
 						}
@@ -1473,7 +1522,7 @@ public class ListenerContainer implements GraphModelListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
