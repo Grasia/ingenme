@@ -72,7 +72,8 @@ public class Relationship {
 		id = nnm.getNamedItem("id").getNodeValue();
 		if (nnm.getNamedItem("inherits") != null) {
 			inherits = nnm.getNamedItem("inherits").getNodeValue();
-		}
+		} else 
+			inherits="NAryEdgeEntity";
 		NodeList entities = n.getChildNodes();
 		for (int j = 0; j < entities.getLength(); j++) {
 			Node entity = entities.item(j);
