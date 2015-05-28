@@ -23,7 +23,6 @@ package ingenias.editor;
 import javax.swing.*;
 import javax.swing.tree.*;
 
-
 import org.apache.xerces.parsers.DOMParser;
 
 import java.awt.Component;
@@ -37,6 +36,8 @@ import ingenias.editor.events.DiagramChangeHandler;
 import ingenias.editor.filters.DiagramFilter;
 import ingenias.editor.filters.FilterManager;
 import ingenias.editor.widget.DnDJTree;
+import ingenias.editor.widget.DnDJTreeObject;
+import ingenias.generator.browser.BrowserImp;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xerces.xni.parser.XMLInputSource;
@@ -84,7 +85,7 @@ public class IDEState  implements java.io.Serializable, DiagramChangeHandler {
 	private DiagramFilter diagramFilter;
 	
 	private IDEState(final Editor editor,DefaultMutableTreeNode rootObjetos,
-			JTree arbolObjectos,
+			DnDJTreeObject arbolObjectos,
 			DefaultMutableTreeNode rootProyectos,
 			DnDJTree arbolProyectos, 
 			Properties oldProperties){
@@ -93,6 +94,7 @@ public class IDEState  implements java.io.Serializable, DiagramChangeHandler {
 		this.om= ObjectManager.initialise(rootObjetos,arbolObjectos);
 		this.prop=new Properties();
 		prop.putAll(oldProperties);
+		arbolObjectos.setBrowser(new BrowserImp(this));
 		//ingenias.editor.persistence.PersistenceManager.defaultProperties(prop);
 	}
 	
@@ -166,6 +168,8 @@ public class IDEState  implements java.io.Serializable, DiagramChangeHandler {
 	private IDEState(Editor editor,GraphManager gm,ObjectManager om,  Properties oldProperties){
 		this.om=om;
 		this.gm=gm;
+
+		om.arbolObjetos.setBrowser(new BrowserImp(this));
 		this.editor=editor;
 		this.prop=new Properties();
 		prop.putAll(oldProperties);
@@ -187,7 +191,8 @@ public class IDEState  implements java.io.Serializable, DiagramChangeHandler {
 
 	public static IDEState emptyIDEState(){
 		DefaultMutableTreeNode rootObjects = new DefaultMutableTreeNode("Objects");
-		JTree treeObjects = new javax.swing.JTree(rootObjects);		
+		DnDJTreeObject treeObjects = new DnDJTreeObject(rootObjects);	
+		treeObjects.setExpandsSelectedPaths(true);
 		treeObjects.setName("ObjectsTree");
 		DnDJTree treeProjects = new DnDJTree();
 		treeProjects.setExpandsSelectedPaths(true);
@@ -208,7 +213,7 @@ public class IDEState  implements java.io.Serializable, DiagramChangeHandler {
 
 	public IDEState createEmpty(){
 
-		return new IDEState(this.editor,new DefaultMutableTreeNode(),new JTree(),
+		return new IDEState(this.editor,new DefaultMutableTreeNode(),new DnDJTreeObject(),
 				new DefaultMutableTreeNode(),new DnDJTree(), new Properties());
 
 	}
