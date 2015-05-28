@@ -48,6 +48,15 @@ public class Entity  implements java.io.Serializable, Comparable {
   this.id=id;
   }
 
+  public void setPrefs(ViewPreferences prefs){
+   this.prefs=prefs;
+  }
+
+  public void setHelpdesc(String helpdesc){
+   this.helpdesc=helpdesc;
+  }
+
+
 
   public String toString(){
    return id;
