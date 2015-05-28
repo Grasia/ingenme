@@ -78,7 +78,7 @@ public class HyperlinkAction implements HyperlinkListener{
 						BrowserImp bimp=new BrowserImp(ids);
 						bimp.getGraph(diagramPath);
 						g = bimp.getGraph(diagramPath);						
-						ids.editor.changeGraph(g.getGraph());
+						ids.editor.changeGraph(g.getGraph(),ids);
 						//updateButtonBars();
 
 						if (entityPath!=null){
