@@ -37,7 +37,7 @@ DropTargetListener,DragSourceListener,DragGestureListener{
 	public JScrollPane getContainer() {
 		return container;
 	}
-	
+
 
 	public void setContainer(JScrollPane container) {
 		this.container = container;
@@ -81,7 +81,7 @@ DropTargetListener,DragSourceListener,DragGestureListener{
 			public void keyTyped(final KeyEvent e) {
 				if (e.getKeyChar()=='q' && jt.getSelectionPath()!=null){
 					DefaultMutableTreeNode node =
-						(DefaultMutableTreeNode)jt.getSelectionPath().getLastPathComponent();
+							(DefaultMutableTreeNode)jt.getSelectionPath().getLastPathComponent();
 					if (node.getParent()!=null){
 						int index=node.getParent().getIndex(node);
 						if (index>0){
@@ -99,11 +99,11 @@ DropTargetListener,DragSourceListener,DragGestureListener{
 				}
 				if (e.getKeyChar()=='z' && jt.getSelectionPath()!=null){
 					DefaultMutableTreeNode node =
-						(DefaultMutableTreeNode)jt.getSelectionPath().getLastPathComponent();
+							(DefaultMutableTreeNode)jt.getSelectionPath().getLastPathComponent();
 					if (node.getParent()!=null){
 						int index=node.getParent().getIndex(node);
 						if (index<node.getParent().getChildCount()-1){
-							
+
 							DefaultMutableTreeNode parent=(DefaultMutableTreeNode)node.getParent();
 							node.removeFromParent();							
 							parent.insert(node, index+1);
@@ -192,7 +192,7 @@ DropTargetListener,DragSourceListener,DragGestureListener{
 
 
 	public void drop (final DropTargetDropEvent event) {
-		this.getModel().addTreeModelListener(
+	/*	this.getModel().addTreeModelListener(
 				new TreeModelListener() {
 					public void treeNodesChanged(TreeModelEvent evt) {
 						System.out.println("Tree Nodes Changed Event");
@@ -212,12 +212,12 @@ DropTargetListener,DragSourceListener,DragGestureListener{
 					public void treeNodesRemoved(TreeModelEvent evt) {
 						System.out.println("Tree Nodes Removed Event");
 					}
-				}); 
+				}); */
 		try {
 			Transferable transferable = event.getTransferable();
 			DefaultMutableTreeNode target=findNode(event.getLocation());
 			DefaultTreeModel dtm=(DefaultTreeModel) this.getModel();
-			
+
 			if (target!=null){// There is a drop target 
 				// we accept only Strings
 				if (transferable.isDataFlavorSupported (DataFlavor.stringFlavor) &&
@@ -250,15 +250,17 @@ DropTargetListener,DragSourceListener,DragGestureListener{
 						if (index!=-1){
 							dtm.removeNodeFromParent(nodeInTransfer);
 							//nodeInTransfer.removeFromParent();
-							dtm.insertNodeInto(nodeInTransfer, (MutableTreeNode) target.getParent(), index);
-							//((DefaultMutableTreeNode)target.getParent()).insert( nodeInTransfer, index);							
-							//nodeInTransfer.setParent((DefaultMutableTreeNode)(target.getParent()));
-							storeTreeExpansionPaths();
-							((DefaultTreeModel)getModel()).reload();
-							validate();
-							restoreTreeExpansionPath();
-							event.getDropTargetContext().dropComplete(true);
-							dtm.nodeStructureChanged(target);
+							if (target!=null && nodeInTransfer!=null &&  target.getParent()!=null && dtm!=null){
+								dtm.insertNodeInto(nodeInTransfer, (MutableTreeNode) target.getParent(), index);
+								//((DefaultMutableTreeNode)target.getParent()).insert( nodeInTransfer, index);							
+								//nodeInTransfer.setParent((DefaultMutableTreeNode)(target.getParent()));
+								storeTreeExpansionPaths();
+								((DefaultTreeModel)getModel()).reload();
+								validate();
+								restoreTreeExpansionPath();
+								event.getDropTargetContext().dropComplete(true);
+								dtm.nodeStructureChanged(target);
+							}
 						}
 					} else
 						event.rejectDrop();
