@@ -30,7 +30,7 @@ public class JLabelStereotype extends JLabel {
 
   public void setText(String text){
 
-    super.setText("<html>&laquo;"+text+"&raquo;</html>");
+    super.setText("<html>&laquo;<small>"+text+"&raquo;</small></html>");
   }
 
 
