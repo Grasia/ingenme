@@ -35,6 +35,8 @@ public class SWIRenderer {
                                       ingenias.editor.rendererxml.JLabelIcon.class);
     swiengine.getTaglib().registerTag("collectionpanel",
                                       ingenias.editor.rendererxml.CollectionPanel.class);
+    swiengine.getTaglib().registerTag("horizontalcollectionpanel",
+                                      ingenias.editor.rendererxml.HorizontalCollectionPanel.class);
     swiengine.getTaglib().registerTag("withoutportspanel",
             ingenias.editor.rendererxml.WithoutPortsPanel.class);
     swiengine.getTaglib().registerTag("container",
@@ -51,11 +53,15 @@ public class SWIRenderer {
                                       ingenias.editor.rendererxml.LinePanel.class);
     swiengine.getTaglib().registerTag("htmllabel",
                                       ingenias.editor.rendererxml.HTMLLabel.class);
+    swiengine.getTaglib().registerTag("smalllabel",
+                                      ingenias.editor.rendererxml.JLabelSmall.class);
     swiengine.getTaglib().registerTag("wraplabel",
                                       ingenias.editor.rendererxml.JMultilineLabel.class);
     swiengine.getTaglib().registerTag("dashedpanel",
                                       ingenias.editor.rendererxml.
                                       DashedBorderPanel.class);
+    swiengine.getTaglib().registerTag("linklabel",
+            ingenias.editor.rendererxml.LinkLabel.class);
     swiengine.getTaglib().registerTag("doubleborderpanel",
             ingenias.editor.rendererxml.
             DoubleBorderPanel.class);
