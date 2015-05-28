@@ -364,7 +364,9 @@ public class CommonMenuEntriesActionFactory {
 										"There exists a model with the same name. Please, select another",
 										"Warning",
 										JOptionPane.WARNING_MESSAGE);
-							} else {										
+							} else {
+								String oldid=graph.getID();
+								state.om.renameModelID(oldid,result);		
 								graph.setId(result);
 								graph.setName(result);														
 								state.diagramRenamed(graph);		
