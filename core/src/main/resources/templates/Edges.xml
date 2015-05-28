@@ -29,7 +29,7 @@ import java.util.*;
 
 import ingenias.editor.TypedVector;
 
-public class @@@v@@@relationship@@@/v@@@ extends NAryEdgeEntity {
+public class @@@v@@@relationship@@@/v@@@ extends @@@v@@@extendedrelationship@@@/v@@@ {
 
 @@@repeat id="attributes"@@@
   public @@@v@@@type@@@/v@@@ @@@v@@@name@@@/v@@@;
@@ -177,6 +177,7 @@ import java.util.Hashtable;
 import org.jgraph.graph.*;
 import org.jgraph.*;
 import java.awt.geom.Point2D;
+import ingenias.editor.entities.ViewPreferences.ViewType;
 
 public class @@@v@@@relationship@@@/v@@@View extends NAryView {
 
@@ -221,6 +222,12 @@ static @@@v@@@relationship@@@/v@@@Renderer renderer1 = new @@@v@@@relationship@@
        return super.getRendererComponent(jg,b1,b2,b3);
 
   }
+  
+  
+  
+
+
+
     // Default size with entity ent inside
   static public Dimension getSize(ingenias.editor.entities.@@@v@@@relationship@@@/v@@@ ent) {
     renderer.setEntity(ent,null);
@@ -283,6 +290,7 @@ import ingenias.editor.entities.*;
 import ingenias.editor.entities.*;
 import org.swixml.SwingEngine;
 import ingenias.editor.entities.Entity;
+import ingenias.editor.entities.ViewPreferences.ViewType;
 
 public class @@@v@@@relationship@@@/v@@@Renderer extends VertexRenderer implements CellViewRenderer{
 
@@ -381,6 +389,14 @@ current=ent.getPrefs(attributes).getView();
 			boolean focus, boolean preview)
 	{
 	return RenderComponentManager.retrievePanel("@@@v@@@relationship@@@/v@@@",this.current);
+		
+	}
+	
+		public Component getRendererComponent(JGraph graph,
+			CellView view, boolean sel,
+			boolean focus, boolean preview, ViewType vt)
+	{
+	return RenderComponentManager.retrievePanel("@@@v@@@relationship@@@/v@@@",	vt);
 		
 	}
 	

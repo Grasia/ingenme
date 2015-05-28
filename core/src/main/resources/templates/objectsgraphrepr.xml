@@ -85,21 +85,30 @@ public class @@@v@@@object@@@/v@@@Cell extends  DefaultGraphCell {
 package ingenias.editor.cell;
 
 
+
 import org.jgraph.JGraph;
 import org.jgraph.graph.*;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import java.beans.*;
 import java.io.*;
+import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.util.*;
-import ingenias.editor.entities.*;
-import ingenias.editor.entities.*;
-import org.swixml.SwingEngine;
-import ingenias.editor.entities.Entity;
 
+import ingenias.editor.TypedVector;
+import ingenias.editor.entities.*;
+import ingenias.editor.entities.*;
+
+import org.swixml.SwingEngine;
+
+import ingenias.editor.entities.Entity;
+import ingenias.editor.entities.ViewPreferences.ViewType;
 
 
 public class @@@v@@@object@@@/v@@@Renderer extends CompositeRenderer implements CellViewRenderer, Serializable {
@@ -191,6 +200,57 @@ public class @@@v@@@object@@@/v@@@Renderer extends CompositeRenderer implements 
 	     }
          }
 	  }
+	if (currentMap.get("@@@v@@@prop@@@/v@@@")!=null && 
+				currentMap.get("@@@v@@@prop@@@/v@@@") instanceof ingenias.editor.rendererxml.LinkLabel) {
+			try {
+				Field field;
+				field = ent.getClass().getField("@@@v@@@prop@@@/v@@@");
+				if (ModelEntity.class.isAssignableFrom(field.getType())){
+					try {							
+						ModelEntity mde=(ModelEntity)field.get(ent);
+						if (mde!=null)
+							( (ingenias.editor.rendererxml.LinkLabel) currentMap.get(
+								"@@@v@@@prop@@@/v@@@")).setLink(new java.net.URL("http","app","/"+mde.getModelID()));
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else
+					if (Entity.class.isAssignableFrom(field.getType())){
+						try {
+							Entity mde=(Entity)field.get(ent);
+							if (mde!=null)
+								( (ingenias.editor.rendererxml.LinkLabel) currentMap.get(
+									"@@@v@@@prop@@@/v@@@")).setLink(new java.net.URL("http","ent","/"+mde.getId()));
+						} catch (MalformedURLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}  catch (SecurityException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalArgumentException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+			} catch (NoSuchFieldException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
 	   @@@/repeat@@@
       
     
@@ -205,6 +265,17 @@ public class @@@v@@@object@@@/v@@@Renderer extends CompositeRenderer implements 
 	((Entity)((DefaultGraphCell)(view.getCell())).getUserObject()).getPrefs(graph.getModel().getAttributes(view.getCell())).getView());
 		
 	}
+	
+		
+	public Component getRendererComponent(JGraph graph,
+			CellView view, boolean sel,
+			boolean focus, boolean preview, ViewType vt)
+	{
+	return RenderComponentManager.retrievePanel("@@@v@@@object@@@/v@@@",	vt);
+		
+	}
+	
+
 	
 	public static JPanel setCurrent(ViewPreferences.ViewType c) {
 	

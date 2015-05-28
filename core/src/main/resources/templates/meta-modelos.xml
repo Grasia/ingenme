@@ -482,7 +482,7 @@ public class @@@v@@@modelid@@@/v@@@ModelJGraph extends ModelJGraph {
         new AbstractAction("@@@v@@@object@@@/v@@@", undoIcon) {
       public void actionPerformed(ActionEvent e) {
        try{
-        insert(new Point(0, 0), "@@@v@@@object@@@/v@@@");
+        insert(new Point(getVisibleRect().x,getVisibleRect().y), "@@@v@@@object@@@/v@@@");
 	} catch (InvalidEntity e1) {			
 		e1.printStackTrace();
 	}
