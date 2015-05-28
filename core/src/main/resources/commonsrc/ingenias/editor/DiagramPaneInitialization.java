@@ -211,7 +211,7 @@ public class DiagramPaneInitialization {
 						if (graph!=null){
 							
 							
-							editor.changeGraph(graph);				
+							editor.changeGraph(graph,ids);				
 							resources.getCommonButtons().updateActions(graph);
 							updateButtonBars();		
 							
@@ -349,7 +349,7 @@ public class DiagramPaneInitialization {
 
 	public void ChangeCurrentDiagram(ModelJGraph m) {
 		//ids.gm.setCurrent(m);
-		ids.editor.changeGraph(m);
+		ids.editor.changeGraph(m,ids);
 		//updateButtonBars();
 		ids.editor.validate();
 		ids.editor.repaint();		
