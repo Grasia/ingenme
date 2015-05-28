@@ -32,12 +32,13 @@ import org.jgraph.graph.*;
 import javax.swing.tree.*;
 import javax.swing.JTree;
 import ingenias.editor.entities.*;
+import ingenias.editor.widget.DnDJTreeObject;
 
 public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode implements java.io.Serializable {
 
  
 
- public  JTree arbolObjetos=null;
+ public  DnDJTreeObject arbolObjetos=null;
 
   javax.swing.tree.DefaultMutableTreeNode root=new javax.swing.tree.DefaultMutableTreeNode("SystemObjects");
 
@@ -48,15 +49,16 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
 @@@/repeat@@@
 
 
-  public static ObjectManager initialise(javax.swing.tree.DefaultMutableTreeNode root,JTree arbolObjetos){
+  public static ObjectManager initialise(javax.swing.tree.DefaultMutableTreeNode root,DnDJTreeObject arbolObjetos){
   ObjectManager om=new ObjectManager(root,arbolObjetos);
    return om;
   }
 
-  private ObjectManager(javax.swing.tree.DefaultMutableTreeNode root,JTree arbolObjetos) {
+  private ObjectManager(javax.swing.tree.DefaultMutableTreeNode root,DnDJTreeObject arbolObjetos) {
      super("System Objects");
      this.root=root;
      this.arbolObjetos=arbolObjetos;
+
 @@@repeat id="objectHierarchyNodes"@@@
   @@@v@@@object@@@/v@@@Node=new javax.swing.tree.DefaultMutableTreeNode("@@@v@@@object@@@/v@@@");
 @@@/repeat@@@
@@ -64,12 +66,12 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
 
 
 
-
+/*
      // 1st level nodes
 @@@repeat id="objectTopHierarchyNodes"@@@
      addNodeInSortedOrder( root,@@@v@@@object@@@/v@@@Node);
 @@@/repeat@@@
-
+*/
      // 2nd and lower nodes
 @@@repeat id="objectMiddleHierarchyNodes"@@@
     addNodeInSortedOrder( @@@v@@@parent@@@/v@@@Node,@@@v@@@object@@@/v@@@Node);
@@ -103,6 +105,9 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
     DefaultMutableTreeNode nn=new DefaultMutableTreeNode(object);
     @@@v@@@object@@@/v@@@Node.insert(nn, @@@v@@@object@@@/v@@@Node.getChildCount());
     nn.setParent(@@@v@@@object@@@/v@@@Node);
+    fixAscendants(@@@v@@@object@@@/v@@@Node);
+    for (int k=0;k<arbolObjetos.getRowCount();k++)
+    	arbolObjetos.expandRow(k);
     this.reload();
     arbolObjetos.repaint();
     return object;
@@ -123,6 +128,15 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
     result.add(@@@v@@@modelid@@@/v@@@ModelEntity.class);
 @@@/repeat@@@
     return result;
+  }
+
+  private void fixAscendants(DefaultMutableTreeNode currentNode) {
+	if (currentNode!=root){
+		if (currentNode.getParent()!=null)
+			fixAscendants((DefaultMutableTreeNode)currentNode.getParent());
+		else
+			addNodeInSortedOrder( root,currentNode);
+	}
   }
 
 
@@ -379,6 +393,51 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
   public static void main(String args[]){
     
   }
+
+	public void renameModelID(Entity ent,String oldModelId, String newModelId) {
+		Field[] fields = ent.getClass().getFields();
+		for (Field field:fields){
+			if (ModelEntity.class.isAssignableFrom(field.getType())){
+				ModelEntity me;
+				try {
+					me = (ModelEntity)field.get(ent);
+					if (me.getModelID().equals(oldModelId)){
+						me.setModelID(newModelId);
+					}
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}			
+			}
+			else if (Entity.class.isAssignableFrom(field.getType())){
+				try {
+					renameModelID((Entity) field.get(ent),oldModelId,newModelId);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			} else 
+				if (TypedVector.class.isAssignableFrom(field.getType())){
+					TypedVector tv;
+					try {
+						tv = (TypedVector)field.get(ent);
+						if (Entity.class.isAssignableFrom(tv.getType())){
+							for (int k=0;k<tv.size();k++){
+								renameModelID((Entity) tv.elementAt(k),oldModelId,newModelId);
+							}
+						}	
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						e.printStackTrace();
+					}								
+				}
+		}
+
+	}
+	public void renameModelID(String oldModelId, String newModelId) {
+		Vector<Entity> entities = getAllObjects();
+		for (Entity ent:entities){
+			renameModelID(ent,oldModelId,newModelId);
+		}
+
+	}
 
 
 
