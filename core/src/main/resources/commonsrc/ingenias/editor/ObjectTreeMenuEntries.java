@@ -23,15 +23,18 @@ import ingenias.editor.entities.Entity;
 import ingenias.editor.utils.DialogWindows;
 import ingenias.exception.NotInitialised;
 import ingenias.exception.NullEntity;
+import ingenias.generator.browser.AttributedElement;
 import ingenias.generator.browser.Browser;
 import ingenias.generator.browser.BrowserImp;
 import ingenias.generator.browser.Graph;
+import ingenias.generator.browser.GraphAttribute;
 import ingenias.generator.browser.GraphEntity;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
@@ -136,7 +139,7 @@ public class ObjectTreeMenuEntries {
 									Entity ent=(Entity)dmtn.getUserObject();
 
 									StringBuffer result=new StringBuffer();
-									result.append("Diagrams found:<ul>");
+									result.append("Diagrams found:<ul><li>Explicit occurrences:<ul>");
 									Graph[] graphs=browser.getGraphs();
 									for (int k=0;k<graphs.length;k++){
 										GraphEntity[] ges;
@@ -155,7 +158,36 @@ public class ObjectTreeMenuEntries {
 											e1.printStackTrace();
 										}
 									}
-									result.append("</ul>");
+									result.append("</ul></li><li>Occurrences inside other entities:<ul>");
+									graphs=browser.getGraphs();
+									for (int k=0;k<graphs.length;k++){
+										GraphEntity[] ges;
+										try {
+											ges = graphs[k].getEntities();
+											boolean found=false;
+											int j=0;
+											for (j=0;j<ges.length &&!found;j++){
+												found=!ges[j].getID().equals(ent.getId()) && 
+														isUsedInAtts(
+																browser.findEntity(ent.getId()), 
+														browser.findEntity(ges[j].getID()), 
+														browser, 
+														new Hashtable<String,AttributedElement>());
+											}
+											if (found){
+												result.append("<li><a href=\"http://app/"+graphs[k].getName()+"/"+ges[j].getID()+"\">"+graphs[k].getName()+" inside entity "+ges[j].getID()+" </a>");
+											}
+										} catch (NullEntity e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										} catch (IllegalAccessException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+									}
+
+									
+									result.append("</ul></li></ul>");
 									resources.getSearchDiagramPanel().setText(result.toString());
 									resources.focusSearchPane();
 								}
@@ -180,6 +212,35 @@ public class ObjectTreeMenuEntries {
 		}
 
 		return menu;
+	}
+	
+	public static boolean isUsedInAtts(GraphEntity original, AttributedElement tested, Browser browser, Hashtable<String, AttributedElement> checked) throws IllegalAccessException, NullEntity{
+		boolean used=false;
+		GraphAttribute [] fs=tested.getAllAttrs();
+		for (int j=0;j<fs.length && !used;j++){
+			GraphAttribute att=fs[j];
+			if (att.isEntityValue() && att.getEntityValue()!=null && att.getEntityValue().equals(original)){
+				used=true;
+			} else
+				if (att.isEntityValue() && att.getEntityValue()!=null && !checked.contains(att.getEntityValue().getID())){
+					checked.put(att.getEntityValue().getID(), att.getEntityValue());
+					used=isUsedInAtts(original, att.getEntityValue(), browser,checked);
+				} else
+					if (att.isCollectionValue() && att.getCollectionValue()!=null){
+						if (att.getCollectionValue().contains(original)){
+							used =true;
+						}	else {
+							for (int k=0;k<att.getCollectionValue().size() &&!used;k++){
+								if (!checked.contains(att.getCollectionValue().getElementAt(k).getID())){
+									checked.put(att.getCollectionValue().getElementAt(k).getID(), att.getCollectionValue().getElementAt(k));
+									used=isUsedInAtts(original, att.getCollectionValue().getElementAt(k), browser, checked);
+								}
+							}
+						}
+					}
+		}
+
+		return used;
 	}
 
 }
