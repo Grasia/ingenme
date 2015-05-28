@@ -20,6 +20,7 @@
 
 package ingenias.editor;
 import ingenias.editor.CommonMenuEntriesActionFactory;
+import ingenias.editor.actions.HyperlinkAction;
 import ingenias.editor.cell.NAryEdge;
 import ingenias.editor.editiondialog.MyJLabel;
 import ingenias.editor.entities.Entity;
@@ -38,15 +39,19 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.*;
+import javax.swing.event.HyperlinkEvent.EventType;
+
 import java.awt.event.*;
 import java.util.Map;
 import java.util.Hashtable;
-
 import java.awt.*;
 import java.awt.image.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
@@ -63,6 +68,7 @@ import javax.swing.tree.TreePath;
 import org.jgraph.JGraph;
 import org.jgraph.graph.*;
 import org.jgraph.event.*;
+
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
@@ -104,6 +110,8 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 
 	private IDEState ids;
 
+	private Rectangle oldrect;
+
 	public MarqueeHandler(ModelJGraph graph, 
 			GUIResources resources, 
 			IDEState ids, DiagramMenuEntriesActionsFactory daf){
@@ -113,14 +121,14 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 		this.resources=resources;
 		this.ids=ids;
 	}
-	
+
 	public MarqueeHandler(ModelJGraph graph,			
 			IDEState ids, DiagramMenuEntriesActionsFactory daf){
 		this.graph=graph;	
 		this.daf=daf;
 		this.af=new CommonMenuEntriesActionFactory(null,ids);
 		this.ids=ids;
-		
+
 	}
 
 	public void addContextualMenuAction(AbstractAction action){
@@ -149,7 +157,7 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 		return null;
 
 	}
-	
+
 	public static ingenias.editor.cell.NAryEdge getNAryEdge(GraphModel m,DefaultEdge de){
 		DefaultPort sourcePort = (DefaultPort) ( (Edge) de).getSource();
 		Object source = m.getParent(sourcePort);
@@ -298,7 +306,7 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 			Object cell = getGraph().getFirstCellForLocation(loc.x, loc.y);
 
 			JPopupMenu menu=new JPopupMenu();	
-			
+
 			menu.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
 			if (cell instanceof DefaultEdge){
@@ -346,15 +354,15 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 									AbstractAction o2) {
 								return o1.getValue(AbstractAction.NAME).toString().compareTo(o2.getValue(AbstractAction.NAME).toString());
 							}
-							
+
 						});
-						
+
 						addActionsToPopupMenuInsideComponent(menu,insertActions);	
 					}
 				}
 
 
-			
+
 			// Display PopupMenu
 			menu.show(getGraph(), e.getX(), e.getY());
 
@@ -383,17 +391,17 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 		if (graph != null) {
 			if (!graph.isSelectionEmpty()) {
 				Object[] cells =
-					graph.getSelectionCells();
-				
+						graph.getSelectionCells();
+
 				for (Object cell:cells){
 					if (cell instanceof DefaultEdge){
 						DefaultEdge de=(DefaultEdge)cell;
-							if (!(((DefaultPort)de.getSource()).getParent() instanceof NAryEdge) &&
-									!(((DefaultPort)de.getTarget()).getParent() instanceof NAryEdge))
-								graph.removeSelectionCell(cell);
+						if (!(((DefaultPort)de.getSource()).getParent() instanceof NAryEdge) &&
+								!(((DefaultPort)de.getTarget()).getParent() instanceof NAryEdge))
+							graph.removeSelectionCell(cell);
 					}
 				}
-				
+
 				cells=graph.getSelectionCells();
 				HashSet<Object> childrenInContainer=new HashSet<Object>();
 				for (Object ccell:cells){
@@ -452,14 +460,14 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 					Vector<AbstractAction> edgeMenuActions = af.createEdgeActions(
 							nary.getRoleEdges(roles.elementAt(k))[j], getGraph());		
 					DefaultGraphCell dgc=getOtherExtremeFromAryEdge(graph.getModel(), edgesPerRole[j]);
-					
+
 					menu.add(createMenu("role:"+roles.elementAt(k)+":"+
 							((Entity)dgc.getUserObject()).getId(),edgeMenuActions));
 				}
 			} else {
 				if (edgesPerRole.length==1){
 					DefaultGraphCell dgc=getOtherExtremeFromAryEdge(graph.getModel(), nary.getRoleEdges(roles.elementAt(k))[0]);
-					
+
 					Vector<AbstractAction> edgeMenuActions = af.createEdgeActions(nary.getRoleEdges(roles.elementAt(k))[0], getGraph());
 					menu.add(createMenu("role:"+roles.elementAt(k)+":"+
 							((Entity)dgc.getUserObject()).getId(),edgeMenuActions));
@@ -480,20 +488,20 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 		// TODO Auto-generated method stub
 		return menu;
 	}
-	
+
 	private void addActionsToPopupMenuInsideComponent(final JPopupMenu menu, 
 			Vector<AbstractAction> actions) {
 
 		int columns=4;
 		int rows=(actions.size()/columns)+1;;
-		
+
 		if (actions.size() % columns ==0)
 			rows=actions.size()/columns;
-		
-		
+
+
 		JPanel jp=new JPanel(new GridLayout(rows, columns,5,5));
-			
-		
+
+
 		jp.setBackground(menu.getBackground());
 		JScrollPane jsp=new JScrollPane(jp);
 		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -520,17 +528,17 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 				jl.setToolTipText(text);
 				// trick from http://tech.chitgoks.com/2010/05/31/disable-tooltip-delay-in-java-swing/
 				jl.addMouseListener(new MouseAdapter() {
-				    final int defaultDismissTimeout = ToolTipManager.sharedInstance().getDismissDelay();
-				    final int dismissDelayMinutes = (int) TimeUnit.MINUTES.toMillis(10); // 10 minutes
-				    @Override
-				    public void mouseEntered(MouseEvent me) {
-				        ToolTipManager.sharedInstance().setDismissDelay(dismissDelayMinutes);
-				    }
-				 
-				    @Override
-				    public void mouseExited(MouseEvent me) {
-				        ToolTipManager.sharedInstance().setDismissDelay(defaultDismissTimeout);
-				    }
+					final int defaultDismissTimeout = ToolTipManager.sharedInstance().getDismissDelay();
+					final int dismissDelayMinutes = (int) TimeUnit.MINUTES.toMillis(10); // 10 minutes
+					@Override
+					public void mouseEntered(MouseEvent me) {
+						ToolTipManager.sharedInstance().setDismissDelay(dismissDelayMinutes);
+					}
+
+					@Override
+					public void mouseExited(MouseEvent me) {
+						ToolTipManager.sharedInstance().setDismissDelay(defaultDismissTimeout);
+					}
 				});
 			}
 			jl.addMouseListener(new MouseAdapter() {
@@ -541,7 +549,7 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 					lastColor=jl.getBackground();
 					jl.setBackground(Color.lightGray);
 				}
-				
+
 				public void mouseClicked(MouseEvent e) {
 					aa.actionPerformed(new ActionEvent(e.getSource(),
 							ActionEvent.ACTION_PERFORMED,""));
@@ -565,10 +573,10 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 	private void addActionsToPopupMenu(JPopupMenu menu, Vector<AbstractAction> actions) {
 
 		Iterator<AbstractAction> it=actions.iterator();		
-		
+
 		while (it.hasNext()){
 			AbstractAction aa=it.next();
-			
+
 			menu.add(aa);
 		}
 	}
@@ -664,15 +672,63 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 		if (e != null && getGraph()!=null && getSourcePortAt(e.getPoint()) != null &&
 				!e.isConsumed() && getGraph().isPortsVisible()) {
 			// Set Cusor on Graph (Automatically Reset)
-			getGraph().setCursor(new Cursor(Cursor.HAND_CURSOR));
+			graph.getRootPane().setCursor(new Cursor(Cursor.HAND_CURSOR));			
 			// Consume Event
 			e.consume();
+		} else {
+			Hashtable<Rectangle,String> links=FieldPositionHelper
+					.getLinkAt(new Rectangle(e.getX(), e.getY(),
+							2, 2));
+
+			if (links.size()==1 && e.getClickCount()==1){			
+				graph.setSelectionCells(new Object[]{});
+				try {
+					if (oldCursor!=null)
+						graph.getRootPane().setCursor(oldCursor);
+					graph.setHyperLinkListener(new HyperlinkAction(ids));					
+					graph.hyperlinkUpdate(new HyperlinkEvent(graph, 
+							EventType.ACTIVATED, new URL(links.values().iterator().next())));
+					e.consume();					
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else{
+				if (links.size()==1){
+					if (oldCursor==null)
+						oldCursor=graph.getCursor();
+					graph.getRootPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					oldrect=links.keySet().iterator().next();
+					Color oldColor=graph.getGraphics().getColor();
+					graph.getGraphics().setColor(Color.red);
+					graph.getGraphics().drawRect(oldrect.x-1, oldrect.y-1, oldrect.width+1, oldrect.height+1);
+					graph.getGraphics().setColor(oldColor);					
+				} else {
+					/*if (oldCursor!=null)
+						graph.getRootPane().setCursor(oldCursor);
+					oldCursor=null;*/
+					graph.getRootPane().setCursor(Cursor.getDefaultCursor());
+					if (oldrect!=null){
+						Color oldColor=graph.getGraphics().getColor();
+						graph.getGraphics().setColor(Color.white);
+						graph.getGraphics().drawRect(oldrect.x-1, oldrect.y-1, oldrect.width+1, oldrect.height+1);
+						graph.getGraphics().setColor(oldColor);
+						oldrect=null;
+						graph.refresh();
+					}
+					//					graph.repaint();
+				}
+
+			}						
 		}
+
+
 		// Call Superclass
 		super.mouseReleased(e);
+
 	}
 
-
+	Cursor oldCursor=null;
 
 
 
