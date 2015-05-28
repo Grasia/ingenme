@@ -56,7 +56,7 @@ public class SearchAction {
 			ids.om.arbolObjetos.setSelectionPath(tp);
 			lastFoundIndex++;
 		} else{
-			foundpaths=this.ids.om.findUserObjectPathRegexp(id+".*");
+			foundpaths=this.ids.om.findUserObjectPathRegexp(".*"+id+".*");
 			if (foundpaths.size()>0){
 				lastFoundIndex=0;
 				lastSearch=id;
