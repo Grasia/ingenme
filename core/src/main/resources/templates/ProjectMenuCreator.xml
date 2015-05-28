@@ -264,11 +264,13 @@ public class ProjectMenuCreator {
 											else {
 
 												ModelJGraph mjg = (ModelJGraph) uo;
+												String oldid=mjg.getID();
 												mjg.setId(result);
-												mjg.setName(result);
+												mjg.setName(result);												
+												ids.om.renameModelID(oldid,result);												
 												ids.diagramRenamed(mjg);
 												ids.setChanged(true);
-												resources.setChanged();		
+												resources.setChanged();				
 											}
 										}
 									}
