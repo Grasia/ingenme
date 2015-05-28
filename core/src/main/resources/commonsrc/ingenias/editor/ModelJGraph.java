@@ -27,13 +27,23 @@ import ingenias.editor.events.ChangeEntityLocation;
 import ingenias.editor.events.ChangeNARYEdgeLocation;
 import ingenias.editor.events.CustomTransferHandler;
 import ingenias.editor.events.ListenerContainer;
+import ingenias.editor.events.ObjectTreeFlavor;
 import ingenias.editor.rendererxml.CollectionPanel;
 import ingenias.exception.InvalidEntity;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetContext;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -44,13 +54,17 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.TooManyListenersException;
 import java.util.Vector;
 
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jgraph.JGraph;
 import org.jgraph.event.GraphSelectionEvent;
@@ -65,7 +79,7 @@ import org.jgraph.graph.VertexView;
 import org.jgraph.plaf.basic.BasicGraphUI;
 
 
-public abstract class ModelJGraph extends JGraph implements Cloneable{
+public abstract class ModelJGraph extends JGraph implements Cloneable,HyperlinkListener{
 	protected Action undo, redo, remove, group, ungroup, tofront, toback,
 	cut, copy, paste;
 	protected FilteredJToolBar toolbar;
@@ -84,6 +98,7 @@ public abstract class ModelJGraph extends JGraph implements Cloneable{
 	public static void disableAllListeners(){
 		enabledAllListeners=false;
 	}
+		
 
 	public static void enableAllListeners(){
 		enabledAllListeners=true;
@@ -114,7 +129,7 @@ public abstract class ModelJGraph extends JGraph implements Cloneable{
 		creaToolBar();
 		this.setBackground(Color.white);
 		this.setTransferHandler(new CustomTransferHandler(om,this));
-
+		this.setDropEnabled(true);
 		// this.setTransferHandler(new RelationshipEntityTransferHandler());
 
 		lc=new ListenerContainer(m,this.getGraphLayoutCache(),this);
@@ -129,9 +144,122 @@ public abstract class ModelJGraph extends JGraph implements Cloneable{
 			createListeners();
 		}
 		final ModelJGraph self=this;
+		this.setDropEnabled(true);
+		DropTarget dt1=new DropTarget(this,new DropTargetListener(){
 
+				@Override
+				public void dragEnter(DropTargetDragEvent dtde) {
+					// Determine if can actual process the contents comming in.
+			        // You could try and inspect the transferable as well, but 
+			        // There is an issue on the MacOS under some circumstances
+			        // where it does not actually bundle the data until you accept the
+			        // drop.
+			        if (dtde.isDataFlavorSupported(ObjectTreeFlavor.SINGLETON)) {
+			        	dtde.acceptDrag(DnDConstants.ACTION_COPY);
+
+			        } else {
+
+			            dtde.rejectDrag();
+
+			        }
+					
+				}
+
+				@Override
+				public void dragOver(DropTargetDragEvent dtde) {}
+
+				@Override
+				public void dropActionChanged(DropTargetDragEvent dtde) {}
+
+				@Override
+				public void dragExit(DropTargetEvent dte) {}
+
+				@Override
+				public void drop(DropTargetDropEvent dtde) {
+					 boolean success = false;
+				        // Basically, we want to unwrap the present...
+				        if (dtde.isDataFlavorSupported(ObjectTreeFlavor.SINGLETON)) {
+
+				            Transferable transferable = dtde.getTransferable();
+				            try {
+
+				                Object data = transferable.getTransferData(ObjectTreeFlavor.SINGLETON);
+				                if (data instanceof DefaultMutableTreeNode) {
+
+				                	DefaultMutableTreeNode node = (DefaultMutableTreeNode) data;
+
+				                    DropTargetContext dtc = dtde.getDropTargetContext();
+				                    
+				                    Entity ent=(Entity) node.getUserObject();
+				                    
+				                    Point point=null;
+				                    point=dtde.getLocation();
+									DefaultGraphCell insertedDGC = insertDuplicated(point, ent);
+				                    
+				                    if (insertedDGC!=null){				                    
+				                    
+				                        success = true;
+				                        dtde.acceptDrop(DnDConstants.ACTION_COPY);
+
+				                    } else {
+
+				                        success = false;
+				                        dtde.rejectDrop();
+
+				                    }
+
+				                } else {
+
+				                    success = false;
+				                    dtde.rejectDrop();
+
+				                }
+
+				            } catch (Exception exp) {
+
+				                success = false;
+				                dtde.rejectDrop();
+				                exp.printStackTrace();
+
+				            }
+
+				        } else {
+
+				            success = false;
+				            dtde.rejectDrop();
+
+				        }
+
+				        dtde.dropComplete(success);
+					
+				}
+				
+			});
+		
 
 	}
+	
+	
+	private HyperlinkListener hll=null;
+	
+	@Override
+	public void hyperlinkUpdate(HyperlinkEvent e) {
+		if (hll!=null)
+		 hll.hyperlinkUpdate(e);		
+	}
+
+
+	public void setHyperLinkListener(HyperlinkListener hll) {
+	 this.hll=hll;		
+	}
+
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
+
 
 	public void createListeners() {		
 		// add listeners in the inverse order. Event listeners are notified in reverse order 
@@ -331,5 +459,9 @@ public abstract class ModelJGraph extends JGraph implements Cloneable{
 	}
 
 
+	public void paint(Graphics g){
+		FieldPositionHelper.clear();
+		super.paint(g);		
+	}
 
 }
