@@ -20,6 +20,7 @@ package ingenias.editor.editiondialog;
 
 import ingenias.editor.Editor;
 import ingenias.editor.GraphManager;
+import ingenias.editor.IDEState;
 import ingenias.editor.MarqueeHandler;
 import ingenias.editor.ModelJGraph;
 import ingenias.editor.cell.CompositeRenderer;
@@ -464,7 +465,7 @@ java.io.Serializable {
 						&& !cent.getModelID().equalsIgnoreCase("")) {
 					ingenias.editor.ModelJGraph mjg = gm.getModel(cent
 							.getModelID());
-					editor.changeGraph(mjg);
+					//editor.changeGraph(mjg,ids);
 					// updateButtonBars();
 				}
 			}
@@ -548,7 +549,7 @@ java.io.Serializable {
 						&& !cent.getModelID().equalsIgnoreCase("")) {
 					ingenias.editor.ModelJGraph mjg = gm.getModel(cent
 							.getModelID());
-					editor.changeGraph(mjg);
+					//editor.changeGraph(mjg);
 					// updateButtonBars();
 				}
 			}
