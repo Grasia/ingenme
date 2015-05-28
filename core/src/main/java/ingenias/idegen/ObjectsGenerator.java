@@ -18,6 +18,7 @@
 
 package ingenias.idegen;
 
+import ingenias.exception.NotWellFormed;
 import ingenias.generator.interpreter.*;
 
 import java.awt.BorderLayout;
@@ -32,6 +33,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+
 import org.w3c.dom.*;
 import org.apache.xerces.parsers.*;
 
@@ -79,6 +81,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 import org.apache.xerces.parsers.SAXParser;
+
 import ingenias.idegen.*;
 
 public class ObjectsGenerator {
@@ -207,6 +210,7 @@ public class ObjectsGenerator {
 
 		result = "<repeat id=\"relationshipedges\">\n";
 		result = result + " <v id=\"relationship\">" + relationship.getId() +"</v>\n";
+		result = result + " <v id=\"extendedrelationship\">" + relationship.getInherits() +"</v>\n";
 
 		Enumeration enumeration = relationship.getPreferredOrder().elements();
 		while (enumeration.hasMoreElements()) {
@@ -394,7 +398,7 @@ public class ObjectsGenerator {
 		String result = "";
 		result = "<repeat id=\"objects\">";
 		result = result + " <v id=\"object\">" + object.getId() + "</v>\n";
-		System.err.println(object.getId());
+	
 		result = result + " <v id=\"keyfield\">" + this.capitalize(object.getKey()) +
 				"</v>\n";
 		if (!object.getToString().equals(""))
@@ -466,7 +470,7 @@ public class ObjectsGenerator {
 				result = result + "  <v id=\"xp\">" + value.x + "</v>\n";
 				result = result + "  <v id=\"yp\">" + value.y + "</v>\n";
 				result = result + "  </repeat>\n";
-				System.err.println("looking "+object.getId()+" "+pname);
+				
 				Property gproperty=this.findProperty(object,pname);
 				if (gproperty!=null)
 					result = result + generateCodeAttributes(gproperty);
@@ -587,7 +591,6 @@ public class ObjectsGenerator {
 		result = result + " </repeat>\n";
 
 		if (!property.getIsmetaclassinstance() && !property.getIsmetamodelinstance() && !property.getIscollection()) {
-			System.err.println("Es simple........"+property.getId());
 			result = result + " <repeat id=\"simpleattributes\">\n";
 			result=result+"  <v id=\"type\">"+property.getType()+"</v>\n";
 			result = result + "  <v id=\"name\">" + pid + "</v>\n";
@@ -659,13 +662,7 @@ public class ObjectsGenerator {
 		result = result + " </repeat>\n";
 
 		if (!property.getIsmetaclassinstance() && !property.getIsmetamodelinstance() && !property.getIscollection()) {
-			System.err.println("Ejecución de simple1");
-			System.err.println("Ejecución de simple");
-			System.err.println("Ejecución de simple");
-			System.err.println("Ejecución de simple");
-			System.err.println("Ejecución de simple");
-			System.err.println("Ejecución de simple");
-			System.err.println("Ejecución de simple");
+			
 			result = result + " <repeat id=\"simpleattributes\">\n";
 			//      result=result+"  <v id=\"type\">"+property.getType()+"</v>\n";
 			result = result + "  <v id=\"name\">" + pid + "</v>\n";
@@ -925,7 +922,7 @@ public class ObjectsGenerator {
 			toBeShown=toBeShown+header;
 
 			StringBuffer licenseContent=new StringBuffer();
-			System.err.println(getResourceList("/licenses"));
+			
 			InputStream fis=getResourceList("/licenses").get("licenses/LICENSE_EN.txt");
 			int read=1;
 			while (read!=-1){
@@ -1009,7 +1006,7 @@ public class ObjectsGenerator {
 					// running JVM and disturbs the original execution
 					throw new RuntimeException(new Exception("The template file "+args[1]+" does not exist")); 
 				}
-				System.err.println(file);
+				
 					
 				Codegen.applyArroba(result, new FileInputStream(file));
 			}
@@ -1017,10 +1014,27 @@ public class ObjectsGenerator {
 
 				String packageName="/templates";
 				Hashtable<String, InputStream> inputStreamInFolder = getResourceList(packageName);
+				Hashtable<String, InputStream> inputStreamInFolder2 = getResourceList(packageName);
 				for(String filename:inputStreamInFolder.keySet()){
 					if (filename.toLowerCase().endsWith(".xml")){
-						System.err.println(filename);
+						System.out.println("Processing "+filename);
+						try {
 						Codegen.applyArroba(result, inputStreamInFolder.get(filename));
+						} catch (NotWellFormed nwf){
+							nwf.printStackTrace();
+							InputStream is = inputStreamInFolder2.get(filename);
+							int read=0;
+							StringBuffer sb=new StringBuffer();
+							while (read!=-1){
+								read=is.read();
+								if (read!=-1)
+								 sb.append((char)read);								
+							}
+							System.err.println("Wrong file follows:");
+							System.err.println(sb);
+						}
+						
+						
 					}
 				};
 			}
