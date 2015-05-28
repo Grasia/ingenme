@@ -33,15 +33,14 @@ import ingenias.editor.*;
 import javax.print.attribute.HashAttributeSet;
 import javax.swing.*;
 
-public class ContainerPanel extends CollectionPanel {
+public class HorizontalCollectionPanel extends JPanel {
 	private boolean settingcollection=false;
 	private JPanel box = new JPanel(new GridBagLayout());
 	private static Hashtable<TypedVector,Vector> duplicatesCache=new Hashtable<TypedVector,Vector>();
 	int counter=0;
 
 	Vector tobeduplicated=new Vector();
-	public ContainerPanel() {
-		super();
+	public HorizontalCollectionPanel() {
 		/*final JScrollPane jsp=new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		jsp.addComponentListener(new ComponentListener(){
 			public void componentHidden(ComponentEvent arg0) {}
@@ -63,20 +62,19 @@ public class ContainerPanel extends CollectionPanel {
 			}
 			public void componentShown(ComponentEvent arg0) {}});*/
 		
-	
-		this.removeAll();
-	
+		this.setLayout(new BorderLayout());
+		super.add(box, BorderLayout.CENTER);
 	}
 
-	public ContainerPanel(LayoutManager p0, boolean p1) {
+	public HorizontalCollectionPanel(LayoutManager p0, boolean p1) {
 		super(p0, p1);
 	}
 
-	public ContainerPanel(LayoutManager p0) {
+	public HorizontalCollectionPanel(LayoutManager p0) {
 		super(p0);
 	}
 
-	public ContainerPanel(boolean p0) {
+	public HorizontalCollectionPanel(boolean p0) {
 		super(p0);
 
 	}
@@ -102,14 +100,47 @@ public class ContainerPanel extends CollectionPanel {
 		//  return super.add(comp);
 	}
 
-/*
-	@Override
-	public Dimension getPreferredSize() {
-		// TODO Auto-generated method stub
-		return new Dimension(200,200);
+
+	private static Vector duplicate(ingenias.editor.TypedVector data, Vector tobeduplicated) {
+		Vector result;
+		if (duplicatesCache.containsKey(data)){
+			result=duplicatesCache.get(data);
+			if (result.size()==data.size()){
+				return result;
+			}
+		}
+
+		ObjectOutputStream oos = null;
+		Vector results = new Vector();
+		try {        
+			java.io.ByteArrayOutputStream sw = new java.io.ByteArrayOutputStream(50000);
+			oos = new ObjectOutputStream(sw);
+
+
+			Enumeration enumeration = tobeduplicated.elements();
+			HashSet temp = new HashSet();
+			while (enumeration.hasMoreElements()) {
+				Component comp = (Component) enumeration.nextElement();
+				temp.add(comp);                
+			}            
+			oos.writeObject(temp);
+			oos.close();
+			for (int k = 0; k < data.size(); k++) {
+				ObjectInputStream decoder = new ObjectInputStream(new java.io.ByteArrayInputStream(sw.toByteArray()));
+				temp = (HashSet) decoder.readObject();
+				decoder.close();
+				results.add(temp);
+			}
+
+			duplicatesCache.put(data,results);
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} 
+		return results;
 	}
-*/
-	
 
 	public Vector fold(Component cont){
 		Vector result=new Vector();
@@ -142,8 +173,8 @@ public class ContainerPanel extends CollectionPanel {
 
 			}
 			GridBagConstraints gbc=new GridBagConstraints();
-			gbc.gridx=0;
-			gbc.gridy=counter;
+			gbc.gridx=counter;
+			gbc.gridy=0;
 			gbc.fill=GridBagConstraints.BOTH;
 			gbc.weighty=1;
 			gbc.weightx=1;
@@ -162,7 +193,61 @@ public class ContainerPanel extends CollectionPanel {
 
 	public void setCollection(String attname,ingenias.editor.TypedVector data, Class type) throws
 	IllegalAccessException, IllegalArgumentException {
-		this.setAttName(attname);
+		this.settingcollection=true;
+		this.box.removeAll();
+		counter=0;
+		Vector duplicates=duplicate(data,tobeduplicated);
+		// System.err.println("setting "+attname+" to "+data.size());
+		for (int i=0;i<data.size();i++){
+			Object current=data.elementAt(i);
+			HashSet comps=(HashSet)duplicates.elementAt(i);      
+			Hashtable added=this.add(comps);
+			//System.err.println(added);
+			// System.err.println("adding collection"+added);
+			java.lang.reflect.Field[] f=null;
+			if (type.isAssignableFrom(current.getClass()))
+
+				f=current.getClass().getFields();
+			else
+				f=type.getFields();
+
+			for (int k=0;k<f.length;k++){
+				Object fvalue=f[k].get(current);
+
+				Component comp=(Component)added.get(attname+"_"+capitalize(f[k].getName())); // obtains the rendering component
+				// System.err.println("inspecting "+f[k].getName()+":"+fvalue+" "+attname+"_"+capitalize(f[k].getName())+comp);
+				if (comp!=null && fvalue!=null){
+					//System.err.println("processing attribute "+f[k].getName()+" with value "+fvalue.toString());
+					if (comp instanceof HorizontalCollectionPanel && 
+							fvalue instanceof ingenias.editor.TypedVector) {
+						// it is another collection and comp another panel
+						//  System.err.println("comp: "+comp.getClass()+" "+comp);
+						( (HorizontalCollectionPanel) comp).setCollection(f[k].getName(), (TypedVector) fvalue,
+								fvalue.getClass());
+					}
+					else {
+						if (comp instanceof javax.swing.text.JTextComponent){
+							// it is a simple type. String conversion is invoked
+							( (javax.swing.text.JTextComponent) comp).setText(fvalue.toString());
+							//  System.err.println("primero:"+fvalue.toString());
+						} else {
+							String value="";
+							if (fvalue instanceof ingenias.editor.TypedVector){
+								Enumeration elements=((TypedVector) fvalue).elements();
+								for (int j=0;j<((TypedVector) fvalue).size();j++){
+									value=value+((TypedVector) fvalue).elementAt(j).toString()+",";
+								}
+								( (javax.swing.JLabel) comp).setText(value);
+							} else 
+								( (javax.swing.JLabel) comp).setText(fvalue.toString());
+
+							// System.err.println("segundo:"+fvalue.toString());
+						}
+					}
+				}
+			}
+		}
+		this.settingcollection=false;
 	}
 
 
@@ -170,30 +255,30 @@ public class ContainerPanel extends CollectionPanel {
 	IllegalAccessException {
 		System.err.println(GridBagConstraints.VERTICAL);
 //		System.err.println(capitalize("capitalize"));
-		/*JFrame jf=new JFrame();
+		JFrame jf=new JFrame();
 
-    CollectionPanel colpal = new CollectionPanel();
-    TypedVector tv=new TypedVector(ingenias.editor.entities.Method.class);
-    ingenias.editor.entities.Method m=new ingenias.editor.entities.Method("uno");
-    m.setName("uno");
+    HorizontalCollectionPanel colpal = new HorizontalCollectionPanel();
+    TypedVector tv=new TypedVector(ingenias.editor.entities.Entity.class);
+    ingenias.editor.entities.Entity m=new ingenias.editor.entities.Entity("uno");
+    m.setId("uno");
     tv.add(m);
-    m=new ingenias.editor.entities.Method("dos");
-    m.setName("dos");
+    m=new ingenias.editor.entities.Entity("dos");
+    m.setId("dos");
     tv.add(m);
 
     JLabel jl=new JLabel("hola");
     jl.setName("Name");
     JLabelIcon jl1=new JLabelIcon();
-    java.net.URL url=colpal.getClass().getResource("images/method.gif");
+    java.net.URL url=colpal.getClass().getResource("images/arrow.gif");
     System.err.println("imagen en "+url);
-    jl1.setIconName(url.toString());
+   // jl1.setIconName(url.toString());
     jl1.setName("Name1");
     colpal.add(jl);
     colpal.add(jl1);
     jf.getContentPane().add(colpal);
     jf.pack();
     jf.show();
-    colpal.setCollection("",tv,ingenias.editor.entities.Method.class );
-    jf.pack();*/
+    colpal.setCollection("",tv,ingenias.editor.entities.Entity.class );
+    jf.pack();
 	}
 }

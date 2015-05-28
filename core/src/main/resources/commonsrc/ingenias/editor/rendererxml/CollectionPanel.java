@@ -20,16 +20,21 @@ package ingenias.editor.rendererxml;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JPanel;
+
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.border.*;
+
 import java.util.*;
 import java.beans.*;
 import java.io.*;
+
 import ingenias.editor.*;
+
 import javax.print.attribute.HashAttributeSet;
 import javax.swing.*;
 
@@ -40,6 +45,7 @@ public class CollectionPanel extends JPanel {
 	int counter=0;
 
 	Vector tobeduplicated=new Vector();
+	private String attname;
 	public CollectionPanel() {
 		/*final JScrollPane jsp=new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		jsp.addComponentListener(new ComponentListener(){
@@ -190,11 +196,28 @@ public class CollectionPanel extends JPanel {
 		else
 			return "";
 	}
+	
+	
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		 Container parent = this;
+		 Rectangle nbound=this.getBounds();
+		while  (parent.getParent()!=null && !(parent.getParent() instanceof ModelJGraph)){
+			parent=parent.getParent();
+			nbound.setLocation((int)(nbound.getX()+parent.getBounds().getX()),(int)(nbound.getY()+parent.getBounds().getY()));
+		}
+		if (parent!=null){			
+		 FieldPositionHelper.put(attname, "", nbound);
+		}
+	}
 
 	public void setCollection(String attname,ingenias.editor.TypedVector data, Class type) throws
 	IllegalAccessException, IllegalArgumentException {
 		this.settingcollection=true;
 		this.box.removeAll();
+		this.setAttName(attname);
 		counter=0;
 		Vector duplicates=duplicate(data,tobeduplicated);
 		// System.err.println("setting "+attname+" to "+data.size());
@@ -250,6 +273,11 @@ public class CollectionPanel extends JPanel {
 		this.settingcollection=false;
 	}
 
+
+	public void setAttName(String attname2) {
+		this.attname=attname2;
+		
+	}
 
 	public static void main(String[] args) throws IllegalArgumentException,
 	IllegalAccessException {
