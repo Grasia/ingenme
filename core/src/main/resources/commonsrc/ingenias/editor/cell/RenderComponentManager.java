@@ -96,6 +96,14 @@ public class RenderComponentManager {
 			return renderer.get(new RenderIndex(classname,kind));
 		}
 	}
+	
+	
+	public static boolean isSupported(String classname, ingenias.editor.entities.ViewPreferences.ViewType kind){
+		synchronized (renderer){
+			//System.err.println("retrieved ("+classname+","+kind+")" +" with "+components.get(new RenderIndex(classname,kind)));
+			return components.get(new RenderIndex(classname,kind))!=null;
+		}
+	}
 
 
 	public static Hashtable retrieveIDs(String classname, ingenias.editor.entities.ViewPreferences.ViewType kind){
