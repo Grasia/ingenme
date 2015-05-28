@@ -716,7 +716,7 @@ public class PersistenceManager {
 												.getNodeValue();
 										if (ids.gm.getModel(diagramT) != null){
 											ids.editor.changeGraph(ids.gm
-													.getModel(diagramT));
+													.getModel(diagramT),ids);
 
 										}
 									}
