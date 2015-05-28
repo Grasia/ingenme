@@ -227,7 +227,7 @@ implements java.io.Serializable,IDEUpdater
 			this.profiles.add(menuEntry);							
 		}		
 		ids.setDiagramFilter(defaultFilter);
-
+		
 		defaultMenuEntry.setSelected(true);
 
 		resources.getPprin().invalidate();
@@ -346,6 +346,7 @@ implements java.io.Serializable,IDEUpdater
 		resources.setArbolProyectos(arbolProyectos);
 		resources.getArbolProyectos().setContainer(scrollPaneForProyectView);
 		resources.setArbolObjetos(arbolObjetos);
+		resources.getArbolObjetos().setContainer(scrollPaneForEntitiesView);
 		resources.setEditPopUpProperties(editPopUpProperties);
 		resources.setButtonModelPanel(buttonModelPanel);
 		resources.setPprin(pprin);
