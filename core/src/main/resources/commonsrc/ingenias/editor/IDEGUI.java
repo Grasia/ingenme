@@ -21,6 +21,7 @@ package ingenias.editor;
 
 
 import ingenias.editor.widget.DnDJTree;
+import ingenias.editor.widget.DnDJTreeObject;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -68,7 +69,7 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 
 	public  JPanel rightPanel=new JPanel();
 	JMenuItem about = new JMenuItem();
-	JTree arbolObjetos =new JTree();;
+	DnDJTreeObject arbolObjetos =new DnDJTreeObject();;
 	DnDJTree arbolProyectos = new DnDJTree();//rootProject);
 	Border borderForEntitiesView;
 	Border borderForProjectView;
@@ -682,8 +683,8 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 				scrollPaneForEntitiesView.setViewportView(arbolObjetos);
 				searchPanel.add(Search);
 
-				Search.setIcon(new ImageIcon("images/lense.png"));
-				Search.setPreferredSize(new java.awt.Dimension(20, 18));
+				Search.setIcon(new ImageIcon(ImageLoader.getImage(("images/lense.png"))));
+			//	Search.setPreferredSize(new java.awt.Dimension(20, 20));
 				Search.setIconTextGap(0);
 				Search.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
@@ -791,7 +792,7 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 	void redo_actionPerformed(ActionEvent e) {
 
 	}
-	public void replaceCurrentTrees(DnDJTree arbolProyecto, JTree arbolObjetos2){
+	public void replaceCurrentTrees(DnDJTree arbolProyecto, DnDJTreeObject arbolObjetos2){
 		this.arbolProyectos=arbolProyecto;
 		this.arbolObjetos=arbolObjetos2;
 		arbolObjetos.addMouseListener(new java.awt.event.MouseAdapter() {
