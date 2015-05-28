@@ -20,6 +20,8 @@ package ingenias.generator.browser;
 
 import ingenias.editor.IDEState;
 import ingenias.editor.ModelJGraph;
+import ingenias.editor.TypedVector;
+import ingenias.exception.InvalidAttribute;
 import ingenias.exception.InvalidEntity;
 import ingenias.exception.NotFound;
 
@@ -56,6 +58,57 @@ abstract class AttributedElementImp implements AttributedElement {
 
 		return result;
 
+	}
+
+		public static String  capitaliseFirstLetter(String word){
+			return word.substring(0, 1).toUpperCase() + word.substring(1);
+		}
+	
+	public void setAttribute(GraphAttribute ga) throws InvalidAttribute{
+		try {
+			GraphAttribute oldga=this.getAttributeByName(ga.getName());
+			((GraphAttributeImp)oldga).setValue(((GraphAttributeImp)ga).getValue());
+			Object nvalue=((GraphAttributeImp)ga).getValue();
+			if (nvalue instanceof TypedVector){
+	//				nvalue=((GraphCollectionImp)nvalue).getValue();
+				Class nvalueclass=((TypedVector)nvalue).getType();
+				Class entclass=this.element.getClass();
+				Method m=
+org.apache.commons.beanutils.MethodUtils.getMatchingAccessibleMethod(entclass, "add"+capitaliseFirstLetter(ga.getName()),
+						new Class[]{nvalueclass});
+				TypedVector tv=(TypedVector)nvalue;
+				for (int k=0;k<tv.size();k++){
+					m.invoke(element,new Object[]{tv.elementAt(k)});
+				}
+			} else {
+				if (nvalue instanceof GraphEntity){
+					nvalue=((GraphEntityImp)nvalue).getEntity();	
+				}
+				Class entclass=this.element.getClass();
+				Method m=org.apache.commons.beanutils.MethodUtils.getMatchingAccessibleMethod(entclass,"set"+capitaliseFirstLetter(ga.getName()),
+						new Class[]{nvalue.getClass()});
+
+				m.invoke(element,new Object[]{nvalue});
+			}
+		} catch (NotFound e) {				
+			throw new InvalidAttribute(e);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new InvalidAttribute(e);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new InvalidAttribute(e);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new InvalidAttribute(e);
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new InvalidAttribute(e);
+		}	
 	}
 
 

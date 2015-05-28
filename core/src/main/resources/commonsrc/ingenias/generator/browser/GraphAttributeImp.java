@@ -47,6 +47,8 @@ implements GraphAttribute {
 		}
 	}
 
+	public Graph getGraph(){return new GraphImp(graph,ids);}
+
 	public GraphEntity getEntityValue() throws NullEntity {
 		if (attribute == null) {
 			throw new NullEntity();
@@ -83,12 +85,25 @@ implements GraphAttribute {
 	}
 
 
-	protected Object getValue(){
+	public Object getValue(){
 		return this.attribute;
 	}
 
-	protected void setValue(Object value){
+	public void setValue(Object value){
 		this.attribute=value;
+	}
+
+	public boolean equals(Object obj){
+	 if (obj instanceof GraphAttributeImp){
+   	   GraphAttributeImp newObj=(GraphAttributeImp) obj;
+           return this.getName().equals(newObj.getName()) && ((newObj.getValue()==null && this.getValue()==null) ||
+		(newObj.getValue()!=null && this.getValue()!=null && newObj.getValue().equals(this.getValue()))); 
+	 }
+	 return false;
+	}
+
+	public String toString(){ 
+		return name+":"+attribute;
 	}
 
 

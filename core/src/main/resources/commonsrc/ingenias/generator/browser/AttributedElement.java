@@ -17,6 +17,7 @@
  **/
 
 package ingenias.generator.browser;
+import ingenias.exception.InvalidAttribute;
 import ingenias.exception.InvalidEntity;
 import ingenias.exception.NotFound;
 
@@ -35,5 +36,12 @@ public interface AttributedElement {
  public GraphAttribute getAttributeByName(String name) throws NotFound;
  
  public void setAttributeValue(String name,Object value) throws NotFound, InvalidEntity;
-
+ /**
+	 * sets the value of an attribute to "ga"
+	 * @param ga Attribute to be updated
+	 * @throws InvalidAttribute the attribute pased as
+	 *  value was not an original attribute of this entity
+	 *  
+	 */
+ public void setAttribute(GraphAttribute ga) throws InvalidAttribute;
 }

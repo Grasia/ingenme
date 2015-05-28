@@ -101,8 +101,8 @@ public class GraphAttributeFactory {
 		
 	}
 	
-	public static void setAttribute(GraphEntity ge, GraphAttribute ga) throws InvalidAttribute{
-		((GraphEntityImp)ge).setAttribute(ga);
+	public static void setAttribute(AttributedElement ge, GraphAttribute ga) throws InvalidAttribute{
+		ge.setAttribute(ga);
 	}
 	
 	

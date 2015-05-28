@@ -49,4 +49,6 @@ public interface GraphAttribute {
 
 	public boolean isSimpleValue();
 
+	public Graph getGraph();
+
 }

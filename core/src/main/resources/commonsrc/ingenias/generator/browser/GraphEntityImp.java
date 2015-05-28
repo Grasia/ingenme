@@ -43,12 +43,16 @@ public class GraphEntityImp extends AttributedElementImp implements GraphEntity{
 	public void setDgc(org.jgraph.graph.DefaultGraphCell dgc) {
 		this.dgc = dgc;
 	}
+	
+	public Graph getGraph(){
+		return new GraphImp(graph,ids);
+	}
 
 	private ingenias.editor.entities.Entity ent;
 	private ModelJGraph graph;
 	private org.jgraph.graph.DefaultGraphCell dgc;
 
-	GraphEntityImp(ingenias.editor.entities.Entity ent,  org.jgraph.graph.DefaultGraphCell dgc,
+	public GraphEntityImp(ingenias.editor.entities.Entity ent,  org.jgraph.graph.DefaultGraphCell dgc,
 			ModelJGraph graph, IDEState ids) throws NullEntity{
 		super(ent,graph,ids);
 		if (ent==null) throw new ingenias.exception.NullEntity();
@@ -64,7 +68,7 @@ public class GraphEntityImp extends AttributedElementImp implements GraphEntity{
 		browser=new BrowserImp(ids);
 	}
 
-	GraphEntityImp(ingenias.editor.entities.Entity ent,
+	public GraphEntityImp(ingenias.editor.entities.Entity ent,
 			ModelJGraph graph, IDEState ids) throws NullEntity{
 		super(ent,graph,ids);
 		if (ent==null) throw new ingenias.exception.NullEntity();
@@ -256,55 +260,7 @@ public class GraphEntityImp extends AttributedElementImp implements GraphEntity{
 		return this.ent.hashCode();
 	}
 
-	public void setAttribute(GraphAttribute ga) throws InvalidAttribute{
-		try {
-			GraphAttribute oldga=this.getAttributeByName(ga.getName());
-			((GraphAttributeImp)oldga).setValue(((GraphAttributeImp)ga).getValue());
-			Object nvalue=((GraphAttributeImp)ga).getValue();
-			if (nvalue instanceof GraphCollection){
-				nvalue=((GraphCollectionImp)nvalue).getValue();
-				Class nvalueclass=((TypedVector)nvalue).getType();
-				Class entclass=this.ent.getClass();
-				Method m=entclass.getMethod("add"+ga.getName(),
-						new Class[]{nvalueclass});
-				TypedVector tv=(TypedVector)nvalue;
-				for (int k=0;k<tv.size();k++){
-					m.invoke(ent,new Object[]{tv.elementAt(k)});
-				}
-			} else {
-				if (nvalue instanceof GraphEntity){
-					nvalue=((GraphEntityImp)nvalue).getEntity();	
-				}
-				Class entclass=this.ent.getClass();
-				Method m=entclass.getMethod("set"+ga.getName(),
-						new Class[]{nvalue.getClass()});
-
-				m.invoke(ent,new Object[]{nvalue});
-			}
-		} catch (NotFound e) {				
-			throw new InvalidAttribute(e);
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new InvalidAttribute(e);
-		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new InvalidAttribute(e);
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new InvalidAttribute(e);
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new InvalidAttribute(e);
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new InvalidAttribute(e);
-		}	
-	}
+	
 
 	public Entity getEntity(){
 		return this.ent;

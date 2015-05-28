@@ -26,7 +26,7 @@ import ingenias.editor.ModelJGraph;
 import ingenias.editor.entities.*;
 import ingenias.exception.NullEntity;
 
-class GraphRoleImp extends AttributedElementImp implements GraphRole {
+public class GraphRoleImp extends AttributedElementImp implements GraphRole {
 
  private RoleEntity re;
 
@@ -56,12 +56,29 @@ class GraphRoleImp extends AttributedElementImp implements GraphRole {
   public String getName(){
     return re.getType().substring(0,re.getType().length()-4);
   }
+  
+  public void setPlayer(Entity e){
+   this.player=e;
+  }
 
   public boolean equals(Object obj){
     if (obj instanceof GraphRoleImp){
-      return ((GraphRoleImp)obj).player.equals(player);
+      return  getName().equals(((GraphRoleImp)obj).getName()) && 
+    		  ((GraphRoleImp)obj).player.equals(player);
     } else
      return super.equals(obj);
   }
+
+@Override
+public int hashCode() {	
+	return getName().hashCode();
+}
+
+public String toString(){ 
+	return getName()+":"+re.toString();
+}
+
+  
+  
 
 }

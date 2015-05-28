@@ -44,14 +44,6 @@ public interface GraphEntity  extends AttributedElement{
 	
 	public Entity getEntity();
 	
-	
-	/**
-	 * sets the value of an attribute to "ga"
-	 * @param ga Attribute to be updated
-	 * @throws InvalidAttribute the attribute pased as
-	 *  value was not an original attribute of this entity
-	 *  
-	 */
-	public void setAttribute(GraphAttribute ga) throws InvalidAttribute;
+	public Graph getGraph();
 	
 }
