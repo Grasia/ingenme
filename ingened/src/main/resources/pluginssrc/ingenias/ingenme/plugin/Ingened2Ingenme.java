@@ -40,11 +40,7 @@ import java.io.Writer;
 
 
 
-
-
 import ingenias.editor.ProjectProperty;
-import ingenias.editor.entities.ExternalTypeWrapper;
-import ingenias.editor.entities.PropertyField;
 import ingenias.editor.export.Diagram2SVG;
 import ingenias.exception.NullEntity;
 import ingenias.generator.browser.*;
@@ -91,8 +87,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
-
-
 
 
 
@@ -252,7 +246,6 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	private int k;
 	private GraphEntityFactory gef;
 	private GraphFactory gfact;
-	private GraphAttributeFactory gaf;
 	private Graph tmpdiagram;
 	private GraphAttributeFactory atfact;
 	private String folder="";
@@ -304,7 +297,6 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	}
 
 	private boolean error=false;
-	private Graph fakeGraph;
 	/**
 	 *  It opens the different files generated under the ingenias/jade/components folder looking
 	 *  for specific tags. These tags mark the beginning and the end of the modification
@@ -313,13 +305,8 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		try {
 			gef=new GraphEntityFactory(browser.getState()); 
 			gfact=new GraphFactory(browser.getState());
-			try {
-			fakeGraph=gfact.createCompleteGraph("Metamodel", "_fakegraph");
-			} 
-			catch (InvalidGraph ig){ig.printStackTrace();}
-			catch (NotInitialised ni){ni.printStackTrace();};
 			atfact=new GraphAttributeFactory(browser.getState());
-			gaf=new GraphAttributeFactory(browser.getState());
+
 
 			iconsToMove.clear();
 			final StringBuffer output=new StringBuffer();
@@ -331,7 +318,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			if (errors.isEmpty()) {
 				String saveLocation=saveMetamodel(output);
 				String projectHome = new File(saveLocation).getParentFile().getParent();
-				/*for (String icon:iconsToMove){
+				for (String icon:iconsToMove){
 					File iconFile = new File(icon);
 					try {
 						FileCopy.copy(icon, projectHome+"/images/"+iconFile.getName());
@@ -339,7 +326,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}*/
+				}
 			} else
 			{
 				/*	javax.swing.JOptionPane.showMessageDialog(getResources().getMainFrame(), "There are errors in the metamodel. Check the editor panels","Error",javax.swing.JOptionPane.ERROR_MESSAGE);*/
@@ -455,20 +442,18 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	private void processEntities(final StringBuffer output,
 			Vector<String> errors, Vector<GraphRelationship> binaryRelationships) throws NotFound, NullEntity {
 		GraphEntity[] entities = browser.getAllEntities();
-		preprocessEntitiesToAddDefaultElemetns(entities);
 		for (GraphEntity ge:entities){
 			if (ge.getType().equalsIgnoreCase("MetaDiagram")){
 				// generate diagram entry
 				GraphEntity basicrepre=obtainBasicRepresentation(errors, ge);
 				String smalliconPath=null;
-				String smallIconRelativePath="images/m"+ge.getID().replace(' ', '_').replace(':', '_')+".png";
 
 				if (basicrepre==null){
-					smalliconPath=folder+"/target/generated/src/main/resources/"+smallIconRelativePath;
-					File smallicon=new File(smalliconPath);
+					smalliconPath="images/m"+ge.getID().replace(' ', '_').replace(':', '_')+".png";
+					new File("target/images").mkdirs();
+					File smallicon=new File("target/"+smalliconPath);
 					inventIcon(ge, smallicon);
 					iconsToMove.add(smallicon.getAbsolutePath());
-					smalliconPath=smallIconRelativePath;
 				} else {
 					if (basicrepre.getAttributeByName("SmallIcon")==null){
 						errors.add("smallicon field of entity "+basicrepre.getID()+" is empty");
@@ -828,8 +813,8 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			saveSpecField.setVisible(true);
 			return saveLocation.getText();
 		}
-		else {
-			String saveLocation=folder+"/src/main/resources/metamodel/metamodel.xml";
+		else{
+			String saveLocation=		folder+"/src/main/resources/metamodel/metamodel.xml";
 			File location=new File(saveLocation);
 			writeFileContent(output, null, location);
 			return folder+"/src/main/resources/metamodel/metamodel.xml";
@@ -1003,11 +988,11 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}else 
 					output.append("<normal-icon>"+basicRepresentation.getAttributeByName("NormalIcon").getSimpleValue()+"</normal-icon>\n");				
 			} else {
-				File smallicon=new File(folder+"/target/generated/src/main/resources/images/m"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
+				File smallicon=new File(folder+"/target/m"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
 				this.iconsToMove.add(smallicon.getAbsolutePath());
 				inventIcon(metamodelEntity, smallicon);
 
-				File bigicon=new File(folder+"/target/generated/src/main/resources/images/"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
+				File bigicon=new File(folder+"/target/"+metamodelEntity.getID().replace(' ', '_').replace(':', '_')+".png");
 				this.iconsToMove.add(bigicon.getAbsolutePath());
 				inventIcon(metamodelEntity, bigicon);
 
@@ -1175,44 +1160,19 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		}*/
 
 	}
-	
-	private void preprocessEntitiesToAddDefaultElemetns(GraphEntity[] entities) throws NullEntity, NotFound{
-	GraphEntity descField = browser.findEntity("Description");
-		if (descField==null){		
-			ExternalTypeWrapper etw=null;
-			try {
-			descField=gef.createEntity("PropertyField", "Description",fakeGraph);
-			etw=(ExternalTypeWrapper) gef.createEntity("ExternalTypeWrapper", "StringDescriptor",fakeGraph).getEntity();
-			} catch (InvalidEntity ie){ie.printStackTrace();};			 
-			etw.setExternalType("java.lang.String");			
-			PropertyField pf=(PropertyField) descField.getEntity();
-			pf.setWrappedType(etw);		
-			pf.setPreferredwidget("ingenias.editor.widget.ScrolledTArea");
-		}
-		
-	for (GraphEntity entity:entities){
-	try {
-			GraphAttribute props = entity.getAttributeByName("Properties");
-			GraphCollection gci=props.getCollectionValue();			
-			if (!gci.contains(descField)){
-				gci.addElementAt(descField);
-			}	
-		} catch (NotFound nf){	}	
-	}
-	}
 
 	private void producePropertiesForEntity(Vector<String> errors,
 			StringBuffer output, GraphEntity ge,
 			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
 					throws NullEntity, NotFound {
 		HashSet<GraphRelationship> aggregationToConsider = getInternalExternalProps(
-				propertiesToConsider, ancestor);		
+				propertiesToConsider, ancestor);
 		generateProperties(errors, output, ancestor,ge.getID(), propertiesToConsider,aggregationToConsider);
 	}
 
 	private HashSet<GraphRelationship> getInternalExternalProps(
 			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
-					throws NullEntity, NotFound {
+			throws NullEntity, NotFound {
 		HashSet<GraphRelationship> aggregationToConsider=new HashSet<GraphRelationship>();
 		GraphRelationship[] rels = getRelatedElementsRels(ancestor,"HasMO", "HasMOtarget");		
 		for (GraphRelationship gr:rels){
@@ -1302,13 +1262,12 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				for (GraphEntity ancestor:ancestors){
 					HashSet<GraphRelationship> aggregationRels=getInternalExternalProps(otherprops, ancestor);
 					for (GraphRelationship aggregation:aggregationRels){					
-						if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaObject")){
-							try{
-								GraphEntity metadiagramEntity=aggregation.getRoles("HasMOtarget")[0].getPlayer();
-								otherprops.add(metadiagramEntity);
-							}catch (NullEntity ne){
-								ne.printStackTrace();
-							}
+					if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaObject")){
+						try{
+							GraphEntity metadiagramEntity=aggregation.getRoles("HasMOtarget")[0].getPlayer();
+							otherprops.add(metadiagramEntity);
+						}catch (NullEntity ne){
+							ne.printStackTrace();
 						}
 					}
 					}
@@ -1318,7 +1277,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 					table.put(new Integer(order),property);
 					order=order+1;
 				}
-			
+			}
 		}
 
 		output.append("<preferredorder>\n");

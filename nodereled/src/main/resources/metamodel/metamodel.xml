@@ -2,11 +2,6 @@
 <meta-models examplefile="example/demo.xml">
   <relationship id="NREdge">
     <properties>
-      <property id="Description"
-        preferredwidget="ingenias.editor.widget.ScrolledTArea" type="java.lang.String">
-        <defaultvalues/>
-        <label lang="en">Description</label>
-      </property>
       <property id="CostField"
         preferredwidget="ingenias.editor.widget.IntegerJTextField" type="java.lang.Integer">
         <defaultvalues/>
@@ -14,7 +9,6 @@
       </property>
       <preferredorder>
         <order>id</order>
-        <order>Description</order>
         <order>CostField</order>
       </preferredorder>
     </properties>
@@ -24,7 +18,6 @@
       <layout>
         <properties>
           <property id="id"/>
-          <property id="Description"/>
         </properties>
         <views>
           <content id="INGENIAS">
@@ -57,14 +50,8 @@
       <normal-icon/>
     </graphics>
     <properties>
-      <property id="Description"
-        preferredwidget="ingenias.editor.widget.ScrolledTArea" type="java.lang.String">
-        <defaultvalues/>
-        <label lang="en">Description</label>
-      </property>
       <preferredorder>
         <order>id</order>
-        <order>Description</order>
       </preferredorder>
     </properties>
     <validplayers>
@@ -77,14 +64,8 @@
       <normal-icon/>
     </graphics>
     <properties>
-      <property id="Description"
-        preferredwidget="ingenias.editor.widget.ScrolledTArea" type="java.lang.String">
-        <defaultvalues/>
-        <label lang="en">Description</label>
-      </property>
       <preferredorder>
         <order>id</order>
-        <order>Description</order>
       </preferredorder>
     </properties>
     <validplayers>
@@ -93,14 +74,8 @@
   </role>
   <metamodel icon="images/mdiagram.png" id="NRGraph" name="">
     <properties>
-      <property id="Description"
-        preferredwidget="ingenias.editor.widget.ScrolledTArea" type="java.lang.String">
-        <defaultvalues/>
-        <label lang="en">Description</label>
-      </property>
       <preferredorder>
         <order>id</order>
-        <order>Description</order>
       </preferredorder>
     </properties>
     <code id="constructor"><![CDATA[ToolTipManager.sharedInstance().registerComponent(this);
@@ -120,14 +95,8 @@ Nada</description>
     <recommendation>
 NAda</recommendation>
     <properties>
-      <property id="Description"
-        preferredwidget="ingenias.editor.widget.ScrolledTArea" type="java.lang.String">
-        <defaultvalues/>
-        <label lang="en">Description</label>
-      </property>
       <preferredorder>
         <order>id</order>
-        <order>Description</order>
       </preferredorder>
     </properties>
     <graphics>
@@ -136,7 +105,6 @@ NAda</recommendation>
       <layout>
         <properties>
           <property id="id"/>
-          <property id="Description"/>
         </properties>
         <views>
           <content id="INGENIAS">

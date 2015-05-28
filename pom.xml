@@ -9,7 +9,7 @@
   <groupId>net.sf.ingenme</groupId>
   <artifactId>ingenme</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>ingenme</name>
   <description>The INGENME editor framework</description>
   <url>http://ingenme.sf.net</url>
@@ -78,55 +78,7 @@
     </plugins>
   </reporting-->
   <build>
-   <pluginManagement>
-	  <plugins>
-    
-    <plugin>
-		  <groupId>org.eclipse.m2e</groupId>
-		  <artifactId>lifecycle-mapping</artifactId>
-		  <version>1.0.0</version>
-		  <configuration>
-		    <lifecycleMappingMetadata>
-		      <pluginExecutions>
-			<!-- copy-dependency plugin -->
-			<pluginExecution>
-			  <pluginExecutionFilter>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-dependency-plugin</artifactId>
-			    <versionRange>[1.0.0,)</versionRange>
-			    <goals>
-			      <goal>copy-dependencies</goal>
-			      <goal>build-classpath</goal>
-			       <goal>unpack</goal>
-			       <goal>clean</goal>
-			    </goals>
-			  </pluginExecutionFilter>
-			  <action>
-			  <ignore />
-			  <!-- to avoid errors in the eclipse m2e plugin -->
-			  </action>
-			</pluginExecution>
-			<pluginExecution>
-			  <pluginExecutionFilter>
-			    <groupId>org.codehaus.mojo</groupId>
-			    <artifactId>exec-maven-plugin</artifactId>
-			    <versionRange>[1.0,)</versionRange>
-			    <goals>
-			      <goal>java</goal>
-			    </goals>
-			  </pluginExecutionFilter>
-			  <action>
-			    <ignore />
-			  </action>
-			</pluginExecution>
-		      </pluginExecutions>
-		    </lifecycleMappingMetadata>
-		  </configuration>
-		</plugin>
-     </plugins>
-	    </pluginManagement>
     <plugins>
-   
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

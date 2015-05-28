@@ -35,9 +35,6 @@ import java.io.*;
 import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.DefaultGraphCell;
 
-import org.pegdown.PegDownProcessor;
-
-
 /**
  *  This class generates HTML documentation from a INGENIAS specification
  *
@@ -46,8 +43,6 @@ import org.pegdown.PegDownProcessor;
  */
 public class HTMLDocumentGenerator
 extends ingenias.editor.extension.BasicCodeGeneratorImp {
-	
-	private PegDownProcessor markdown=new PegDownProcessor();
 
 	/**
 	 *  Initialises HTML generation from a file containing INGENIAS specification
@@ -62,12 +57,8 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 
 	public HTMLDocumentGenerator(String file) throws Exception {
 		super(file);
-		this.addTemplate("pluginssrc/templates/package-index-xdoc.xml");
 		this.addTemplate("pluginssrc/templates/index.xml");
-		this.addTemplate("pluginssrc/templates/index-xdoc.xml");
-		this.addTemplate("pluginssrc/templates/diagram-xdoc.xml");
 		this.addTemplate("pluginssrc/templates/diagram.xml");
-		this.addTemplate("pluginssrc/templates/site.xml");
 	}
 
 	/**
@@ -81,10 +72,7 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 	public HTMLDocumentGenerator(Browser browser) throws Exception {
 		super(browser);
 		this.addTemplate("pluginssrc/templates/index.xml");
-		this.addTemplate("pluginssrc/templates/index-xdoc.xml");
 		this.addTemplate("pluginssrc/templates/diagram.xml");
-		this.addTemplate("pluginssrc/templates/diagram-xdoc.xml");
-		this.addTemplate("pluginssrc/templates/site.xml");
 	}
 
 	@Override
@@ -124,14 +112,11 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 		Sequences seq = new Sequences();
 		try {
 			this.generateIndex(seq);
-			this.generateSiteIndexForMaven(seq);
 			this.generatePages(seq);
 			copyResourceFromTo("pluginssrc/logograsia.jpg", ( (ProjectProperty)this.getProperty("htmldoc:output")).
 					value+"/logograsia.jpg");
-			copyResourceFromTo("images/package.png", ( (ProjectProperty)this.getProperty("htmldoc:output")).
-					value+"/resources/images/package.png");
 		}
-		catch (Throwable ex) {
+		catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return seq;
@@ -197,74 +182,6 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 				if (!already){
 					Repeat onlypackage=new Repeat("onlypackage");
 					rp1.add(onlypackage);
-					onlypackage.add(new Var("name",path[j-1]));					
-					String[] packagePath=Arrays.copyOfRange(path, 0,j);
-					generateIndexPerPackage(p, packagePath);
-					already=true;
-				} else 
-					already=false;
-
-			}
-
-
-			Repeat rp2;
-			Graph g = gs[k];
-			rp2 = new Repeat("graph");
-			rp2.add(new Var("name", ingenias.generator.util.Conversor.replaceInvalidCharsForID(g.getName())));
-			rp2.add(new Var("fname", this.toSafeName(g.getName())));
-			rp2.add(new Var("tipo", g.getType()));
-			rp2.add(new Var("image", toSafeName(g.getName()) + ".png"));
-			g.generateImage( ( (ProjectProperty)this.getProperty("htmldoc:output")).
-					value + "/images/" + toSafeName(g.getName()) + ".png");
-			if (!new File(((ProjectProperty)this.getProperty("htmldoc:output")).value + "/resources/images/").exists())
-				new File(((ProjectProperty)this.getProperty("htmldoc:output")).value + "/resources/images/").mkdirs();
-			g.generateImage( ( (ProjectProperty)this.getProperty("htmldoc:output")).
-					value + "/resources/images/" + toSafeName(g.getName()) + ".png");
-			rp1.add(rp2);
-		}
-
-	}
-	
-	private void generateIndexPerPackage(Sequences p, String [] packagePath) throws Exception {
-
-		Graph[] gs = browser.getGraphs();
-
-		p.addVar(new Var("output",
-				( (ProjectProperty)this.getProperty("htmldoc:output")).
-				value));
-
-		Hashtable pathtable = new Hashtable();
-
-		Hashtable paths = new Hashtable();
-		Hashtable depth = new Hashtable();
-		Repeat main = new Repeat("packageindexrepeat");
-		
-		main.add(new Var("pname",toString(packagePath)));	
-		p.addRepeat(main);
-		
-		Vector alreadyShown=new Vector();
-		float increment=25f/gs.length;		
-		for (int k = 0; k < gs.length; k++) {
-			Repeat rp1=null;
-			this.setProgress((int) (k*increment));
-			String[] path=gs[k].getPath();
-			if (isWithinPath(path, packagePath)){
-			boolean already=true;
-			while (already){
-				rp1 = new Repeat("paquete");
-				main.add(rp1);
-				int j=0;
-				for (j=0;j<path.length-1 && already;j++){
-					Repeat level=new Repeat("level");    	             
-					rp1.add(level);         
-					if (!alreadyShown.contains(path[j])){
-						already=false;
-						alreadyShown.add(path[j]);
-					}
-				}
-				if (!already){
-					Repeat onlypackage=new Repeat("onlypackage");
-					rp1.add(onlypackage);
 					onlypackage.add(new Var("name",path[j-1]));
 					already=true;
 				} else 
@@ -281,105 +198,13 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 			rp2.add(new Var("tipo", g.getType()));
 			rp2.add(new Var("image", toSafeName(g.getName()) + ".png"));
 			g.generateImage( ( (ProjectProperty)this.getProperty("htmldoc:output")).
-					value + "/images/" + toSafeName(g.getName()) + ".png");
-			if (!new File(((ProjectProperty)this.getProperty("htmldoc:output")).value + "/resources/images/").exists())
-				new File(((ProjectProperty)this.getProperty("htmldoc:output")).value + "/resources/images/").mkdirs();
-			g.generateImage( ( (ProjectProperty)this.getProperty("htmldoc:output")).
-					value + "/resources/images/" + toSafeName(g.getName()) + ".png");
+					value + "/" + toSafeName(g.getName()) + ".png");
 			rp1.add(rp2);
-			}
+
+
+
 		}
 
-	}
-	
-	private String toString(String[] packagePath) {
-	 String result="package";
-	 for (String path:packagePath){
-		 result=result+"-"+toSafeName(path);
-	 }
-		return result;
-	}
-
-	private void generateSiteIndexForMaven(Sequences p) throws Exception {
-
-		Graph[] gs = browser.getGraphs();
-
-		p.addVar(new Var("output",
-				( (ProjectProperty)this.getProperty("htmldoc:output")).
-				value));
-
-		Hashtable pathtable = new Hashtable();
-
-		Hashtable paths = new Hashtable();
-		Hashtable depth = new Hashtable();
-
-		StringBuffer itemMenu=new StringBuffer();
-		
-		Vector alreadyShown=new Vector();		
-		Repeat rp1 = new Repeat("siteindexrepeat");
-		p.addRepeat(rp1);		
-		String[] lastPath=new String[0];
-		int nuevosNiveles=0;
-		int diferringPosition=0;
-		for (int k = 0; k < gs.length; k++) {			
-			String[] path=gs[k].getPath();
-			diferringPosition=lastPath.length;
-			if (!Arrays.equals(lastPath, path)){				
-				for (int j=0;j<lastPath.length && j<path.length && diferringPosition==lastPath.length;j++){					
-					if (lastPath[j]!=null && !lastPath[j].equals(path[j])){						
-						diferringPosition=j;
-					}
-						
-				}
-				for (int j=diferringPosition+1;j<lastPath.length;j++)
-					itemMenu.append("</item>");
-			}
-			boolean already=true;
-			
-			while (already){				
-				int j=0;
-				String pathToBeCompared="";
-				for (j=0;j<path.length-1 && already;j++){
-					pathToBeCompared=pathToBeCompared+"+*"+path[j];
-					if (!alreadyShown.contains(pathToBeCompared)){
-						already=false;
-						alreadyShown.add(pathToBeCompared);
-					}
-				}
-				if (!already){
-					already=true;
-					
-					String[] packagePath=Arrays.copyOfRange(path, 0,j);
-					
-					itemMenu.append("<item name=\""+path[j-1]+"\" href=\""+toString(packagePath)+"-index-diag.html\" img=\"images/package.png\">");
-					nuevosNiveles++;
-				} else {
-					already=false;
-				}
-			}
-			Graph g = gs[k];
-			itemMenu.append("<item name=\""+ingenias.generator.util.Conversor.replaceInvalidCharsForID(g.getName())
-					+"\" href=\""+this.toSafeName(g.getName())+".html\"/>");
-			lastPath=path;
-		}
-		for (int j=1;j<lastPath.length;j++)
-			itemMenu.append("</item>");
-		rp1.add(new Var("siteindex",itemMenu.toString()));
-		
-
-	}
-	
-	
-
-
-	private boolean isWithinPath(String[] path, String[] packagePath) {
-		boolean result=true;
-		int k=0;
-		while (result && k<packagePath.length && k<path.length){
-			result=result && packagePath[k].equals(path[k]);
-			k++;			
-		}
-		return result && k>=packagePath.length;
 	}
 
 	/**
@@ -408,10 +233,8 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 			r.add(new Var("tipo", gs[k].getType()));
 
 			try {
-				
 				r.add(new Var("description",
-						markDownIfNotHTML(gs[k].getAttributeByName("Description").getSimpleValue())));				
-				
+						gs[k].getAttributeByName("Description").getSimpleValue()));
 			}
 			catch (NotFound nf) {
 				nf.printStackTrace();
@@ -448,10 +271,9 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 
 				ens.add(new Var("name", ge.getID()));
 				ens.add(new Var("tipo", ge.getType()));
-				
 				try {
 					ens.add(new Var("description",
-							markDownIfNotHTML(ge.getAttributeByName("Description").getSimpleValue())));				
+							ge.getAttributeByName("Description").getSimpleValue()));
 
 				}
 				catch (NotFound nf) {
@@ -509,14 +331,6 @@ extends ingenias.editor.extension.BasicCodeGeneratorImp {
 				r.add(ens);
 			}
 		}
-	}
-
-	private String markDownIfNotHTML(String simpleValue) {		
-		if (!simpleValue.contains("/>"))
-			return markdown.markdownToHtml(simpleValue);
-		else 
-			return simpleValue;
-		
 	}
 
 	private File copyResourceFromTo(

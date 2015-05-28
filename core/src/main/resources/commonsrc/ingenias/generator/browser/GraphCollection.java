@@ -34,9 +34,5 @@ import org.jgraph.JGraph;
 
    // It tells what is the k-th element
    public GraphEntity getElementAt(int k)  throws NullEntity;
-   
-   public void addElementAt(int k, GraphEntity ge);
-   public void addElementAt(GraphEntity ge);
-   public boolean contains(GraphEntity ge);
-   
+
 }
