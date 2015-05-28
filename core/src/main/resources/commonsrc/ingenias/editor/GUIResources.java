@@ -21,6 +21,7 @@ package ingenias.editor;
 
 import ingenias.editor.entities.Entity;
 import ingenias.editor.widget.DnDJTree;
+import ingenias.editor.widget.DnDJTreeObject;
 
 import java.awt.Frame;
 import java.util.Vector;
@@ -41,7 +42,7 @@ import javax.swing.SwingUtilities;
 
 public class GUIResources implements ProgressListener{
 
-	private JTree arbolObjetos;
+	private DnDJTreeObject arbolObjetos;
 
 	private DnDJTree arbolProyectos;
 
@@ -90,7 +91,7 @@ public class GUIResources implements ProgressListener{
 		this.messagespane.setSelectedIndex(2);
 	}
 
-	public JTree getArbolObjetos() {
+	public DnDJTreeObject getArbolObjetos() {
 		return arbolObjetos;
 	}
 
@@ -180,7 +181,7 @@ public class GUIResources implements ProgressListener{
 			this.messagespane.removeTabAt(this.messagespane.indexOfTab(name));
 	}
 
-	public void setArbolObjetos(JTree arbolObjetos) {
+	public void setArbolObjetos(DnDJTreeObject arbolObjetos) {
 		this.arbolObjetos=arbolObjetos;
 
 	}
