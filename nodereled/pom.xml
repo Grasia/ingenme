@@ -30,6 +30,7 @@
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>ingened</artifactId>
+			<version>1.0.7-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
