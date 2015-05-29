@@ -30,7 +30,7 @@
     <dependency>
       <groupId>net.sf.ingenme</groupId>
       <artifactId>nodereled</artifactId>
-
+      <version>1.0.7-SNAPSHOT</version>
       <scope>compile</scope>
       <exclusions>
               <exclusion>
