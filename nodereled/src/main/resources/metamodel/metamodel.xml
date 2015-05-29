@@ -24,7 +24,6 @@
       <layout>
         <properties>
           <property id="id"/>
-          <property id="Description"/>
         </properties>
         <views>
           <content id="INGENIAS">
@@ -136,7 +135,6 @@ NAda</recommendation>
       <layout>
         <properties>
           <property id="id"/>
-          <property id="Description"/>
         </properties>
         <views>
           <content id="INGENIAS">

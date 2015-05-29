@@ -419,7 +419,8 @@ public class Editor extends JPanel implements java.io.Serializable {
 												arg0.getX(), arg0.getY());
 								if (container == newOne) {
 									container = null;
-								}
+								} else
+									container=newOne;
 							}
 							if (container != null && container!=selectedCell) {
 								String mname = "add"

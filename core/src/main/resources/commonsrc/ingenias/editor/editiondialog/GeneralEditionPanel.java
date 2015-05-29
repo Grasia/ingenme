@@ -520,7 +520,6 @@ java.io.Serializable {
 
 		JPanel middleButtons = new JPanel();
 		middleButtons.add(selectValue);
-		middleButtons.add(selectModel);
 		middle.add(middleButtons, BorderLayout.SOUTH);
 
 		selectValue.addActionListener(new java.awt.event.ActionListener() {

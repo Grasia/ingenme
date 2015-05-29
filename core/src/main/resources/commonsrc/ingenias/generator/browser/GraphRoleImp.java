@@ -34,7 +34,7 @@ public class GraphRoleImp extends AttributedElementImp implements GraphRole {
  private ModelJGraph graph;
  private IDEState ids;
 
- GraphRoleImp(RoleEntity re,Entity player, ModelJGraph graph, IDEState ids){
+ public GraphRoleImp(RoleEntity re,Entity player, ModelJGraph graph, IDEState ids){
    super(re,graph,ids);
    this.re=re;
    this.player=player;
