@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>net.sf.ingenme</groupId>
 		<artifactId>ingenme</artifactId>
-		<version>1.0.5-SNAPSHOT</version>
+		<version>1.0.7-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.ingenme</groupId>
@@ -30,14 +30,12 @@
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>ingened</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>core</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
-			<scope>compile</scope>
+				<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.izpack</groupId>
