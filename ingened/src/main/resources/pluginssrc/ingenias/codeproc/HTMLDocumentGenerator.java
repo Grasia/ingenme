@@ -1,5 +1,5 @@
 /*
- Copyright (C) 2014 Jorge Gomez Sanz (initial versions with Rafael Martínez)
+ Copyright (C) 2014 Jorge Gomez Sanz (initial versions with Rafael Martinez)
  This file is part of INGENIAS IDE, a support tool for the INGENIAS
  methodology, availabe at http://grasia.fdi.ucm.es/ingenias or
  http://ingenias.sourceforge.net
