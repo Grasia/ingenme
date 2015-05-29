@@ -626,6 +626,9 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 	 *@param  e  Description of Parameter
 	 */
 	public void mouseReleased(MouseEvent e) {
+		
+
+		
 		// If Valid Event, Current and First Port
 		if (e != null && !e.isConsumed() && port != null && firstPort != null &&
 				firstPort != port) {
@@ -646,7 +649,8 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 			e.consume();
 			// Else Repaint the Graph
 		}
-
+		
+		
 		// Reset Global Vars
 		firstPort = port = null;
 		start = current = null;
@@ -677,10 +681,13 @@ public class MarqueeHandler extends BasicMarqueeHandler  implements java.io.Seri
 			e.consume();
 		} else {
 			Hashtable<Rectangle,String> links=FieldPositionHelper
-					.getLinkAt(new Rectangle(e.getX(), e.getY(),
+					.getLinkAt(new Rectangle(e.getX()-graph.getParent().getLocation().x, e.getY()-graph.getParent().getLocation().y,
 							2, 2));
-
-			if (links.size()==1 && e.getClickCount()==1){			
+			//FieldPositionHelper.drawKnownLinks(graph.getGraphics()); 
+			
+			/*System.out.println(""+links+" "+new Rectangle(e.getX()-graph.getParent().getLocation().x, e.getY()-graph.getParent().getLocation().y,
+					2, 2));*/
+			if (links.size()==1 && e.getClickCount()>=1){			
 				graph.setSelectionCells(new Object[]{});
 				try {
 					if (oldCursor!=null)

@@ -65,6 +65,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * Description of the Class
@@ -361,7 +362,7 @@ public class PersistenceManager {
 			ingenias.exception.DamagedFormat, CannotLoad {
 
 		FileChannel channel=null;
-		FileLock lock=null;
+		FileLock lock=null; 
 		if (!new File(System.getProperty("user.home")+"/.idk").exists())
 			new File(System.getProperty("user.home")+"/.idk").mkdir();
 		File lockFile=new File(System.getProperty("user.home")+"/.idk/lock");
@@ -577,6 +578,24 @@ public class PersistenceManager {
 			mjg.getListenerContainer().graphChanged(null); // to refresh the container layout			
 		}
 		ids.editor.setEnabled(true);
+		
+		try {
+
+			DOMParser parser = new DOMParser();
+			// Parse the Document
+			// and traverse the DOM
+			InputSource is = new InputSource(new FileInputStream(input));
+			is.setEncoding("UTF-8");
+			parser.parse(is);
+			Document doc = parser.getDocument();
+			// to open default diagrams
+			restoreProjectProperties(doc, ids);
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 
 
 

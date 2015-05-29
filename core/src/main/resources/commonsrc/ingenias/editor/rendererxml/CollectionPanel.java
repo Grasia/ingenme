@@ -32,8 +32,10 @@ import javax.swing.border.*;
 import java.util.*;
 import java.beans.*;
 import java.io.*;
+import java.net.MalformedURLException;
 
 import ingenias.editor.*;
+import ingenias.editor.entities.ModelEntity;
 
 import javax.print.attribute.HashAttributeSet;
 import javax.swing.*;
@@ -46,6 +48,11 @@ public class CollectionPanel extends JPanel {
 
 	Vector tobeduplicated=new Vector();
 	private String attname;
+	
+	public String getAttName(){
+		return attname;
+	}
+	
 	public CollectionPanel() {
 		/*final JScrollPane jsp=new JScrollPane(box,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		jsp.addComponentListener(new ComponentListener(){
@@ -249,6 +256,21 @@ public class CollectionPanel extends JPanel {
 								fvalue.getClass());
 					}
 					else {
+						if (comp instanceof LinkLabel){
+							try {
+								if (ModelEntity.class.isAssignableFrom(type)){
+								( (LinkLabel) comp).setLink(new java.net.URL("http","app","/"+fvalue.toString()));
+								( (LinkLabel) comp).setText(fvalue.toString());
+								} else {
+									( (LinkLabel) comp).setLink(new java.net.URL("http","ent","/"+fvalue.toString()));
+									
+									( (LinkLabel) comp).setText(fvalue.toString());
+								}
+									
+							} catch (MalformedURLException e) {
+								e.printStackTrace();
+							}
+						} else
 						if (comp instanceof javax.swing.text.JTextComponent){
 							// it is a simple type. String conversion is invoked
 							( (javax.swing.text.JTextComponent) comp).setText(fvalue.toString());

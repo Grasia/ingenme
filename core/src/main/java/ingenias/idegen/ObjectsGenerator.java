@@ -431,6 +431,9 @@ public class ObjectsGenerator {
 
 		}
 		Hashtable properties = object.getProperties();
+			//addAncestorProperties(properties,object);
+
+		
 		enumeration = properties.elements();
 
 		while (enumeration.hasMoreElements()) {
@@ -543,6 +546,14 @@ public class ObjectsGenerator {
 		}
 
 		return result;
+	}
+
+	private void addAncestorProperties(Hashtable properties, Object object) {
+		properties.putAll(object.getProperties());
+		if (object.getInherits() != null &&
+				!object.getInherits().trim().equalsIgnoreCase("")) {
+			addAncestorProperties(properties,objects.get(object.getInherits()));
+		}		
 	}
 
 	private String generateSingleType(Property property) {

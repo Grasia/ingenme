@@ -977,14 +977,29 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 
 	private void createPropertiesSection(StringBuffer output, AttributedElement ge)
 			throws NotFound, NullEntity {
-		GraphAttribute localPropertiesAttribute = ge.getAttributeByName("Properties");
-		GraphCollection propertiesCollection = localPropertiesAttribute.getCollectionValue();
+		
 		output.append("<properties>\n");
 		output.append("<property id=\"id\"/>\n");
-		for (int k=0;k<propertiesCollection.size();k++){
-			output.append("<property id=\""+propertiesCollection.getElementAt(k).getID()+"\"/>");
+		
+		generateLayoutPropertiesLines(output, ge);
+		HashSet<GraphEntity> inheriting=new HashSet<GraphEntity>();
+		if (ge instanceof GraphEntity){
+			getAllAncestorsAux((GraphEntity)ge,inheriting);
+		}
+		for (GraphEntity ancestor:inheriting){
+			generateLayoutPropertiesLines(output, ancestor);
 		}
 		output.append("</properties>\n");
+	}
+
+	private void generateLayoutPropertiesLines(StringBuffer output,
+			AttributedElement ge) throws NotFound, NullEntity {
+		GraphAttribute localPropertiesAttribute = ge.getAttributeByName("Properties");
+		GraphCollection propertiesCollection = localPropertiesAttribute.getCollectionValue();				
+		for (int k=0;k<propertiesCollection.size();k++){
+			if (!propertiesCollection.getElementAt(k).getID().equalsIgnoreCase("description"))
+			output.append("<property id=\""+propertiesCollection.getElementAt(k).getID()+"\"/>");
+		}
 	}
 
 	private GraphEntity createBasicGraphicRepresentation(Vector<String> errors,

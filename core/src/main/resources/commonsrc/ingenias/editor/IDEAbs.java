@@ -299,7 +299,7 @@ implements java.io.Serializable,IDEUpdater
 				e.printStackTrace();
 			}
 
-			diagramLocator = new HyperlinkAction(ids,resources);		
+			diagramLocator = new HyperlinkAction(ids);		
 			searchDiagramPanel.addHyperlinkListener(diagramLocator);    
 			logs.addHyperlinkListener(diagramLocator);
 

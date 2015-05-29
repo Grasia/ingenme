@@ -92,6 +92,8 @@ public class LinkLabel extends JLabel {
 		else
 			return super.getMaximumSize();
 	}
+	
+
 
 	@Override
 	public Dimension getMinimumSize() {
@@ -128,6 +130,7 @@ public class LinkLabel extends JLabel {
 		}
 		if (parent!=null && this.getLink()!=null){			
 		 FieldPositionHelper.put(this.getLink().toString(), "", nbound);
+
 		}
 		
 	

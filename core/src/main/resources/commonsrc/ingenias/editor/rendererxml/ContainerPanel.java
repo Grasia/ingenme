@@ -20,16 +20,21 @@ package ingenias.editor.rendererxml;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JPanel;
+
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.border.*;
+
 import java.util.*;
 import java.beans.*;
 import java.io.*;
+
 import ingenias.editor.*;
+
 import javax.print.attribute.HashAttributeSet;
 import javax.swing.*;
 

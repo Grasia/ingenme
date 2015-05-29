@@ -43,7 +43,6 @@ public class HyperlinkAction implements HyperlinkListener{
 	private int lastScrolledIndex=0;
 
 	private IDEState ids;
-	private GUIResources resources;
 	protected Vector<TreePath> foundpaths=new Vector<TreePath>();
 
 	protected int lastFoundIndex=0;
@@ -52,16 +51,15 @@ public class HyperlinkAction implements HyperlinkListener{
 
 	protected String lastSearch="";
 	
-	public HyperlinkAction(IDEState ids, GUIResources resources){
+	public HyperlinkAction(IDEState ids){
 		this.ids=ids;
-		this.resources=resources;
 		browser=new BrowserImp(ids);
 	}
 	
 	public void hyperlinkUpdate(HyperlinkEvent e) {
 		
 			if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-				JEditorPane pane = (JEditorPane) e.getSource();
+				
 				URL url=e.getURL();
 				if (url!=null){
 					if (url.getHost().equals("app")){
