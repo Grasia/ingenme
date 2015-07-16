@@ -257,7 +257,7 @@ public class GraphEntityImp extends AttributedElementImp implements GraphEntity{
 	}
 
 	public int hashCode(){
-		return this.ent.hashCode();
+		return this.ent.getId().hashCode();
 	}
 
 	
