@@ -24,6 +24,7 @@
       <layout>
         <properties>
           <property id="id"/>
+          <property id="CostField"/>
         </properties>
         <views>
           <content id="INGENIAS">
