@@ -25,6 +25,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+
+
+
 import ingenias.editor.Log;
 
 import java.awt.Frame;
@@ -42,8 +45,17 @@ import java.io.Writer;
 
 
 
+
+
+
+
+
 import ingenias.editor.ProjectProperty;
 import ingenias.editor.entities.ExternalTypeWrapper;
+import ingenias.editor.entities.MetaDiagram;
+import ingenias.editor.entities.MetaDiagramTypeWrapper;
+import ingenias.editor.entities.MetaObject;
+import ingenias.editor.entities.MetaObjectTypeWrapper;
 import ingenias.editor.entities.PropertyField;
 import ingenias.editor.export.Diagram2SVG;
 import ingenias.exception.NullEntity;
@@ -91,6 +103,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
+
+
+
+
+
 
 
 
@@ -314,7 +331,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 			gef=new GraphEntityFactory(browser.getState()); 
 			gfact=new GraphFactory(browser.getState());
 			try {
-			fakeGraph=gfact.createCompleteGraph("Metamodel", "_fakegraph");
+				fakeGraph=gfact.createCompleteGraph("Metamodel", "_fakegraph");
 			} 
 			catch (InvalidGraph ig){ig.printStackTrace();}
 			catch (NotInitialised ni){ni.printStackTrace();};
@@ -382,7 +399,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				String rolSourceName=relName+"source";
 				String rolTargetName=relName+"target";
 				output.append("<relationship id=\""+relName+"\" >\n");					
-				appendProperties(errors,output,grel,grel.getID());
+				appendOnlyInternalProperties(errors,output,grel,grel.getID());
 				appendVisualRepresentationRelationship(errors,output,grel);
 				output.append("<roles>\n");
 				boolean oneSource=false;
@@ -977,10 +994,10 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 
 	private void createPropertiesSection(StringBuffer output, AttributedElement ge)
 			throws NotFound, NullEntity {
-		
+
 		output.append("<properties>\n");
 		output.append("<property id=\"id\"/>\n");
-		
+
 		generateLayoutPropertiesLines(output, ge);
 		HashSet<GraphEntity> inheriting=new HashSet<GraphEntity>();
 		if (ge instanceof GraphEntity){
@@ -992,14 +1009,21 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		output.append("</properties>\n");
 	}
 
+
+
 	private void generateLayoutPropertiesLines(StringBuffer output,
 			AttributedElement ge) throws NotFound, NullEntity {
-		GraphAttribute localPropertiesAttribute = ge.getAttributeByName("Properties");
-		GraphCollection propertiesCollection = localPropertiesAttribute.getCollectionValue();				
-		for (int k=0;k<propertiesCollection.size();k++){
-			if (!propertiesCollection.getElementAt(k).getID().equalsIgnoreCase("description"))
-			output.append("<property id=\""+propertiesCollection.getElementAt(k).getID()+"\"/>");
-		}
+		HashSet<GraphEntity> propsToConsider=new HashSet<GraphEntity>();
+
+		if (ge instanceof GraphEntity)
+			getInternalExternalProps(propsToConsider, (GraphEntity)ge, new Vector<String>());
+		else
+			getInternalProperties(ge, propsToConsider);
+
+		for (GraphEntity prop:propsToConsider){
+			if (!prop.getID().equalsIgnoreCase("description"))
+				output.append("<property id=\""+prop.getID()+"\"/>");
+		}								
 	}
 
 	private GraphEntity createBasicGraphicRepresentation(Vector<String> errors,
@@ -1144,15 +1168,14 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	}
 
 
-
-	private void appendProperties(Vector<String> errors,StringBuffer output, AttributedElement ge, String gid) throws NullEntity, NotFound {
+	private void appendOnlyInternalProperties(Vector<String> errors,StringBuffer output, AttributedElement ge, String gid) throws NullEntity, NotFound {
 		HashSet<GraphEntity> propertiesToConsider=new HashSet<GraphEntity>();		
 		getInternalProperties(ge, propertiesToConsider);
-		HashSet<GraphRelationship> aggregationToConsider=new HashSet<GraphRelationship>();
 		// this method is for edges, so no aggregations are needed to be considered
-		generateProperties(errors, output, ge, gid, propertiesToConsider,aggregationToConsider);
+		generateProperties(errors, output, ge, gid, propertiesToConsider, new HashSet<GraphEntity>());
 
 	}
+
 
 	public HashSet<GraphEntity> getAllAncestors(GraphEntity ge){
 		HashSet<GraphEntity> result=new HashSet<GraphEntity>();
@@ -1177,78 +1200,68 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	}
 
 	private void appendProperties(Vector<String> errors,StringBuffer output, GraphEntity ge) throws NullEntity, NotFound {
-		HashSet<GraphEntity> propertiesToConsider=new HashSet<GraphEntity>();
-
+		HashSet<GraphEntity> localProps=new HashSet<GraphEntity>();
+		HashSet<GraphEntity> inheritedProps=new HashSet<GraphEntity>();
 
 		HashSet<GraphEntity> ancestors = getAllAncestors(ge);
-		producePropertiesForEntity(errors, output, ge,
-				propertiesToConsider, ge);
-		/*for (GraphEntity ancestor:ancestors){
-			producePropertiesForEntity(errors, output, ge,
-					propertiesToConsider, ancestor);
+		getInternalExternalProps(
+				localProps, ge,errors);		
+		for (GraphEntity ancestor:ancestors){
+			getInternalExternalProps(
+					inheritedProps, ancestor,errors);
 
-		}*/
+		}
+		generateProperties(errors, output,ge,ge.getID(), localProps, inheritedProps);
 
 	}
-	
+
 	private void preprocessEntitiesToAddDefaultElemetns(GraphEntity[] entities) throws NullEntity, NotFound{
-	GraphEntity descField = browser.findEntity("Description");
+		GraphEntity descField = browser.findEntity("Description");
 		if (descField==null){		
 			ExternalTypeWrapper etw=null;
 			try {
-			descField=gef.createEntity("PropertyField", "Description",fakeGraph);
-			etw=(ExternalTypeWrapper) gef.createEntity("ExternalTypeWrapper", "StringDescriptor",fakeGraph).getEntity();
+				descField=gef.createEntity("PropertyField", "Description",fakeGraph);
+				etw=(ExternalTypeWrapper) gef.createEntity("ExternalTypeWrapper", "StringDescriptor",fakeGraph).getEntity();
 			} catch (InvalidEntity ie){ie.printStackTrace();};			 
 			etw.setExternalType("java.lang.String");			
 			PropertyField pf=(PropertyField) descField.getEntity();
 			pf.setWrappedType(etw);		
 			pf.setPreferredwidget("ingenias.editor.widget.ScrolledTArea");
 		}
-		
-	for (GraphEntity entity:entities){
-	try {
-			GraphAttribute props = entity.getAttributeByName("Properties");
-			GraphCollection gci=props.getCollectionValue();			
-			if (!gci.contains(descField)){
-				gci.addElementAt(descField);
-			}	
-		} catch (NotFound nf){	}	
-	}
-	}
 
-	private void producePropertiesForEntity(Vector<String> errors,
-			StringBuffer output, GraphEntity ge,
-			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
-					throws NullEntity, NotFound {
-		HashSet<GraphRelationship> aggregationToConsider = getInternalExternalProps(
-				propertiesToConsider, ancestor);		
-		generateProperties(errors, output, ancestor,ge.getID(), propertiesToConsider,aggregationToConsider);
-	}
-
-	private HashSet<GraphRelationship> getInternalExternalProps(
-			HashSet<GraphEntity> propertiesToConsider, GraphEntity ancestor)
-					throws NullEntity, NotFound {
-		HashSet<GraphRelationship> aggregationToConsider=new HashSet<GraphRelationship>();
-		GraphRelationship[] rels = getRelatedElementsRels(ancestor,"HasMO", "HasMOtarget");		
-		for (GraphRelationship gr:rels){
-			if (gr.getRoles("Hassource")[0].getPlayer().getID().equalsIgnoreCase(ancestor.getID()))
-				aggregationToConsider.add(gr);
+		for (GraphEntity entity:entities){
+			try {
+				GraphAttribute props = entity.getAttributeByName("Properties");
+				GraphCollection gci=props.getCollectionValue();			
+				if (!gci.contains(descField)){
+					gci.addElementAt(descField);
+				}	
+			} catch (NotFound nf){	}	
 		}
-		getExternalProperties(ancestor, propertiesToConsider);
-		getInternalProperties(ancestor, propertiesToConsider);
-		return aggregationToConsider;
+	}
+
+
+
+	private void getInternalExternalProps(
+			HashSet<GraphEntity> propertiesToConsider, GraphEntity ge,Vector<String> errors)
+					throws NullEntity, NotFound {
+
+		getExternalProperties(ge, propertiesToConsider,errors);
+		getInternalProperties(ge, propertiesToConsider);
+	
 	}
 
 	private void generateProperties(Vector<String> errors, StringBuffer output,
-			AttributedElement ge, String gid, HashSet<GraphEntity> propertiesToConsider, 
-			HashSet<GraphRelationship> aggregationToConsider)
+			AttributedElement ge, String gid, HashSet<GraphEntity> propertiesToConsider, HashSet<GraphEntity> inhertiedProps)
 					throws NotFound, NullEntity {
-		Vector<String> artificialpropertiespreferredorder=new Vector<String>();
+		Vector<String> artificialpropertiespreferredorder=new Vector<String>(); 
 		output.append("<properties>\n");
 		for (GraphEntity property:propertiesToConsider){			
 			createProperty(errors, output, ge,gid, property);
 		}
-		for (GraphRelationship aggregation:aggregationToConsider){
+		HashSet<GraphEntity> preferencesGeneration=new HashSet<GraphEntity>(propertiesToConsider);
+		preferencesGeneration.addAll(inhertiedProps);
+		/*for (GraphRelationship aggregation:aggregationToConsider){
 
 			if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaDiagram")){
 				try{
@@ -1260,6 +1273,10 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 					output.append(" ismetamodelinstance=\"yes\" ");
 					output.append(">\n");
 					artificialpropertiespreferredorder.add(aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue());
+					if (aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue()==null ||
+							aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue().equals(""))
+						errors.add("Relationship HasMO between \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+ "\" and \""+ge+"\" has an empty role label in the extreme \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+"\". Double click in that extreme and write a name");
+
 				}catch (NullEntity ne){
 					ne.printStackTrace();
 				}
@@ -1274,11 +1291,14 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 					output.append(" ismetaclassinstance=\"yes\" ");
 					output.append("/>\n");
 					artificialpropertiespreferredorder.add(aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue());
+					if (aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue()==null ||
+							aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue().equals(""))
+						errors.add("Relationship HasMO between \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+ "\" and \""+ge+"\" has an empty role label in the extreme \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+"\". Double click in that extreme and write a name");
 				}catch (NullEntity ne){
 					ne.printStackTrace();
 				}
 			}
-		}
+		}*/
 
 		GraphCollection prefordercollection = ge.getAttributeByName("PreferredOrder").getCollectionValue();
 		Hashtable<Integer,GraphEntity> table=new Hashtable<Integer,GraphEntity>();
@@ -1306,34 +1326,52 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				}
 			}
 		} else {
+			// properties from the current entity
 			int order=0;			
-			for (GraphEntity property:propertiesToConsider){			
+			for (GraphEntity property:preferencesGeneration){			
 				table.put(new Integer(order),property);
 				order=order+1;
 			}
-			HashSet<GraphEntity> otherprops=new HashSet<GraphEntity>();
+			/*// properties from ancestors
+		   HashSet<GraphEntity> otherprops=new HashSet<GraphEntity>();// stores Property objects from ancestors
+
 			if (ge instanceof GraphEntity){
 				HashSet<GraphEntity> ancestors = getAllAncestors((GraphEntity)ge);
 				for (GraphEntity ancestor:ancestors){
-					HashSet<GraphRelationship> aggregationRels=getInternalExternalProps(otherprops, ancestor);
+					// gets properties from ancestors plus HasMO relationships
+					HashSet<GraphRelationship> aggregationRels=getInternalExternalProps(otherprops, ancestor);  
 					for (GraphRelationship aggregation:aggregationRels){					
 						if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaObject")){
-							try{
-								GraphEntity metadiagramEntity=aggregation.getRoles("HasMOtarget")[0].getPlayer();
-								otherprops.add(metadiagramEntity);
+							try{															
+								if (aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue()==null ||
+										aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue().equals(""))
+									errors.add("Relationship HasMO between \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+ 
+											"\" and \""+ge+"\" has an empty role label in the extreme \""+
+											aggregation.getRoles("HasMOtarget")[0].getPlayer()+
+											"\". Double click in that extreme and write a name");
+								else{	
+									PropertyField ent=new PropertyField(aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue());
+									MetaObjectTypeWrapper motw = new MetaObjectTypeWrapper("sampleid");
+									MetaObject mo=(MetaObject) aggregation.getRoles("HasMOtarget")[0].getPlayer().getEntity();
+									motw.setMetaObjectType(mo);
+									ent.setWrappedType(motw);									
+									GraphEntityImp nprop=new GraphEntityImp(ent,((GraphEntity) ge).getGraph().getGraph(),this.getBrowser().getState());									
+									otherprops.add(nprop);
+								}
 							}catch (NullEntity ne){
 								ne.printStackTrace();
 							}
 						}
 					}
-					}
 				}
-				otherprops.removeAll(propertiesToConsider);
-				for (GraphEntity property:otherprops){			
-					table.put(new Integer(order),property);
-					order=order+1;
-				}
-			
+			}
+
+			otherprops.removeAll(propertiesToConsider); // remove those already considered
+			for (GraphEntity property:otherprops){			
+				table.put(new Integer(order),property);
+				order=order+1;
+			}*/
+
 		}
 
 		output.append("<preferredorder>\n");
@@ -1342,9 +1380,6 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		java.util.Collections.sort(keys);
 		for (Integer integer:keys) {
 			output.append("<order>"+table.get(integer).getID()+"</order>\n");
-		}
-		for (String pid:artificialpropertiespreferredorder) {
-			output.append("<order>"+pid.substring(0,1).toUpperCase()+pid.substring(1,pid.length())+"</order>\n");
 		}
 		output.append("</preferredorder>\n");
 		output.append("</properties>\n");
@@ -1363,11 +1398,70 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 	}
 
 	private void getExternalProperties(GraphEntity ge,
-			HashSet<GraphEntity> propertiesToConsider) throws NullEntity {
+			HashSet<GraphEntity> propertiesToConsider, Vector<String> errors) throws NullEntity {
+
+
 		GraphEntity[] externalProperties = getRelatedElements(ge, "Has", "Hastarget");
 		for (GraphEntity property:externalProperties){
 			propertiesToConsider.add(property);
 		}
+
+		HashSet<GraphEntity> otherprops=new HashSet<GraphEntity>();
+		GraphRelationship[] aggregationRels = getRelatedElementsRels(ge,"HasMO", "HasMOtarget");		
+		for (GraphRelationship aggregation:aggregationRels){					
+			if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaObject") &&
+					!aggregation.getRoles("HasMOtarget")[0].getPlayer().equals(ge)	){
+				try{															
+					if (aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue()==null ||
+							aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue().equals(""))
+						errors.add("Relationship HasMO between \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+ 
+								"\" and \""+ge+"\" has an empty role label in the extreme \""+
+								aggregation.getRoles("HasMOtarget")[0].getPlayer()+
+								"\". Double click in that extreme and write a name");
+					else{	
+						PropertyField ent=new PropertyField(aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue());
+						MetaObjectTypeWrapper motw = new MetaObjectTypeWrapper("sampleid");
+						MetaObject mo=(MetaObject) aggregation.getRoles("HasMOtarget")[0].getPlayer().getEntity();
+						motw.setMetaObjectType(mo);
+						ent.setWrappedType(motw);									
+						GraphEntityImp nprop=new GraphEntityImp(ent,((GraphEntity) ge).getGraph().getGraph(),this.getBrowser().getState());									
+						otherprops.add(nprop);
+					}
+				}catch (NullEntity ne){
+					ne.printStackTrace();
+				} catch (NotFound e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			if (aggregation.getRoles("HasMOtarget")[0].getPlayer().getType().equalsIgnoreCase("MetaDiagram") &&
+					!aggregation.getRoles("HasMOtarget")[0].getPlayer().equals(ge)){
+				try{
+					GraphEntity metadiagramEntity=aggregation.getRoles("HasMOtarget")[0].getPlayer();
+					String isCollection=aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Iscollection").getSimpleValue();					
+					if (aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue()==null ||
+							aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue().equals(""))
+						errors.add("Relationship HasMO between \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+ "\" and \""+ge+"\" has an empty role label in the extreme \""+aggregation.getRoles("HasMOtarget")[0].getPlayer()+"\". Double click in that extreme and write a name");
+					PropertyField ent=new PropertyField(aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue());
+					MetaDiagramTypeWrapper motw = new MetaDiagramTypeWrapper("sampleid");
+					motw.setIscollection(isCollection);					
+					MetaDiagram mo=(MetaDiagram) aggregation.getRoles("HasMOtarget")[0].getPlayer().getEntity();
+					motw.setMetaDiagramType(mo);
+					ent.setWrappedType(motw);									
+					GraphEntityImp nprop=new GraphEntityImp(ent,((GraphEntity) ge).getGraph().getGraph(),this.getBrowser().getState());									
+					otherprops.add(nprop);
+				}catch (NullEntity ne){
+					ne.printStackTrace();
+				} catch (NotFound e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
+		otherprops.removeAll(propertiesToConsider);
+		propertiesToConsider.addAll(otherprops);
 
 		//	GraphRelationship[] hasMOProperties = getRelatedElementsRels(ge, "HasMO", "HasMOtarget");
 
