@@ -395,13 +395,14 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
   }
 
 	public void renameModelID(Entity ent,String oldModelId, String newModelId) {
+if (ent!=null){
 		Field[] fields = ent.getClass().getFields();
 		for (Field field:fields){
 			if (ModelEntity.class.isAssignableFrom(field.getType())){
 				ModelEntity me;
 				try {
 					me = (ModelEntity)field.get(ent);
-					if (me.getModelID().equals(oldModelId)){
+					if (me!=null && me.getModelID()!=null && me.getModelID().equals(oldModelId)){
 						me.setModelID(newModelId);
 					}
 				} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -419,7 +420,7 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
 					TypedVector tv;
 					try {
 						tv = (TypedVector)field.get(ent);
-						if (Entity.class.isAssignableFrom(tv.getType())){
+						if (tv!=null && Entity.class.isAssignableFrom(tv.getType())){
 							for (int k=0;k<tv.size();k++){
 								renameModelID((Entity) tv.elementAt(k),oldModelId,newModelId);
 							}
@@ -429,8 +430,10 @@ public class ObjectManager extends javax.swing.tree.DefaultMutableTreeNode imple
 					}								
 				}
 		}
+}
 
 	}
+
 	public void renameModelID(String oldModelId, String newModelId) {
 		Vector<Entity> entities = getAllObjects();
 		for (Entity ent:entities){
