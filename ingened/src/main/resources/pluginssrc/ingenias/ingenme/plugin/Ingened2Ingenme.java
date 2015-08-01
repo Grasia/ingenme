@@ -509,7 +509,20 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 					output.append("<objects>");
 					for (int k=0;k<connectedElements.length;k++){
 						if (connectedElements[k].getType().equalsIgnoreCase("MetaObject")){
-							output.append("<object id=\""+connectedElements[k].getID()+"\"/>");
+							if (connectedElements[k].getAttributeByName("Instantiable").getSimpleValue()!=null &&
+									connectedElements[k].getAttributeByName("Instantiable").getSimpleValue().equalsIgnoreCase("yes"))
+								output.append("<object id=\""+connectedElements[k].getID()+"\"/>");
+							else {
+								HashSet<GraphEntity> descendants = new HashSet<GraphEntity>();
+								getAllDescendendantsAux(connectedElements[k], descendants);
+								for (GraphEntity descendant:descendants){
+									boolean instantiable=descendant.getAttributeByName("Instantiable").getSimpleValue()!=null &&
+											descendant.getAttributeByName("Instantiable").getSimpleValue().equalsIgnoreCase("yes");
+									if (instantiable)
+										output.append("<object id=\""+descendant.getID()+"\"/>");
+								}
+							}
+
 						}
 					}
 					output.append("</objects>");
@@ -1199,6 +1212,17 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		}
 	}
 
+	public void getAllDescendendantsAux(GraphEntity ge, HashSet<GraphEntity> result) throws NullEntity{
+		Hashtable<GraphEntity, GraphRole> inheritors = getRelatedElementsHashtable(ge,"InheritsO", "InheritsOsource");
+		Set<GraphEntity> inheritorsKeySet = inheritors.keySet();
+		for (GraphEntity child:inheritorsKeySet){
+			if (!result.contains(child)){
+				result.add(child);
+				getAllAncestorsAux(child, result);
+			}
+		}
+	}
+
 	private void appendProperties(Vector<String> errors,StringBuffer output, GraphEntity ge) throws NullEntity, NotFound {
 		HashSet<GraphEntity> localProps=new HashSet<GraphEntity>();
 		HashSet<GraphEntity> inheritedProps=new HashSet<GraphEntity>();
@@ -1248,7 +1272,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 
 		getExternalProperties(ge, propertiesToConsider,errors);
 		getInternalProperties(ge, propertiesToConsider);
-	
+
 	}
 
 	private void generateProperties(Vector<String> errors, StringBuffer output,
