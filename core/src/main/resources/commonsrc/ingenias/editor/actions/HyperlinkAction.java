@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.Vector;
 
 import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.tree.TreePath;
@@ -75,7 +76,8 @@ public class HyperlinkAction implements HyperlinkListener{
 						Graph g=null;
 						BrowserImp bimp=new BrowserImp(ids);
 						bimp.getGraph(diagramPath);
-						g = bimp.getGraph(diagramPath);						
+						g = bimp.getGraph(diagramPath);	
+						if (g!=null){
 						ids.editor.changeGraph(g.getGraph(),ids);
 						//updateButtonBars();
 
@@ -105,6 +107,8 @@ public class HyperlinkAction implements HyperlinkListener{
 									g.getGraph().scrollCellToVisible(dgcs.elementAt(lastScrolledIndex));
 								}
 						}
+						} else
+							JOptionPane.showMessageDialog(ids.editor, "The diagram \""+diagramPath+"\" does not exist");
 					} else
 						if (url.getHost().equals("ent")){
 							String entity=url.getFile().substring(1);
@@ -163,3 +167,4 @@ public class HyperlinkAction implements HyperlinkListener{
 		}
 	}
 }
+
