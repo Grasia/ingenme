@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>net.sf.ingenme</groupId>
 		<artifactId>ingenme</artifactId>
-		<version>1.0.8-SNAPSHOT</version>
+		<version>1.0.8</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.ingenme</groupId>
@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>net.sf.ingenme</groupId>
 			<artifactId>core</artifactId>
-			<version>1.0.8-SNAPSHOT</version>
+			<version>1.0.8</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
