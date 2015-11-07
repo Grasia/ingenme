@@ -35,7 +35,7 @@ import ingenias.editor.TypedVector;
 public class @@@v@@@object@@@/v@@@ extends @@@v@@@parent@@@/v@@@ {
 
 @@@repeat id="attributes"@@@
-  public @@@v@@@type@@@/v@@@ @@@v@@@name@@@/v@@@;
+  public @@@v@@@type@@@/v@@@ @@@v@@@name@@@/v@@@=@@@v@@@defaultvalue@@@/v@@@;
 @@@/repeat@@@
 
 @@@repeat id="collectionattributes"@@@

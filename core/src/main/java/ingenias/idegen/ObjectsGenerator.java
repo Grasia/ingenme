@@ -573,14 +573,21 @@ public class ObjectsGenerator {
 		if (property.getIsmetamodelinstance()) {
 			result = result + "  <v id=\"type\">ingenias.editor.entities." +
 					property.getType() + "ModelEntity</v>\n";
+			result = result + "  <v id=\"defaultvalue\">null</v>\n";
 		}
 		else {
 			if (property.getIsmetaclassinstance()) {
 				result = result + "  <v id=\"type\">ingenias.editor.entities." +
 						property.getType() + "</v>\n";
+				result = result + "  <v id=\"defaultvalue\">null</v>\n";
 			}
 			else {
 				result = result + "  <v id=\"type\">" + property.getType() + "</v>\n";
+				
+				if (property.getDefaultValues().size()>0)
+					result = result + "  <v id=\"defaultvalue\">\""+property.getDefaultValues().elementAt(0)+"\"</v>\n";
+				else
+				result = result + "  <v id=\"defaultvalue\">null</v>\n";
 			}
 		}
 		result = result + " </repeat>\n";
@@ -698,7 +705,7 @@ public class ObjectsGenerator {
 			return (Property)obj.getProperties().get(pname);
 		else {
 			if (obj.getInherits()!=null){
-				System.err.println("now "+obj.getInherits()+" "+this.objects.get(obj.getInherits())+" "+pname);
+				
 				return findProperty((ingenias.idegen.Object)this.objects.get(obj.getInherits()),pname);
 			} else
 				return null;

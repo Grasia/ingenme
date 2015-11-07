@@ -111,7 +111,7 @@ static ImageIcon modelo@@@v@@@modelid@@@/v@@@=new ImageIcon(ImageLoader.getImage
 
 
 	@@@repeat id="graphobject"@@@
-        if (userObject.getClass().equals(@@@v@@@object@@@/v@@@.class))
+        if (userObject.getClass().equals(ingenias.editor.entities.@@@v@@@object@@@/v@@@.class))
           return "@@@v@@@small_icon@@@/v@@@";
 	@@@/repeat@@@
 
@@ -129,7 +129,7 @@ static ImageIcon modelo@@@v@@@modelid@@@/v@@@=new ImageIcon(ImageLoader.getImage
 
 
 	@@@repeat id="graphobject"@@@
-        if (userObject.getClass().equals(@@@v@@@object@@@/v@@@.class))
+        if (userObject.getClass().equals(ingenias.editor.entities.@@@v@@@object@@@/v@@@.class))
           return @@@v@@@object@@@/v@@@Icon;
 	@@@/repeat@@@
 

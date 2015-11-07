@@ -153,7 +153,7 @@ public class @@@v@@@object@@@/v@@@Renderer extends CompositeRenderer implements 
     	return true;
         }
 
-  public static void setEntity(@@@v@@@object@@@/v@@@ ent, Map attributes){
+  public static void setEntity(ingenias.editor.entities.@@@v@@@object@@@/v@@@ ent, Map attributes){
   Map currentMap=(Map)  RenderComponentManager.retrieveIDs("@@@v@@@object@@@/v@@@",ent.getPrefs(attributes).getView());
   current=ent.getPrefs(attributes).getView();
 		if (ent != null
@@ -367,7 +367,7 @@ public class @@@v@@@object@@@/v@@@View extends VertexView {
   }
 
   // Default size with entity ent inside
-  static public Dimension getSize(@@@v@@@object@@@/v@@@ ent) {
+  static public Dimension getSize(ingenias.editor.entities.@@@v@@@object@@@/v@@@ ent) {
     renderer.setEntity(ent,null);
     return renderer.getSize();
   }
