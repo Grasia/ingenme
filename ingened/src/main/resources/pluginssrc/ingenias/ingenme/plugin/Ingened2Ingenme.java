@@ -1219,7 +1219,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		for (GraphEntity child:inheritorsKeySet){
 			if (!result.contains(child)){
 				result.add(child);
-				getAllAncestorsAux(child, result);
+				getAllDescendendantsAux(child, result);
 			}
 		}
 	}
