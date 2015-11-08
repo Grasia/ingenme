@@ -28,4 +28,6 @@ public interface GraphRole extends AttributedElement {
   // Name of this extreme of relationship
   public String getName();
 
+  // returns the underlying roleentity in themodel
+  public ingenias.editor.entities.RoleEntity getRoleEntity();
 }
