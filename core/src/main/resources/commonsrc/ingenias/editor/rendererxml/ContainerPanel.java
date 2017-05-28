@@ -157,6 +157,20 @@ public class ContainerPanel extends CollectionPanel {
 		}
 		return ht;
 	}
+	
+	public void paint(Graphics g){
+		super.paint(g);
+		 Container parent = this;
+		 Rectangle nbound=this.getBounds();
+		while  (parent.getParent()!=null && !(parent.getParent() instanceof ModelJGraph)){
+			parent=parent.getParent();
+			nbound.setLocation((int)(nbound.getX()+parent.getBounds().getX()),(int)(nbound.getY()+parent.getBounds().getY()));
+		}
+		if (parent!=null){			
+			// for keeping track of 
+		 FieldPositionHelper.put(super.getAttName(), "", nbound);
+		}
+	}
 
 	public static String capitalize(String string){
 		if (string!=null && !string.equals(""))

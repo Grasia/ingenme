@@ -517,7 +517,7 @@ java.io.Serializable {
 				instancesName);
 		middle.add(jcb, BorderLayout.CENTER);
 		JButton selectValue = new JButton("Select one model");
-
+		JButton selectModel = new JButton("Show selected");
 		JPanel middleButtons = new JPanel();
 		middleButtons.add(selectValue);
 		middle.add(middleButtons, BorderLayout.SOUTH);
@@ -532,7 +532,17 @@ java.io.Serializable {
 				}
 			}
 		});
-
+		selectModel.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if (cent.getModelID() != null
+						&& !cent.getModelID().equalsIgnoreCase("")) {
+					ingenias.editor.ModelJGraph mjg = gm.getModel(cent
+							.getModelID());
+					//editor.changeGraph(mjg);
+					// updateButtonBars();
+				}
+			}
+		});
 
 		np.add(top, BorderLayout.NORTH);
 		np.add(middle, BorderLayout.CENTER);

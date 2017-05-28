@@ -248,12 +248,12 @@ public class ListenerContainer implements GraphModelListener {
 		children.addAll(newNAryEdges);
 	}
 
-	private boolean isAncestor(Object candidateParent, Object child) {
-		if (parentship.containsKey(child)
-				&& !parentship.get(child).equals(candidateParent)) {
-			return isAncestor(candidateParent, parentship.get(child));
-		} else if (parentship.containsKey(child)
-				&& parentship.get(child).equals(candidateParent))
+	private boolean isAncestor(Object candidate, Object changed) {
+		if (parentship.containsKey(changed)
+				&& !parentship.get(changed).equals(candidate)) {
+			return isAncestor(candidate, parentship.get(changed));
+		} else if (parentship.containsKey(changed)
+				&& parentship.get(changed).equals(candidate))
 			return true;
 		else
 			return false;
@@ -1400,13 +1400,13 @@ public class ListenerContainer implements GraphModelListener {
 		return newBound;
 	}
 
-	public void setParent(DefaultGraphCell child, DefaultGraphCell parent) throws WrongParent {
-		if (parent!=null && isContainer(parent))
-			parentship.put(child, parent);
+	public void setParent(DefaultGraphCell principal, DefaultGraphCell nested1) throws WrongParent {
+		if (nested1!=null && isContainer(nested1))
+			parentship.put(principal, nested1);
 		else 
 			throw new WrongParent("Tried to use as a container entity the cell "+
-					parent+" when it is not a container. "+
-					"Error triggered while "+child+" was set as the child of "+parent);
+					nested1+" when it is not a container. "+
+					"Error triggered while "+principal+" was set as the child of "+nested1);
 		// principal.setParent(nested1); // The JGRaph parentship relationship
 		// cannot be used. Only the root in a parental relationship is visible
 		// everytime. Children are not.
