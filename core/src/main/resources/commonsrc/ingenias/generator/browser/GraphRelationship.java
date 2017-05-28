@@ -30,6 +30,9 @@ public interface GraphRelationship extends AttributedElement {
    public GraphRole[] getRoles();
    public GraphRole[] getRoles(String roleName);
    
+   // returns the corresponding model entity
+   public ingenias.editor.entities.NAryEdgeEntity getNAryEdge();
+   
    // Obtains the graph which this relationship belongs to
    public Graph getGraph();
    

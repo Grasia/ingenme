@@ -326,7 +326,7 @@ public @@@v@@@modelid@@@/v@@@CellViewFactory() {}
    // Diagram Objects start here
 
 @@@repeat id="vertexviewcreation"@@@
-   if (userObject.getClass().equals(@@@v@@@object@@@/v@@@.class)){
+   if (userObject.getClass().equals(ingenias.editor.entities.@@@v@@@object@@@/v@@@.class)){
            return new ingenias.editor.cell.@@@v@@@object@@@/v@@@View(v);
    }
 @@@/repeat@@@
@@ -478,7 +478,7 @@ public class @@@v@@@modelid@@@/v@@@ModelJGraph extends ModelJGraph {
     Image img_@@@v@@@object@@@/v@@@ =
         ImageLoader.getImage("@@@v@@@small_icon@@@/v@@@");
     undoIcon = new ImageIcon(img_@@@v@@@object@@@/v@@@);
-    Action @@@v@@@object@@@/v@@@=
+    javax.swing.Action @@@v@@@object@@@/v@@@=
         new AbstractAction("@@@v@@@object@@@/v@@@", undoIcon) {
       public void actionPerformed(ActionEvent e) {
        try{
@@ -497,7 +497,7 @@ public class @@@v@@@modelid@@@/v@@@ModelJGraph extends ModelJGraph {
 				};
     jb.setText("");
     jb.setName("@@@v@@@object@@@/v@@@");	
-    jb.setToolTipText("@@@v@@@object@@@/v@@@:"+new @@@v@@@object@@@/v@@@("").getHelpDesc()+"\n\n"+new @@@v@@@object@@@/v@@@("").getHelpRecom());
+    jb.setToolTipText("@@@v@@@object@@@/v@@@:"+new ingenias.editor.entities.@@@v@@@object@@@/v@@@("").getHelpDesc()+"\n\n"+new ingenias.editor.entities.@@@v@@@object@@@/v@@@("").getHelpRecom());
     jb.addMouseListener(new MouseAdapter() {
 				    final int defaultDismissTimeout = ToolTipManager.sharedInstance().getDismissDelay();
 				    final int dismissDelayMinutes = (int) TimeUnit.MINUTES.toMillis(10); // 10 minutes
@@ -627,7 +627,7 @@ public class @@@v@@@modelid@@@/v@@@ModelJGraph extends ModelJGraph {
   public DefaultGraphCell createCell(String entity) throws InvalidEntity{
   @@@repeat id="agentbuttons"@@@
     if (entity.equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
-    @@@v@@@object@@@/v@@@ nentity=getOM().create@@@v@@@object@@@/v@@@(getMJGraph().getNewId("@@@v@@@object@@@/v@@@"));
+    ingenias.editor.entities.@@@v@@@object@@@/v@@@ nentity=getOM().create@@@v@@@object@@@/v@@@(getMJGraph().getNewId("@@@v@@@object@@@/v@@@"));
       DefaultGraphCell vertex = new
           @@@v@@@object@@@/v@@@Cell(nentity);
       // Default Size for the cell with the new entity
@@ -712,10 +712,10 @@ public DefaultGraphCell insertDuplicated(Point point, ingenias.editor.entities.E
     Dimension size = null;
 
 @@@repeat id="agentbuttons"@@@
-    if (entity.getClass().equals(@@@v@@@object@@@/v@@@.class)) {
-      vertex = new @@@v@@@object@@@/v@@@Cell( (@@@v@@@object@@@/v@@@) entity);
+    if (entity.getClass().equals(ingenias.editor.entities.@@@v@@@object@@@/v@@@.class)) {
+      vertex = new @@@v@@@object@@@/v@@@Cell( (ingenias.editor.entities.@@@v@@@object@@@/v@@@) entity);
       // Default Size for the new Vertex with the new entity within
-      size = @@@v@@@object@@@/v@@@View.getSize((@@@v@@@object@@@/v@@@) entity);
+      size = @@@v@@@object@@@/v@@@View.getSize((ingenias.editor.entities.@@@v@@@object@@@/v@@@) entity);
       
     }
     else
@@ -821,8 +821,8 @@ JOptionPane.showMessageDialog(this,
 				new Model(ids),new BasicMarqueeHandler(),ids.prefs); 
 
 		this.setSelectionCells(getGraphLayoutCache().getCells(false,true,false,false));
-		Action copyaction =new EventRedirectorForGraphCopy(this,this.getTransferHandler().getCopyAction(),null	); 			
-		Action pasteaction =new EventRedirectorPasteForGraphCopy(jg,jg.getTransferHandler().getPasteAction(),null	);
+		javax.swing.Action copyaction =new EventRedirectorForGraphCopy(this,this.getTransferHandler().getCopyAction(),null	); 			
+		javax.swing.Action pasteaction =new EventRedirectorPasteForGraphCopy(jg,jg.getTransferHandler().getPasteAction(),null	);
 		copyaction.actionPerformed(new ActionEvent(this,0,"hello"));		
 		pasteaction.actionPerformed(new ActionEvent(this,0,"hello"));
 		jg.invalidate();
@@ -940,7 +940,7 @@ public class @@@v@@@modelid@@@/v@@@Panel extends JGraph {
   public DefaultGraphCell createCell(String entity) throws InvalidEntity{
   @@@repeat id="agentbuttons"@@@
     if (entity.equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
-    @@@v@@@object@@@/v@@@ nentity=new @@@v@@@object@@@/v@@@(((Model)getModel()).getNewId("@@@v@@@object@@@/v@@@"));
+    ingenias.editor.entities.@@@v@@@object@@@/v@@@ nentity=new ingenias.editor.entities.@@@v@@@object@@@/v@@@(((Model)getModel()).getNewId("@@@v@@@object@@@/v@@@"));
       DefaultGraphCell vertex = new
           @@@v@@@object@@@/v@@@Cell(nentity);
       // Default Size for the cell with the new entity
@@ -954,7 +954,7 @@ public class @@@v@@@modelid@@@/v@@@Panel extends JGraph {
   public Dimension getDefaultSize(Entity entity) throws InvalidEntity{
     @@@repeat id="agentbuttons"@@@
     if (entity.getType().equalsIgnoreCase("@@@v@@@object@@@/v@@@")) {
-      return @@@v@@@object@@@/v@@@View.getSize((@@@v@@@object@@@/v@@@)entity);      
+      return @@@v@@@object@@@/v@@@View.getSize((ingenias.editor.entities.@@@v@@@object@@@/v@@@)entity);      
     }
     else
 @@@/repeat@@@
@@ -1008,10 +1008,10 @@ public DefaultGraphCell insertDuplicated(Point point, ingenias.editor.entities.E
     Dimension size = null;
 
 @@@repeat id="agentbuttons"@@@
-    if (entity.getClass().equals(@@@v@@@object@@@/v@@@.class)) {
-      vertex = new @@@v@@@object@@@/v@@@Cell( (@@@v@@@object@@@/v@@@) entity);
+    if (entity.getClass().equals(ingenias.editor.entities.@@@v@@@object@@@/v@@@.class)) {
+      vertex = new @@@v@@@object@@@/v@@@Cell( (ingenias.editor.entities.@@@v@@@object@@@/v@@@) entity);
       // Default Size for the new Vertex with the new entity within
-      size = @@@v@@@object@@@/v@@@View.getSize((@@@v@@@object@@@/v@@@) entity);
+      size = @@@v@@@object@@@/v@@@View.getSize((ingenias.editor.entities.@@@v@@@object@@@/v@@@) entity);
     }
     else
 @@@/repeat@@@

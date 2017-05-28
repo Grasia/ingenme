@@ -414,6 +414,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 				output.append("<role id=\""+rolSourceName+"\" type=\"source\"" +
 						" mincard=\"1\" " +
 						"maxcard=\"1\"/>\n");
+
 				output.append("<role id=\""+rolTargetName+"\" type=\"target\"" +
 						" mincard=\"1\" " +
 						"maxcard=\"1\"/>\n");
@@ -1218,7 +1219,7 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 		for (GraphEntity child:inheritorsKeySet){
 			if (!result.contains(child)){
 				result.add(child);
-				getAllAncestorsAux(child, result);
+				getAllDescendendantsAux(child, result);
 			}
 		}
 	}
@@ -1444,7 +1445,9 @@ public class Ingened2Ingenme extends ingenias.editor.extension.BasicToolImp {
 								"\". Double click in that extreme and write a name");
 					else{	
 						PropertyField ent=new PropertyField(aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Role").getSimpleValue());
+						String isCollection=aggregation.getRoles("HasMOtarget")[0].getAttributeByName("Iscollection").getSimpleValue();						
 						MetaObjectTypeWrapper motw = new MetaObjectTypeWrapper("sampleid");
+						motw.setIscollection(isCollection);	
 						MetaObject mo=(MetaObject) aggregation.getRoles("HasMOtarget")[0].getPlayer().getEntity();
 						motw.setMetaObjectType(mo);
 						ent.setWrappedType(motw);									

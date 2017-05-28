@@ -41,6 +41,8 @@ public class GraphRelationshipImp extends AttributedElementImp implements GraphR
 			throw new RuntimeException("The ids parameter cannot be null");
 	}
 	
+
+	
 	public DefaultGraphCell getDGC(){
 		return dgc;
 	}

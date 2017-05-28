@@ -47,6 +47,10 @@ public class GraphRoleImp extends AttributedElementImp implements GraphRole {
  public String getID() {
 		return this.re.getId();
 	}
+ 
+ public RoleEntity getRoleEntity(){
+	 return re;
+ }
 
   public GraphEntity getPlayer() throws NullEntity{
     return new GraphEntityImp(player,graph,ids);

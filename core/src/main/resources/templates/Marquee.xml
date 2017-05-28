@@ -149,7 +149,7 @@ public class @@@v@@@modelid@@@/v@@@ActionsFactory extends DiagramMenuEntriesActi
 					}
 				}
 			};
-		aa.putValue("tooltip", new @@@v@@@object@@@/v@@@("").getHelpDesc()+"\n\n"+new @@@v@@@object@@@/v@@@("").getHelpRecom());
+		aa.putValue("tooltip", new ingenias.editor.entities.@@@v@@@object@@@/v@@@("").getHelpDesc()+"\n\n"+new ingenias.editor.entities.@@@v@@@object@@@/v@@@("").getHelpRecom());
 		nobjects.add(aa);
 		}
 @@@/repeat@@@
