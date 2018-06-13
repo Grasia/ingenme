@@ -34,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -298,12 +299,16 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 				save_actionPerformed(e);
 			}
 		});
+		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+
 		load.setText("Load");
 		load.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				load_actionPerformed(e);
 			}
 		});
+		load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
+
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setJMenuBar(mainMenuBar);
 		this.setTitle("INGENIAS Development Kit");
@@ -329,18 +334,22 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 		scrollPaneForProyectView.setBorder(titleBoderForProjectView);
 		scrollPaneForEntitiesView.setBorder(titledBorderForEntitiesView);
 		edit.setText("Edit");
+
 		copyImage.setText("Copy diagram as a file");
 		copyImage.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				capture_actionPerformed(e);
 			}
 		});
+
 		saveas.setText("Save as");
 		saveas.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				saveas_actionPerformed(e);
 			}
 		});
+		saveas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK));
+
 		help.setText("Help");
 		manual.setText("Tool manual");
 		manual.addActionListener(new java.awt.event.ActionListener(){
@@ -348,12 +357,14 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 				manual_actionPerformed(e);
 			}
 		});
+
 		about.setText("About");
 		about.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				about_actionPerformed(e);
 			}
 		});
+
 		project.setText("Project");
 		copy.setText("Copy");
 		copy.addActionListener(new java.awt.event.ActionListener(){
@@ -361,18 +372,24 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 				copy_actionPerformed(e);
 			}
 		});
+		copy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+
 		paste.setText("Paste");
 		paste.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				paste_actionPerformed(e);
 			}
 		});
+		paste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
+
 		exit.setText("Exit");
 		exit.addActionListener(new java.awt.event.ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				exit_actionPerformed(e);
 			}
 		});
+		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+
 		splitPanelDiagramMessagesPaneSeparator.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPanelDiagramMessagesPaneSeparator.setLastDividerLocation(150);
 		pprin.setLayout(new BorderLayout());
@@ -440,30 +457,40 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 				newProject_actionPerformed(e);
 			}
 		});
+		newProject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+
 		undo.setText("Undo");
 		undo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				undo_actionPerformed(e);
 			}
 		});
+		undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_MASK));
+
 		redo.setText("Redo");
 		redo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				redo_actionPerformed(e);
 			}
 		});
+		redo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_MASK));
+
 		delete.setText("Delete");
 		delete.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				delete_actionPerformed(e);
 			}
 		});
+		delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+
 		selectall.setText("Select all");
 		selectall.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectall_actionPerformed(e);
 			}
 		});
+		selectall.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
+
 		cpClipboard.setText("Copy diagram to clipboard");
 		cpClipboard.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -535,7 +562,7 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 			elimOverlap = new JMenuItem();
 			preferences.add(elimOverlap);
 			elimOverlap.setText("Eliminate overlap");
-			elimOverlap.setAccelerator(KeyStroke.getKeyStroke("F3"));
+			elimOverlap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
 			elimOverlap.addMenuKeyListener(new MenuKeyListener() {
 				public void menuKeyPressed(MenuKeyEvent evt) {
 					System.out.println("elimOverlap.menuKeyPressed, event="
@@ -624,12 +651,15 @@ public abstract class IDEGUI extends javax.swing.JFrame  {
 					importFileActionPerformed(evt);
 				}
 			});
+			importFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_MASK));
 		}
 		file.add(save);
 		file.add(saveas);
 		file.addSeparator();
 		file.add(exit);
 		file.addSeparator();
+
+
 		rightPanel.setLayout(new BorderLayout());
 		rightPanel.add(buttonModelPanel, BorderLayout.WEST);
 		this.getContentPane().add(jSplitPane1, BorderLayout.CENTER);
