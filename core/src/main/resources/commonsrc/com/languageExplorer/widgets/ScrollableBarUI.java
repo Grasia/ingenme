@@ -210,7 +210,7 @@ PropertyChangeListener {
 				boolean processed=false;
 				while (pressed && !processed) {          
 					// ... "Compute new view position"
-					processed=    processEvent(o);
+					processed = processEvent(o);
 					try {
 						Thread.sleep(accl);
 						if (accl <= 10) accl = 10;
@@ -259,7 +259,7 @@ PropertyChangeListener {
 					return false;
 				}
 
-			} else
+			} else {
 
 				if (scroll.getViewSize().height - p.y - 
 						scroll.getExtentSize().height > inc) {
@@ -272,7 +272,7 @@ PropertyChangeListener {
 					scroll.setViewPosition(p);
 					return true;
 				}
-
+			}
 		}
 		return true;
 	}
