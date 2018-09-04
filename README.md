@@ -15,5 +15,7 @@ The distribution is completely maven based. This means:
 
 #### *For more info please visit project page at [SourceForge](http://ingenme.sourceforge.net)*
 
+#### *For a complete instruction manual click [here](http://ingenme.sourceforge.net/manual.html)*
+
 ![complutense logo](https://biblioteca.ucm.es/data/cont/docs/60-2016-09-20-Marca%20UCM%20Secundaria%20Monocromo%20Negro.jpg)
 
