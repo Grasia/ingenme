@@ -138,19 +138,6 @@ public class DiagramPaneInitialization {
 			}
 		};
 
-		KeyStroke copyshortcut=KeyStroke.getKeyStroke("ctrl C");
-		ids.editor.getGraphPanel().registerKeyboardAction(copyAction,copyshortcut,JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-		copyshortcut=KeyStroke.getKeyStroke("ctrl c");
-		ids.editor.getGraphPanel().registerKeyboardAction(copyAction,copyshortcut,JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-		KeyStroke pasteshortcut=KeyStroke.getKeyStroke("ctrl V");
-		ids.editor.getGraphPanel().registerKeyboardAction(pasteAction,pasteshortcut,JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-		pasteshortcut=KeyStroke.getKeyStroke("ctrl v");
-		ids.editor.getGraphPanel().registerKeyboardAction(pasteAction,pasteshortcut,JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-		KeyStroke removeshortcut=KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0);
-		ids.editor.getGraphPanel().registerKeyboardAction(removeAction,removeshortcut,JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
 		initialiseEditor(ids.editor, ids);
 	}
 

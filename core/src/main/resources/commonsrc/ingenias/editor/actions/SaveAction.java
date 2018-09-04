@@ -51,10 +51,10 @@ public class SaveAction {
 	
 	public void save_actionPerformed(IDEUpdater updater) {
 		if (ids.getCurrentFile() != null) {
-			int result = JOptionPane.showConfirmDialog(resources.getMainFrame(),
-					"Are you sure you want to overwrite (y/n)?",
-					"Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-			if (result == JOptionPane.OK_OPTION) {
+			// int result = JOptionPane.showConfirmDialog(resources.getMainFrame(),
+			// 		"Are you sure you want to overwrite (y/n)?",
+			// 		"Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			// if (result == JOptionPane.OK_OPTION) {
 				try {
 					System.err.println(ids.getCurrentFile().getName());
 					ingenias.editor.persistence.PersistenceManager pm = new ingenias.
@@ -69,7 +69,7 @@ public class SaveAction {
 				catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
-			}
+			//}
 		}
 		else {
 			this.saveas_action(updater);

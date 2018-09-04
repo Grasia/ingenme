@@ -81,19 +81,19 @@ class CheckChangesInFile extends Thread implements  WindowListener {
 						watchedFileLastModified=currentFileLastModified;												
 						if (isCurrentFileContentDifferentFromIDEContent && !closing){
 							if (!ide.getIds().isChanged()){										
-								int result = showConfirmDialog(ide, 
-										"The specification has changed. \n Press OK to " +
-												"load the new one from disk. " +
-												" If you cancel, no further action will be taken.","Specification file changed in disk",
-												JOptionPane.OK_CANCEL_OPTION);
-								if (result==JOptionPane.OK_OPTION){
-									watchedFileLastModified=currentFileLastModified;
-									new LoadFileSwingTask(watchedFile,ide,ide.getIds(),ide.getResources()).execute();
-								} else {
+								// int result = showConfirmDialog(ide, 
+								// 		"The specification has changed. \n Press OK to " +
+								// 				"load the new one from disk. " +
+								// 				" If you cancel, no further action will be taken.","Specification file changed in disk",
+								// 				JOptionPane.OK_CANCEL_OPTION);
+								// if (result==JOptionPane.OK_OPTION){
+								// 	watchedFileLastModified=currentFileLastModified;
+								// 	new LoadFileSwingTask(watchedFile,ide,ide.getIds(),ide.getResources()).execute();
+								// } else {
 									// update data to match the new file
 									watchedFile=ide.getIds().getCurrentFile();
 									watchedFileLastModified=this.watchedFile.lastModified();
-								}
+								//}
 							} else {
 								int result = showConfirmDialog(ide, "The specification has changed in disk." +
 										" Opened one is modified and changes can be lost. Do you want continue?",
